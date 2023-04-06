@@ -36,5 +36,5 @@ int		check_append(char *str);
 int		check_syntaxe(char *str);
 
 void	get_env(t_env **env, char **envp);
-
+void	spliting_cmd(char *string);
 #endif

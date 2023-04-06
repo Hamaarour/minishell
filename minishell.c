@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/05 15:51:48 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/06 02:29:13 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 			check_pipes(&lexer);
 			check_qutes(lexer.str);
 			check_syntaxe(lexer.str);
-
+			spliting_cmd(lexer.str);
 		}
 		free(in);
 
