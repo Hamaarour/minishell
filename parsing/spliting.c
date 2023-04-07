@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:29:39 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/06 02:32:45 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/07 02:00:57 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,23 @@ character and to separete if i find a pipe inside a double or single quotes) bec
  i don't want to split the string inside the quotes .
 
 */
-void	spliting_cmd(char *string)
+char	**spliting_cmd(t_str *str)
 {
-	char	**new_s;
 	int		i;
 
 	i = 0;
-	while(string[i])
+	while(str->str[i])
 	{
-		if(string[i] == '\'' || string[i] == '\"')
+		if(str->str[i] == '\'' || str->str[i] == '\"')
 		{
 			i++;
-			while(string[i] != '\'' && string[i] != '\"' && string[i])
+			while(str->str[i] != '\'' && str->str[i] != '\"' && str->str[i])
 				i++;
 		}
-		if(string[i] == '|')
-			string[i] = -1;
+		if(str->str[i] == '|')
+			str->str[i] = -1;
 		i++;
 	}
-	new_s = ft_split(string, -1);
-	i = 0;
-	while (new_s[i])
-	{
-		printf("%s \n", new_s[i]);
-		i++;
-	}
-
+	str->splited_str = ft_split(str->str, -1);
+	return (str->splited_str);
 }

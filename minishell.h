@@ -10,13 +10,16 @@
 
 typedef struct s_str
 {
-	char	*str;
-	int		printed_error;
+	char		*str; //string entred by the user
+	int			printed_error;// to know if i have printed an error or not
+	char		**splited_str;// the string splited by pipes
+
 }	t_str;
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
+	char			*key;// the key of the envirment variable
+	char			*value;// the value of the envirment variable
+	//struct s_env	*prev;  // Add a pointer to the previous node
 	struct s_env	*next;
 }	t_env;
 typedef struct s_all
@@ -34,7 +37,10 @@ int		check_i_o_redirection(char *str);
 int		check_here_doc(char *str);
 int		check_append(char *str);
 int		check_syntaxe(char *str);
+//+ Envirment
+void		get_env(t_env **env, char **envp);// get the envirment variables
+//+ spliting the string
+char		**spliting_cmd(t_str *str);// spliting the string by pipes
+//+Expanding the envirment variables
 
-void	get_env(t_env **env, char **envp);
-void	spliting_cmd(char *string);
 #endif

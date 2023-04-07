@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:26:25 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/05 03:19:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/07 01:08:24 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_env	*ft_lstnew(char *key, char *value)
 	elt = (t_env *)malloc(sizeof(*elt));
 	if (elt == NULL)
 		return (NULL);
-	elt->value = value;
-	elt->key = key;
+	elt->value = ft_strdup(value);
+	elt->key = ft_strdup(key);
 	elt->next = NULL;
 	return (elt);
 }
@@ -39,6 +39,7 @@ void	ft_lstadd_back(t_env **head, t_env *new)
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->next = NULL; // Set next of new node to NULL
 }
 
 void	get_env(t_env **env, char **envp)
@@ -50,11 +51,16 @@ void	get_env(t_env **env, char **envp)
 	while (envp[i])
 	{
 		tmp = ft_split(envp[i], '=');
-		ft_lstadd_back(env, ft_lstnew(tmp[0], tmp[1]));
+		if (tmp && tmp[0] && tmp[1])
+		{
+			t_env *new_node = ft_lstnew(tmp[0], tmp[1]);
+			ft_lstadd_back(env, new_node);
+			free(tmp[0]); // Free memory allocated for tmp[0]
+			free(tmp[1]); // Free memory allocated for tmp[1]
+			free(tmp); // Free memory allocated for tmp
+		}
 		i++;
 	}
-	free(tmp);
-
 }
 
 
