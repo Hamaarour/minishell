@@ -6,11 +6,23 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/07 02:06:38 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/08 02:55:11 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void	print_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		printf("%s\n", str[i]);
+		i++;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -41,6 +53,8 @@ int	main(int ac, char **av, char **env)
 			check_qutes(str_s.str);
 			check_syntaxe(str_s.str);
 			spliting_cmd(&str_s);
+			expand_var(&str_s, env_p);
+			//print_str(str_s.splited_str);
 			int i = 0;
 			while (str_s.splited_str[i])
 			{
@@ -49,9 +63,9 @@ int	main(int ac, char **av, char **env)
 				i++;
 			}
 			free(str_s.splited_str);
-			system("leaks minishell");
+			//system("leaks minishell");
 		}
-		system("leaks minishell");
+		//system("leaks minishell");
 		free(in);
 	}
 

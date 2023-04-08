@@ -38,9 +38,11 @@ int		check_here_doc(char *str);
 int		check_append(char *str);
 int		check_syntaxe(char *str);
 //+ Envirment
-void		get_env(t_env **env, char **envp);// get the envirment variables
+void	get_env(t_env **env, char **envp);// get the envirment variables
 //+ spliting the string
-char		**spliting_cmd(t_str *str);// spliting the string by pipes
+char	**spliting_cmd(t_str *str);// spliting the string by pipes
 //+Expanding the envirment variables
-
+int		check_dollar(char *str, char dollar);
+ void	expand_var(t_str *str, t_env *env_p);
 #endif
+
