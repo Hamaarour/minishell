@@ -7,6 +7,8 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
+# include <ctype.h>
 
 typedef struct s_str
 {
@@ -43,6 +45,8 @@ void	get_env(t_env **env, char **envp);// get the envirment variables
 char	**spliting_cmd(t_str *str);// spliting the string by pipes
 //+Expanding the envirment variables
 int		check_dollar(char *str, char dollar);
- void	expand_var(t_str *str, t_env *env_p);
+int		ft_find(char *str, char c);
+char	*find_var(t_env *env_p, char *var);
+void	expand_var(t_str *str, t_env *env_p);
 #endif
 
