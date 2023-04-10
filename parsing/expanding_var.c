@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:29:00 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/09 23:36:33 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/10 21:33:15 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,20 @@ int	is_substring(char *str, char *to_find)
 */
 char	**replace_var(char **splited_Str, char *var, char *to_find_str)
 {
-	int		i;
-	int		index;
-	char	*truncated_str;
-	char	*tmp;
-
-	i = 0;
+	int i = 0;
 	while (splited_Str[i])
 	{
 		if (strstr(splited_Str[i], to_find_str) != NULL)
 		{
-			char *tmp = strstr(splited_Str[i], "$");
+			char *tmp = strstr(splited_Str[i], "$"); // Find the position of '$' in splited_Str[i]
 			if (tmp != NULL)
 			{
-				index = tmp - splited_Str[i];
-				truncated_str = ft_substr(splited_Str[i], 0, index);
+				int index = tmp - splited_Str[i]; // Calculate the index of '$' in splited_Str[i]
+				char *truncated_str = ft_substr(splited_Str[i], 0, index); 
+				char *new_str = ft_strjoin(truncated_str, var);
 				free(splited_Str[i]);
-				splited_Str[i] = new_str;
-				free(truncated_str);
+				splited_Str[i] = new_str; // Assign new string to splited_Str[i]
+				free(truncated_str); // Free memory of truncated string
 			}
 		}
 		i++;
