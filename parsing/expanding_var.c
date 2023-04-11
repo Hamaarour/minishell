@@ -6,33 +6,11 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:29:00 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/10 21:33:15 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/11 00:48:27 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	is_substring(char *str, char *to_find)
-{
-	int	i;
-	int	j ;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == to_find[0])
-		{
-			while (to_find[j] && (str[i + j] == to_find[j]))
-				j++;
-			if (to_find[j] == '\0')
-				return 1;
-			j = 0;
-		}
-		i++;
-	}
-	return 0;
-}
 
 /*
 	This function replace_var takes in three parameters: splited_Str, var, and to_find_str.
@@ -44,20 +22,31 @@ int	is_substring(char *str, char *to_find)
 */
 char	**replace_var(char **splited_Str, char *var, char *to_find_str)
 {
-	int i = 0;
+	int		i;
+	int		index;
+	char	*truncated_str;
+	char	*new_str;
+	char	*tmp;
+	int		start;
+
+	i = 0;
 	while (splited_Str[i])
 	{
 		if (strstr(splited_Str[i], to_find_str) != NULL)
 		{
-			char *tmp = strstr(splited_Str[i], "$"); // Find the position of '$' in splited_Str[i]
+			tmp = strstr(splited_Str[i], "$");
 			if (tmp != NULL)
 			{
-				int index = tmp - splited_Str[i]; // Calculate the index of '$' in splited_Str[i]
-				char *truncated_str = ft_substr(splited_Str[i], 0, index); 
-				char *new_str = ft_strjoin(truncated_str, var);
+				index = tmp - splited_Str[i];
+				start = index + ft_strlen(to_find_str);
+				//printf("len = %d\n", start);
+				truncated_str = ft_substr(splited_Str[i], 0, index);
+				char *rr = ft_substr(splited_Str[i],start + 1, ft_strlen(splited_Str[i]) - start);
+				//printf("rr = %s\n" , rr);
+				new_str = ft_strjoin(truncated_str, var);
 				free(splited_Str[i]);
-				splited_Str[i] = new_str; // Assign new string to splited_Str[i]
-				free(truncated_str); // Free memory of truncated string
+				splited_Str[i] = ft_strjoin(new_str, rr);
+				free(truncated_str);
 			}
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/09 23:13:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/11 00:49:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	print_str(char **str)
 	i = 0;
 	while (str[i])
 	{
-		printf("%s\n", str[i]);
+		printf("%s ", str[i]);
 		i++;
 	}
+	printf("\n");
 }
 
 int	main(int ac, char **av, char **env)

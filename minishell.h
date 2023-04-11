@@ -48,5 +48,6 @@ int		check_dollar(char *str, char dollar);
 int		ft_find(char *str, char c);
 char	*find_var(t_env *env_p, char *var);
 void	expand_var(t_str *str, t_env *env_p);
+int		is_substring(char *str, char *to_find);
 #endif
 
