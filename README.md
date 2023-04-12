@@ -3,7 +3,7 @@
 <img src ="https://github.com/Hamaarour/minishell/blob/Parsing/team.jpg">
 </p>
 <p align="center">
-<img src ="">
+<img src ="https://github.com/Hamaarour/minishell/blob/Parsing/team_p.png">
 </p>
 
 This project is about creating a simple shell
