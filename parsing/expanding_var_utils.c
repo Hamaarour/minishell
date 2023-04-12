@@ -23,7 +23,6 @@ int	ft_find(char *str, char c)
 
 	i = 0;
 	len = ft_strlen(str);
-
 	while (i < len)
 	{
 		if (str[i] == c)
@@ -80,10 +79,10 @@ int	is_substring(char *str, char *to_find)
 			while (to_find[j] && (str[i + j] == to_find[j]))
 				j++;
 			if (to_find[j] == '\0')
-				return 1;
+				return (1);
 			j = 0;
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }

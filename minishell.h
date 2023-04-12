@@ -24,6 +24,17 @@ typedef struct s_env
 	//struct s_env	*prev;  // Add a pointer to the previous node
 	struct s_env	*next;
 }	t_env;
+typedef struct s_replace_var
+{
+	int		i;
+	int		index;
+	char	*truncated_str;
+	char	*new_str;
+	char	*tmp;
+	int		start;
+	char	*last_str;
+	
+}	t_replace_var;
 typedef struct s_all
 {
 	t_env	*env;

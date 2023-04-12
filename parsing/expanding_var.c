@@ -6,12 +6,11 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:29:00 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/11 00:48:27 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/12 01:49:07 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 /*
 	This function replace_var takes in three parameters: splited_Str, var, and to_find_str.
 	It iterates through each string in splited_Str using a while loop, checks if to_find_str
@@ -22,36 +21,29 @@
 */
 char	**replace_var(char **splited_Str, char *var, char *to_find_str)
 {
-	int		i;
-	int		index;
-	char	*truncated_str;
-	char	*new_str;
-	char	*tmp;
-	int		start;
+	t_replace_var	rv;
 
-	i = 0;
-	while (splited_Str[i])
+	rv.i = 0;
+	while (splited_Str[rv.i])
 	{
-		if (strstr(splited_Str[i], to_find_str) != NULL)
+		if (ft_strstr(splited_Str[rv.i], to_find_str) != NULL)
 		{
-			tmp = strstr(splited_Str[i], "$");
-			if (tmp != NULL)
+			rv.tmp = ft_strstr(splited_Str[rv.i], "$");
+			if (rv.tmp != NULL)
 			{
-				index = tmp - splited_Str[i];
-				start = index + ft_strlen(to_find_str);
-				//printf("len = %d\n", start);
-				truncated_str = ft_substr(splited_Str[i], 0, index);
-				char *rr = ft_substr(splited_Str[i],start + 1, ft_strlen(splited_Str[i]) - start);
-				//printf("rr = %s\n" , rr);
-				new_str = ft_strjoin(truncated_str, var);
-				free(splited_Str[i]);
-				splited_Str[i] = ft_strjoin(new_str, rr);
-				free(truncated_str);
+				rv.index = rv.tmp - splited_Str[rv.i];
+				rv.start = rv.index + ft_strlen(to_find_str);
+				rv.truncated_str = ft_substr(splited_Str[rv.i], 0, rv.index);
+				rv.last_str = ft_substr(splited_Str[rv.i], rv.start + 1, ft_strlen(splited_Str[rv.i]) - rv.start);
+				rv.new_str = ft_strjoin(rv.truncated_str, var);
+				free(splited_Str[rv.i]);
+				splited_Str[rv.i] = ft_strjoin(rv.new_str, rv.last_str);
+				free(rv.truncated_str);
 			}
 		}
-		i++;
+		rv.i++;
 	}
-	return splited_Str;
+	return (splited_Str);
 }
 
 /*
@@ -70,7 +62,6 @@ char	**replace_var(char **splited_Str, char *var, char *to_find_str)
 	ft_isalnum() function. If it is not, the loop is skipped to the next iteration using continue,
 	effectively ignoring the input and moving on to the next element in the array.
 */
-
 
 void	expand_var(t_str *str, t_env *env_p)
 {
