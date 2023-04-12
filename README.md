@@ -2,6 +2,9 @@
 <p align="center">
 <img src ="https://github.com/Hamaarour/minishell/blob/Parsing/team.jpg">
 </p>
+<p align="center">
+<img src ="">
+</p>
 
 This project is about creating a simple shell
 
