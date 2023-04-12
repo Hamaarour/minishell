@@ -1,6 +1,6 @@
 # minishell
 <p align="center">
-<img src ="">
+<img src ="https://github.com/Hamaarour/minishell/blob/Parsing/team.jpg">
 </p>
 
 This project is about creating a simple shell
