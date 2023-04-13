@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/04/13 16:47:23 by hamaarou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -33,7 +45,7 @@ typedef struct s_replace_var
 	char	*tmp;
 	int		start;
 	char	*last_str;
-	
+
 }	t_replace_var;
 typedef struct s_all
 {
@@ -41,7 +53,6 @@ typedef struct s_all
 	int		index;
 	char	**str;
 }	t_all;
-
 
 //+ Syntax
 void	check_pipes(t_str *lex);
