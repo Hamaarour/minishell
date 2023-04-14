@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/13 16:43:32 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 02:57:28 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/04/14 02:39:11 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/04/14 02:40:29 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "lexer.h"
+#include "../minishell.h"
 
-# include <stdio.h>
-# include <stdlib.h>
+/*
+    this function check if the string is a valid token
+    if the string is a valid token return true(1) else return false(0)
+*/
 
-typedef enum s_tokens_type
+t_tokens	*init_tokens(char *str, int type)
 {
-	PIPE = 1, // |
-	GREAT_THAN,// >
-	LESS_THAN, // <
-	HEREDOC, // <<
-	APPEND, // >>
-}	t_tokens_type;
-
-typedef struct s_tokens
-{
-	char			*str;
-	t_tokens_type	type;
-}	t_token;
-
-
-// function to initialize the tokens
-t_token		*init_tokens(char *str, int type);
-
-#endif
+	
+}
