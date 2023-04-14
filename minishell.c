@@ -6,11 +6,11 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/11 00:49:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:24:40 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "includes/parsing.h"
 
 void	print_str(char **str)
 {

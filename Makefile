@@ -1,12 +1,26 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/14 16:07:00 by hamaarou          #+#    #+#              #
+#    Updated: 2023/04/14 16:52:17 by hamaarou         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME=minishell
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -fsanitize=address
+CFLAGS=-Wall -Wextra -Werror #-fsanitize=address
 
-SRC= Utils/lib_utils/ft_strstr.c Utils/lib_utils/ft_strcmp.c Utils/lib_utils/ft_isalnum.c Utils/lib_utils/ft_calloc.c Utils/lib_utils/ft_strchr.c Utils/lib_utils/ft_split.c Utils/lib_utils/ft_strdup.c \
-	Utils/lib_utils/ft_strlen.c Utils/lib_utils/ft_substr.c Utils/lib_utils/ft_strjoin.c\
-	syntax/check_pipe.c syntax/check_quote.c syntax/check_tokens.c \
-	parsing/get_env.c parsing/spliting.c parsing/expanding_var.c parsing/expanding_var_utils.c \
+SRC=parsing/Utils/lib_utils/ft_strstr.c parsing/Utils/lib_utils/ft_strcmp.c parsing/Utils/lib_utils/ft_isalnum.c \
+	parsing/Utils/lib_utils/ft_calloc.c parsing/Utils/lib_utils/ft_strchr.c parsing/Utils/lib_utils/ft_split.c parsing/Utils/lib_utils/ft_strdup.c \
+	parsing/Utils/lib_utils/ft_strlen.c parsing/Utils/lib_utils/ft_substr.c parsing/Utils/lib_utils/ft_strjoin.c\
+	parsing/syntax/check_pipe.c parsing/syntax/check_quote.c parsing/syntax/check_tokens.c \
+	parsing/parse/get_env.c parsing/parse/spliting.c parsing/parse/expanding_var.c parsing/parse/expanding_var_utils.c \
+	parsing/token/tokens.c \
+	parsing/lexer/lexer.c \
 	minishell.c
 
 OBJ= $(SRC:.c=.o)
