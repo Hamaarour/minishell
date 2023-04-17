@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/15 01:04:31 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:37:36 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,57 @@ void	advance_lexer(t_lexer *lexer)
 		lexer->c = lexer->src[lexer->i];
 	}
 }
+/*
+	The lexer_skip_whitespace function is used to skip over any whitespace characters
+	in the source string. It takes a pointer to a t_lexer object as input, and returns
+	void.
+*/
+void	lexer_skip_whitespace(t_lexer *lexer)
+{
+	while (lexer->c == ' ' || lexer->c == '\t' || lexer->c == '\n')
+		advance_lexer(lexer);
+}
+/*
+	The lexer_advance_with_token function is used to advance the lexer to the next
+	character in the source string, and return a token object. It takes a pointer to
+	a t_lexer object and a pointer to a t_token object as input, and returns a pointer
+	to a t_token object.
+*/
+t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token)
+{
+	advance_lexer(lexer);
+	return (token);
+}
 
 t_token	*get_next_token(t_lexer *lexer)
 {
+	while (lexer->c != '\0')
+	{
+		if (lexer->c == ' ' || lexer->c == '\t')
+			lexer_skip_white_spaces(lexer);
+		else if (lexer->c == '<')
 
+		else if (lexer->c == '>')
+		else if (lexer->c == '|')
+
+		else if (lexer->c != ' ' && lexer->c != '\t')
+
+	}
+	return (init_tokens(EOF,ft_strdup("EOF"));
 }
+
+
+while (lexer->c != '\0')
+	{
+
+		if (lexer->c == '|')
+			return (lexer_advc_tocken(lexer,
+					init_tocken(TOCKEN_PIPE, ft_strdup("|"))));
+		else if (lexer->c == '>')
+			return (collect_redirect_g(lexer));
+		else if (lexer->c == '<')
+			return (collect_redirect_l(lexer));
+		else if (lexer->c != ' ' && lexer->c != '\t')
+			return (lexer_collect_string(lexer));
+	}
 

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:36:34 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/15 00:35:56 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:23:27 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ typedef struct s_lexer
 	size_t				len_src;
 }	t_lexer;
 
-t_lexer	*init_lexer(char *str);
-void	advance_lexer(t_lexer *lexer);
-t_token	*get_next_token(t_lexer *lexer);
+t_lexer		*init_lexer(char *str);
+void		advance_lexer(t_lexer *lexer);
+void		lexer_skip_whitespace(t_lexer *lexer);
+t_token		*get_next_token(t_lexer *lexer);
+t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token);
 #endif
