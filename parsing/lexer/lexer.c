@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/15 16:37:36 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:40:16 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_lexer	*init_lexer(char *src)
 {
 	t_lexer	*lexer;
 
-	lexer = (t_lexer *)malloc(sizeof(t_lexer));
+	lexer = (t_lexer *)ft_calloc(1,sizeof(t_lexer));
 	if (!lexer)
 		return (NULL);
 	lexer->src = src;
@@ -55,7 +55,7 @@ void	advance_lexer(t_lexer *lexer)
 */
 void	lexer_skip_whitespace(t_lexer *lexer)
 {
-	while (lexer->c == ' ' || lexer->c == '\t' || lexer->c == '\n')
+	while (lexer->c == ' ' || lexer->c == '\t')
 		advance_lexer(lexer);
 }
 /*
@@ -69,36 +69,53 @@ t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token)
 	advance_lexer(lexer);
 	return (token);
 }
+/*
+	this function is used to get the next token in the source string. It takes a pointer to a t_lexer object as input, and returns a pointer to a t_token object, which represents the next token in the source string.
 
+*/
+void	ff(t_lexer *lexer)
+{
+	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' && lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
+	{
+		  if (lexer->c == '$')
+		  {
+			
+		  }
+	}
+}
+/*
+The LexerThe lexer, also called the tokenizer, takes as the entered line as input.
+It then reads through the line word by word, using white space as delimiters.
+First it checks wether or not the word is a token, ie: |, <, <<, >, or >>,
+and otherwise it assumes it is a word. Which it then adds to the following linked list:
+
+*/
 t_token	*get_next_token(t_lexer *lexer)
 {
 	while (lexer->c != '\0')
 	{
 		if (lexer->c == ' ' || lexer->c == '\t')
-			lexer_skip_white_spaces(lexer);
-		else if (lexer->c == '<')
-
-		else if (lexer->c == '>')
+			lexer_skip_whitespace(lexer);
 		else if (lexer->c == '|')
-
-		else if (lexer->c != ' ' && lexer->c != '\t')
-
-	}
-	return (init_tokens(EOF,ft_strdup("EOF"));
-}
-
-
-while (lexer->c != '\0')
-	{
-
-		if (lexer->c == '|')
-			return (lexer_advc_tocken(lexer,
-					init_tocken(TOCKEN_PIPE, ft_strdup("|"))));
+			return (lexer_advance_with_token(lexer, init_tokens(t_PIPE, ft_strdup("|"))));
 		else if (lexer->c == '>')
-			return (collect_redirect_g(lexer));
+		{
+			//	condition to check if the next character is also a >, if so, return a token with type t_APPEND and value ">>"
+			if(lexer->src[lexer->i+ 1] == '>')
+				return (lexer_advance_with_token(lexer, init_tokens(t_APPEND, ft_strdup(">>"))));
+			return (lexer_advance_with_token(lexer, init_tokens(t_GREAT_THAN, ft_strdup(">"))))	;
+		}
 		else if (lexer->c == '<')
-			return (collect_redirect_l(lexer));
+		{
+			//	condition to check if the next character is also a <, if so, return a token with type t_HEREDOC and value "<<"
+			if (lexer->src[lexer->i + 1] == '<')
+				return (lexer_advance_with_token(lexer, init_tokens(t_HEREDOC, ft_strdup("<<"))));
+			return (lexer_advance_with_token(lexer, init_tokens(t_LESS_THAN, ft_strdup("<"))));
+		}
 		else if (lexer->c != ' ' && lexer->c != '\t')
-			return (lexer_collect_string(lexer));
-	}
+		{
 
+		}
+	}
+	return (init_tokens(t_EOF, ft_strdup("EOF")));
+}

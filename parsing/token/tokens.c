@@ -6,24 +6,23 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 02:39:11 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 16:08:30 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:24:57 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
 /*
-	this function check if the string is a valid token
-	if the string is a valid token return true(1) else return false(0)
+	function to initialize the tokens and return a pointer to the token
 */
-t_token	*init_tokens(char *str, int type)
+t_token	*init_tokens(t_tokens_type typ, char *val)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
+	token = (t_token *)ft_calloc(0,sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->str = str;
-	token->type = type;
+	token->type = typ;
+	token->val = val;
 	return (token);
 }
