@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 16:24:40 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:52:15 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int ac, char **av, char **env)
 			check_syntaxe(str_s.str);
 			spliting_cmd(&str_s);
 			expand_var(&str_s, env_p);
+
 			print_str(str_s.splited_str);
 			int i = 0;
 			while (str_s.splited_str[i])
@@ -67,7 +68,7 @@ int	main(int ac, char **av, char **env)
 			free(str_s.splited_str);
 			//system("leaks minishell");
 		}
-		//system("leaks minishell");
+		system("leaks minishell");
 		free(in);
 	}
 

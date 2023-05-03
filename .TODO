@@ -2,3 +2,4 @@
 2- qutes in the env
 
 SEGV in tf strstr();
+chech leaks in lst_new in env variables

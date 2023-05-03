@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/03 12:40:16 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:22:51 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,15 @@ void	ff(t_lexer *lexer)
 {
 	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' && lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
 	{
-		  if (lexer->c == '$')
-		  {
-			
-		  }
+		if (lexer->c == '$')
+		{
+			get_dolar(lexer);
+		}
+
 	}
 }
 /*
-The LexerThe lexer, also called the tokenizer, takes as the entered line as input.
+The lexer, also called the tokenizer, takes as the entered line as input.
 It then reads through the line word by word, using white space as delimiters.
 First it checks wether or not the word is a token, ie: |, <, <<, >, or >>,
 and otherwise it assumes it is a word. Which it then adds to the following linked list:
@@ -114,7 +115,7 @@ t_token	*get_next_token(t_lexer *lexer)
 		}
 		else if (lexer->c != ' ' && lexer->c != '\t')
 		{
-
+			ff(lexer);
 		}
 	}
 	return (init_tokens(t_EOF, ft_strdup("EOF")));

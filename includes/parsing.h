@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 16:06:27 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:03:22 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 # include <readline/history.h>
 # include <string.h>
 # include <ctype.h>
+# include <errno.h>
 # include "libft.h"
 # include "token.h"
 # include "lexer.h"
+
 
 typedef struct s_str
 {
@@ -55,6 +57,27 @@ typedef struct s_all
 	int		index;
 	char	**str;
 }	t_all;
+// typedef struct s_args
+// {
+// 	char	*args;
+// 	t_args *next;
+// }	t_args;
+
+// typedef struct s_redirect {
+// 	int type;
+// 	char *file_name;
+// } t_redirect;
+
+// typedef struct Command {
+// 	t_args *args;
+// 	t_redirect *redrect;
+// } Command;
+
+// typedef struct s_commands
+// {
+// 	Command	*args;
+// 	t_command *next;
+// }	t_commands;
 
 //+ Syntax
 void	check_pipes(t_str *lex);

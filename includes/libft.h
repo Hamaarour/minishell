@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:26:04 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/15 15:36:42 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:42:39 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		ft_strcmp(char *s1, char *s2);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strstr(const char *haystack, const char *needle);
 int		ft_isalnum_original(int num);
-
+char	*ft_itoa(int l);
 
 #endif

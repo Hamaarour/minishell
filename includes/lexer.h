@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:36:34 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/15 16:23:27 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:45:31 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_lexer
 	char				*src;
 	char				c;
 	unsigned int		i;
+	int					ex_status;
 	size_t				len_src;
 }	t_lexer;
 
@@ -35,4 +36,6 @@ void		advance_lexer(t_lexer *lexer);
 void		lexer_skip_whitespace(t_lexer *lexer);
 t_token		*get_next_token(t_lexer *lexer);
 t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token);
+
+void	error_func(int err);
 #endif
