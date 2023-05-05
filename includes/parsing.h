@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/04 16:35:09 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/05 22:23:24 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,31 @@
 # include "token.h"
 # include "lexer.h"
 
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//! 				  Struct  :: the envirment variable	          		     !//
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+typedef struct s_env
+{
+	char			*key;// the key of the envirment variable
+	char			*value;// the value of the envirment variable
+	struct s_env	*next;
+}	t_env;
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//! 							Struct :: lexer 							!//
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+typedef struct s_lexer
+{
+	char				*src;// a pointer to a character array that represents the source string to be tokenized.
+	char				c; // a character that represents the current character being processed in the source string.
+	unsigned int		i; //an integer that represents the index of the current haracter in the source string
+	int					ex_status;// an integer that represents the exit status of the last executed command.
+	size_t				len_src;//len_src: an integer that represents the length of the source string
+	t_env				*env;// a pointer to a t_env object that represents the environment variables.
+}	t_lexer;
 
 typedef struct s_str
 {
@@ -33,12 +58,7 @@ typedef struct s_str
 	char		**splited_str;// the string splited by pipes
 
 }	t_str;
-typedef struct s_env
-{
-	char			*key;// the key of the envirment variable
-	char			*value;// the value of the envirment variable
-	struct s_env	*next;
-}	t_env;
+
 typedef struct s_replace_var
 {
 	int		i;
@@ -95,5 +115,22 @@ int		ft_find(char *str, char c);
 char	*find_var(t_env *env_p, char *var);
 void	expand_var(t_str *str, t_env *env_p);
 int		is_substring(char *str, char *to_find);
+
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//! 							lexer functions								!//
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+t_lexer		*init_lexer(char *str);
+void		advance_lexer(t_lexer *lexer);
+void		lexer_skip_whitespace(t_lexer *lexer);
+t_token		*get_next_token(t_lexer *lexer);
+t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token);
+
+void		error_func(int err);
+char 		*get_dollar(t_lexer *lexer);
+char    	*get_envairment_var(char *to_find, t_lexer *lexer);
+
 #endif
 

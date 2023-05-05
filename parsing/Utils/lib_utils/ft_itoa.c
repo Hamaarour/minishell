@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:54:31 by hamaarou          #+#    #+#             */
-/*   Updated: 2022/10/26 13:43:47 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:48:57 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../../../includes/libft.h"
 
 static int	calcul_digit(int n)
 {

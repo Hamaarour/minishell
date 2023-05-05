@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/04 19:45:10 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/05 22:20:48 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*exit_value(t_lexer *lexer)
 + The function checks whether the quotes in the string are balanced 
 	or not. 
 */
-
 char	*single_quote(t_lexer *lexer)
 {
 	char	*tmp;
@@ -55,6 +54,10 @@ char	*single_quote(t_lexer *lexer)
 	return (tmp);
 }
 
+/*
+	the envairment var is the var that we can find in the envairment
+	variables like HOME, USER, PATH, etc...
+*/
 char	*envairment_var(t_lexer *lexer)
 {
 	char	*str;
@@ -69,28 +72,62 @@ char	*envairment_var(t_lexer *lexer)
 	//add here an error function if str == NULL
 	if(str == NULL)
 		error_func(errno);
-	str = get_envairment_var(str);
+	str = get_envairment_var(str, lexer);
 	if (str == NULL)
 		str = ft_strdup("");
 	return (str);
 }
 
-char	*expand_dollar(t_lexer *lexer)
+/*
+	expand the string next to  $ with three cases :
+	1) $_ || ${isalpha} search in envairment variables
+	2) the opposit of case 1
+	3) $? the exit status of the last command
+*/
+void	expand_dollar(t_lexer *lexer, char **my_str)
 {
 	char	*tmp;
-	char	*str;
 
 	advance_lexer(lexer);
 	if (lexer->c == '?')
 		tmp = exit_value(lexer);
 	else
 		tmp = envairment_var(lexer);
-	
+	*my_str = ft_strjoin(*my_str, tmp);
+	free(tmp);
+	//add here an error function if my_str == NULL
 }
 
+
+/*
+	get the string between double qoutes 
+*/
+void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
+{
+	int		begin;
+	int		end;
+	char	*string_btw_dq;//string between double qoutes
+
+	begin = lexer->i;
+	while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
+		advance_lexer(lexer);
+	end = lexer->i;
+	string_btw_dq = ft_substr(lexer->src, begin, end - begin);
+	if (string_btw_dq == NULL)
+		error_func(errno);
+	*my_str = ft_strjoin(*my_str, string_btw_dq);
+	free(string_btw_dq);
+	//add here an error function if my_str == NULL
+}
+
+
+/*
+	get the string between double qoutes  " "  
+	
+*/
 char	*double_quote(t_lexer *lexer)
 {
-	char	*tmp;
+	char	*string;
 
 	advance_lexer(lexer);
 	if(check_qutes(lexer->src, '"') == 1)
@@ -101,13 +138,17 @@ char	*double_quote(t_lexer *lexer)
 	while (lexer->c != '"' && lexer->c != '\0')
 	{
 		if (lexer->c == '$')
-				tmp = expand_dollar(lexer);
+			expand_dollar(lexer, &string);
 		else
-			
+			get_string_between_double_qoutes(lexer, &string);
 	}
+	advance_lexer(lexer);
+	return (string);
 }
 
-
+/*
+	get the string between single qoutes and double qoutes and return it    
+*/
 char	*hundle_quotes(t_lexer *lexer)
 {
 	char	*tmp;
@@ -120,7 +161,10 @@ char	*hundle_quotes(t_lexer *lexer)
 	return (tmp);
 }
 
-t_lexer *get_dollar(t_lexer *lexer)
+/*
+	get the string between double qoutes and single qoutes and return it
+*/
+char *get_dollar(t_lexer *lexer)
 {
 	char	*tmp; //str
 	char	*str; //s
@@ -134,5 +178,12 @@ t_lexer *get_dollar(t_lexer *lexer)
 	else if (lexer->c == '\"' || lexer->c == '\'')
 		tmp = hundle_quotes(lexer);
 	else
-		tmp = get_string(lexer);
+		tmp = envairment_var(lexer);
+	if (tmp == NULL)
+		return (NULL);	
+	str = ft_strjoin(str, tmp);
+	// add here an error function if str == NULL
+	free(tmp);
+	return (str);
+
 }

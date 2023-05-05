@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/03 20:52:15 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/05 22:16:21 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **env)
 			add_history(in);
 			str_s.str = in;
 			check_pipes(&str_s);
-			check_qutes(str_s.str);
+			
 			check_syntaxe(str_s.str);
 			spliting_cmd(&str_s);
 			expand_var(&str_s, env_p);

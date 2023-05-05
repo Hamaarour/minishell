@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/03 19:22:51 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/05 22:25:02 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,15 @@ void	ff(t_lexer *lexer)
 	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' && lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
 	{
 		if (lexer->c == '$')
-		{
-			get_dolar(lexer);
-		}
+			get_dollar(lexer);
+		else if (lexer->c == '\'')
+			
+		else if (lexer->c == '\"')
+			
+		else if (lexer->c == '\\')
+			
+		else
+			advance_lexer(lexer);
 
 	}
 }
@@ -114,9 +120,7 @@ t_token	*get_next_token(t_lexer *lexer)
 			return (lexer_advance_with_token(lexer, init_tokens(t_LESS_THAN, ft_strdup("<"))));
 		}
 		else if (lexer->c != ' ' && lexer->c != '\t')
-		{
 			ff(lexer);
-		}
 	}
 	return (init_tokens(t_EOF, ft_strdup("EOF")));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rm_extra_spaces.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:41:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/03 13:46:39 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/05 22:15:52 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*remove_multiple_spaces(char* s, int* status)
 	i = 0;
 	j = 0;
 	space = 0;
-	new = malloc(f_strlen(s) + 1);
+	new = malloc(ft_strlen(s) + 1);
 	if (!new)
 	{
 		*status = 0;
