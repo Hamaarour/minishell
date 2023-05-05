@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:29:22 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 16:02:32 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:12:58 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 /*
 + The function checks whether the quotes in the string are balanced or not.
 */
-void	check_qutes(char *str)
+int	check_qutes(char *str, char q)
 {
 	int		i;
 	int		count;
@@ -24,7 +24,7 @@ void	check_qutes(char *str)
 	count = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '\'' || str[i] == '"')
+		if (str[i] == q)
 		{
 			type = str[i++];
 			count++;
@@ -40,5 +40,9 @@ void	check_qutes(char *str)
 			i++;
 	}
 	if (count % 2 != 0)
-		printf("Error: Syntax error\n");
+	{
+		write(2, "Syntaxe Error 'Quotes'\n", 24);
+		return(1);
+	}
+	return (0);
 }

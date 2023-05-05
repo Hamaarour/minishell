@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/03 20:03:22 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:35:09 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_env
 {
 	char			*key;// the key of the envirment variable
 	char			*value;// the value of the envirment variable
-	//struct s_env	*prev;  // Add a pointer to the previous node
 	struct s_env	*next;
 }	t_env;
 typedef struct s_replace_var
@@ -81,7 +80,7 @@ typedef struct s_all
 
 //+ Syntax
 void	check_pipes(t_str *lex);
-void	check_qutes(char *str);
+int		check_qutes(char *str, char q);
 int		check_i_o_redirection(char *str);
 int		check_here_doc(char *str);
 int		check_append(char *str);
