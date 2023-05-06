@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:41:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/05 22:15:52 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/06 15:08:31 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	in the input string.
 
 */
-char	*remove_multiple_spaces(char* s, int* status)
+char	*remove_multiple_spaces(char* s)
 {
 	int		space;
 	int		i;
@@ -54,6 +54,5 @@ char	*remove_multiple_spaces(char* s, int* status)
 		i++;
 	}
 	new[j] = '\0';
-	*status = 1;
 	return new;
 }
