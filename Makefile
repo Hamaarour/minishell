@@ -6,7 +6,7 @@
 #    By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 16:07:00 by hamaarou          #+#    #+#              #
-#    Updated: 2023/05/04 19:36:59 by hamaarou         ###   ########.fr        #
+#    Updated: 2023/05/06 23:24:20 by hamaarou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC=parsing/Utils/lib_utils/ft_strstr.c parsing/Utils/lib_utils/ft_strcmp.c pars
 	parsing/parse/get_env.c parsing/parse/spliting.c parsing/parse/expanding_var.c parsing/parse/expanding_var_utils.c \
 	parsing/token/tokens.c \
 	parsing/lexer/lexer.c parsing/lexer/error_func.c parsing/lexer/dollar_lexer.c parsing/lexer/rm_extra_spaces.c \
-	parsing/lexer/get_envairment_var.c \
+	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c\
 	minishell.c
 
 OBJ= $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/05 22:20:48 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:49:29 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char	*envairment_var(t_lexer *lexer)
 	while (ft_isalnum(lexer->c))
 		advance_lexer(lexer);
 	end = lexer->i;
+	
 	str = ft_substr(lexer->src, begin, end - begin);
 	//add here an error function if str == NULL
 	if(str == NULL)
@@ -75,6 +76,7 @@ char	*envairment_var(t_lexer *lexer)
 	str = get_envairment_var(str, lexer);
 	if (str == NULL)
 		str = ft_strdup("");
+	str = remove_multiple_spaces(str);
 	return (str);
 }
 
@@ -100,7 +102,7 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 
 
 /*
-	get the string between double qoutes 
+	get the string between double qoutes  " "   and return it
 */
 void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 {
@@ -122,7 +124,7 @@ void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 
 
 /*
-	get the string between double qoutes  " "  
+	get the string between double qoutes  " "   and return it
 	
 */
 char	*double_quote(t_lexer *lexer)
@@ -157,22 +159,20 @@ char	*hundle_quotes(t_lexer *lexer)
 		tmp = single_quote(lexer);
 	else
 		tmp = double_quote(lexer);
-
 	return (tmp);
 }
 
 /*
 	get the string between double qoutes and single qoutes and return it
 */
-char *get_dollar(t_lexer *lexer)
+char	*get_dollar(t_lexer *lexer)
 {
 	char	*tmp; //str
 	char	*str; //s
 
-	int	begin;
+	str = ft_strdup("");
 	advance_lexer(lexer);
-
-	begin = lexer->i;
+	
 	if (lexer->c == '?')
 		tmp = exit_value(lexer);
 	else if (lexer->c == '\"' || lexer->c == '\'')
@@ -182,6 +182,7 @@ char *get_dollar(t_lexer *lexer)
 	if (tmp == NULL)
 		return (NULL);	
 	str = ft_strjoin(str, tmp);
+	
 	// add here an error function if str == NULL
 	free(tmp);
 	return (str);

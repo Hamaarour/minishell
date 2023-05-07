@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/05 22:23:24 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:27:54 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <errno.h>
 # include "libft.h"
 # include "token.h"
-# include "lexer.h"
 
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -50,6 +49,12 @@ typedef struct s_lexer
 	size_t				len_src;//len_src: an integer that represents the length of the source string
 	t_env				*env;// a pointer to a t_env object that represents the environment variables.
 }	t_lexer;
+
+typedef struct  s_gob
+{
+	int 	ex_status;
+	t_env 	*env;
+} t_gob;
 
 typedef struct s_str
 {
@@ -128,9 +133,18 @@ void		lexer_skip_whitespace(t_lexer *lexer);
 t_token		*get_next_token(t_lexer *lexer);
 t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token);
 
+char		*exit_value(t_lexer *lexer);
+char		*single_quote(t_lexer *lexer);
+char		*envairment_var(t_lexer *lexer);
+void		expand_dollar(t_lexer *lexer, char **my_str);
+void		get_string_between_double_qoutes(t_lexer *lexer, char **my_str);
+char		*double_quote(t_lexer *lexer);
+char		*hundle_quotes(t_lexer *lexer);
 void		error_func(int err);
 char 		*get_dollar(t_lexer *lexer);
 char    	*get_envairment_var(char *to_find, t_lexer *lexer);
-
+char		*get_char(t_lexer *lexer);
+char		*remove_multiple_spaces(char* s);
+t_gob g_gob;
 #endif
 

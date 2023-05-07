@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:43:32 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/03 19:37:09 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:55:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef enum s_tokens_type
 {
-	t_CHAR = 0, // any word
+	t_CHAR, // any word
 	t_PIPE , // |
 	t_GREAT_THAN,// >
 	t_LESS_THAN, // <
