@@ -6,7 +6,7 @@
 #    By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 16:07:00 by hamaarou          #+#    #+#              #
-#    Updated: 2023/05/06 23:24:20 by hamaarou         ###   ########.fr        #
+#    Updated: 2023/05/09 13:16:55 by hamaarou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,17 @@ NAME=minishell
 CC=cc
 CFLAGS=-Wall -Wextra -Werror #-fsanitize=address
 
-SRC=parsing/Utils/lib_utils/ft_strstr.c parsing/Utils/lib_utils/ft_strcmp.c parsing/Utils/lib_utils/ft_isalnum.c \
+SRC=parsing/Utils/lib_utils/ft_strstr.c parsing/Utils/lib_utils/ft_strcmp.c parsing/Utils/lib_utils/ft_isalnum.c parsing/Utils/lib_utils/ft_putendl_fd.c\
 	parsing/Utils/lib_utils/ft_calloc.c parsing/Utils/lib_utils/ft_strchr.c parsing/Utils/lib_utils/ft_split.c parsing/Utils/lib_utils/ft_strdup.c \
 	parsing/Utils/lib_utils/ft_strlen.c parsing/Utils/lib_utils/ft_substr.c parsing/Utils/lib_utils/ft_strjoin.c parsing/Utils/lib_utils/ft_itoa.c\
 	parsing/syntax/check_pipe.c parsing/syntax/check_quote.c parsing/syntax/check_tokens.c \
-	parsing/parse/get_env.c parsing/parse/spliting.c parsing/parse/expanding_var.c parsing/parse/expanding_var_utils.c \
 	parsing/token/tokens.c \
 	parsing/lexer/lexer.c parsing/lexer/error_func.c parsing/lexer/dollar_lexer.c parsing/lexer/rm_extra_spaces.c \
-	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c\
+	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c parsing/lexer/get_env.c  parsing/lexer/free_lexer.c\
 	minishell.c
 
 OBJ= $(SRC:.c=.o)
-
+#parsing/parse/expanding_var_utils.c parsing/parse/expanding_var.c parsing/parse/spliting.c 
 all:$(NAME)
 
 .PHONY= all clean fclean re

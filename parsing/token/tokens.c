@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 02:39:11 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/01 14:24:57 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:09:01 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*init_tokens(t_tokens_type typ, char *val)
 {
 	t_token	*token;
 
-	token = (t_token *)ft_calloc(0,sizeof(t_token));
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = typ;

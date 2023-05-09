@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/07 18:09:29 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:44:53 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,29 @@ t_token	*fetch_string(t_lexer *lexer)
 	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' 
 		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
 	{
-		if (lexer->c == '$')
+		//printf("lexer->c = %c\n", lexer->c);
+		if (lexer->c == '\'')
+			tmp = single_quote(lexer);
+		else if (lexer->c == '"')
+			tmp = double_quote(lexer);	
+		else if (lexer->c == '$')
 		{
 			tmp = get_dollar(lexer);
 		}
-		else if (lexer->c == '\'')
-			tmp = single_quote(lexer);
-		else if (lexer->c == '"')
-			tmp = hundle_quotes(lexer);		
 		else
+		{
 			tmp = get_char(lexer);
+		}
 		
 		str = ft_strjoin(str, tmp);
-		printf("part = %s\n", str);
 		free(tmp);
 		if (!str)
 			error_func(errno);
+			
 	}
-	printf("*** joined = %s***\n", str);
 	return (init_tokens(t_CHAR, str));
 }
+
 /*
 The lexer, also called the tokenizer, takes as the entered line as input.
 It then reads through the line word by word, using white space as delimiters.
@@ -118,7 +121,7 @@ First it checks wether or not the word is a token, ie: |, <, <<, >, or >>,
 */
 t_token	*get_next_token(t_lexer *lexer)
 {
-	while (lexer->c != '\0')
+	while (lexer->c != '\0' && lexer->i < lexer->len_src)
 	{
 		if (lexer->c == ' ' || lexer->c == '\t')
 			lexer_skip_whitespace(lexer);
@@ -139,7 +142,8 @@ t_token	*get_next_token(t_lexer *lexer)
 			return (lexer_advance_with_token(lexer, init_tokens(t_LESS_THAN, ft_strdup("<"))));
 		}
 		else if (lexer->c != ' ' && lexer->c != '\t')
-			fetch_string(lexer);
+			return fetch_string(lexer);
+		
 	}
 	return (init_tokens(t_EOF, ft_strdup("EOF")));
 }

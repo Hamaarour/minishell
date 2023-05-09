@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/07 17:27:54 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:49:51 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,14 @@ typedef struct s_lexer
 	char				*src;// a pointer to a character array that represents the source string to be tokenized.
 	char				c; // a character that represents the current character being processed in the source string.
 	unsigned int		i; //an integer that represents the index of the current haracter in the source string
-	int					ex_status;// an integer that represents the exit status of the last executed command.
 	size_t				len_src;//len_src: an integer that represents the length of the source string
 	t_env				*env;// a pointer to a t_env object that represents the environment variables.
 }	t_lexer;
 
+
 typedef struct  s_gob
 {
 	int 	ex_status;
-	t_env 	*env;
 } t_gob;
 
 typedef struct s_str
@@ -103,6 +102,33 @@ typedef struct s_all
 // 	t_command *next;
 // }	t_commands;
 
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//! 							Struct :: Parser							!//
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+typedef struct parser_struct
+{
+	t_lexer		*lexer;
+	t_token		*current_token;
+}	t_parser;
+
+typedef struct s_data
+{
+	char		**args;
+	int			fd_in;
+	int			fd_out;
+} t_data;
+
+// init_parser will create a parser object and return it 
+t_parser	*init_parser(t_lexer *lexer);
+// check_max_heredoc will check if the heredoc "<<" is not more than 16
+void		check_max_heredoc(char *str);
+
+
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 //+ Syntax
 void	check_pipes(t_str *lex);
 int		check_qutes(char *str, char q);
@@ -132,7 +158,6 @@ void		advance_lexer(t_lexer *lexer);
 void		lexer_skip_whitespace(t_lexer *lexer);
 t_token		*get_next_token(t_lexer *lexer);
 t_token		*lexer_advance_with_token(t_lexer *lexer, t_token *token);
-
 char		*exit_value(t_lexer *lexer);
 char		*single_quote(t_lexer *lexer);
 char		*envairment_var(t_lexer *lexer);
@@ -145,6 +170,11 @@ char 		*get_dollar(t_lexer *lexer);
 char    	*get_envairment_var(char *to_find, t_lexer *lexer);
 char		*get_char(t_lexer *lexer);
 char		*remove_multiple_spaces(char* s);
-t_gob g_gob;
-#endif
+t_gob 		g_gob;
+//!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+
+
+void	free_tocken(t_token *token);
+#endif

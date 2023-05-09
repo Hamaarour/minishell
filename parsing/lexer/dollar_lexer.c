@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/07 17:49:29 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:18:44 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ that can be used to convert those error codes into human-readable error messages
 char	*exit_value(t_lexer *lexer)
 {
 	char	*val;
-
-	val = ft_itoa(lexer->ex_status);
+	(void)lexer;
+	val = ft_itoa(g_gob.ex_status);
 	if (val == NULL)
 		error_func(errno);
 	return (val);
@@ -41,7 +41,7 @@ char	*single_quote(t_lexer *lexer)
 	begin = lexer->i;
 	if(check_qutes(lexer->src, '\'') == 1)
 	{
-		lexer->ex_status = 450;
+		g_gob.ex_status = 258;
 		return (NULL);
 	}
 	while (lexer->c != '\'' && lexer->c != '\0')
@@ -76,7 +76,6 @@ char	*envairment_var(t_lexer *lexer)
 	str = get_envairment_var(str, lexer);
 	if (str == NULL)
 		str = ft_strdup("");
-	str = remove_multiple_spaces(str);
 	return (str);
 }
 
@@ -97,6 +96,7 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 		tmp = envairment_var(lexer);
 	*my_str = ft_strjoin(*my_str, tmp);
 	free(tmp);
+	
 	//add here an error function if my_str == NULL
 }
 
@@ -134,9 +134,10 @@ char	*double_quote(t_lexer *lexer)
 	advance_lexer(lexer);
 	if(check_qutes(lexer->src, '"') == 1)
 	{
-		lexer->ex_status = 450;
+		g_gob.ex_status = 258;
 		return (NULL);
 	}
+	string = ft_strdup("");
 	while (lexer->c != '"' && lexer->c != '\0')
 	{
 		if (lexer->c == '$')
@@ -172,7 +173,6 @@ char	*get_dollar(t_lexer *lexer)
 
 	str = ft_strdup("");
 	advance_lexer(lexer);
-	
 	if (lexer->c == '?')
 		tmp = exit_value(lexer);
 	else if (lexer->c == '\"' || lexer->c == '\'')
@@ -182,9 +182,10 @@ char	*get_dollar(t_lexer *lexer)
 	if (tmp == NULL)
 		return (NULL);	
 	str = ft_strjoin(str, tmp);
-	
-	// add here an error function if str == NULL
-	free(tmp);
+	if (ft_strlen(tmp) >= 0)
+		free(tmp);
+	if (str == NULL)
+		error_func(errno);
 	return (str);
 
 }

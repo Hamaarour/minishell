@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:27:03 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 15:59:39 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:28:53 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/libft.h"
 
-static size_t	count_word(char const *s, char sep)
+/*static size_t	count_word(char const *s, char sep)
 {
 	size_t	i;
 	size_t	count;
@@ -31,7 +31,7 @@ static size_t	count_word(char const *s, char sep)
 		i++;
 	}
 	return (count);
-}
+}*/
 
 static int	free_space(char **p)
 {
@@ -49,8 +49,9 @@ static int	free_space(char **p)
 static	char	**aloc(char const *s, char sep)
 {
 	char	**k;
-
-	k = (char **)ft_calloc((count_word(s, sep) + 1), sizeof(char *));
+(void)sep;
+(void)s;
+	k = (char **)ft_calloc((2), sizeof(char *));
 	if (!k)
 		return (NULL);
 	return (k);
@@ -58,6 +59,7 @@ static	char	**aloc(char const *s, char sep)
 
 static int	ww(char const *s, char sep, int i)
 {
+	(void)sep;
 	while (s[i] && s[i] != sep)
 		i++;
 	return (i);

@@ -1,49 +1,45 @@
-t_token	*fetch_string(t_lexer *lexer)
-{
-	char	*str;//str is the string that will be returned
-	char	*tmp;//stmp is a temporary string that will be used to store the characters of the word
 
-	str = ft_strdup("");
-	tmp = NULL;
-	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' && lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
-	{
-		if (lexer->c == '$')
-				tmp = get_dollar(lexer);
-		else if (lexer->c == '\'')
-			tmp = single_quote(lexer);
-		else if (lexer->c == '\"')
-			tmp = hundle_quotes(lexer);		
-		else
-			tmp = get_char(lexer);
-		str = ft_strjoin(str, tmp);
-		free(tmp);
-		if (!str)
-			error_func(errno);
-	}
-	return (init_tokens(t_CHAR, str));
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <string.h>
+# include <ctype.h>
+# include <errno.h>
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s == NULL)
+		return ;
+	while (s[i])
+		write(fd, &s[i++], 1);
+	write(fd, "\n", 1);
 }
-char	*get_dollar(t_lexer *lexer)
+
+void	check_max_heredoc(char *str)
 {
-	char	*tmp; //str
-	char	*str; //s
+	int	i;
+	int	count;
 
-	str = ft_strdup("");
-	advance_lexer(lexer);printf("c = %c\n", lexer->c);
-	if (lexer->c == '?')
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		tmp = exit_value(lexer);
+		if (str[i] == '<' && str[i + 1] == '<')
+			count++;
+		i++;
 	}
-	else if (lexer->c == '\"' || lexer->c == '\'')
+	if (count > 16)
 	{
-		tmp = hundle_quotes(lexer);
+		ft_putendl_fd("bash: maximum here-document count exceeded: 16", 2);
+		exit(EXIT_FAILURE);
 	}
-	else
-		tmp = envairment_var(lexer);
-	if (tmp == NULL)
-		return (NULL);	
-	str = ft_strjoin(str, tmp);
-	// add here an error function if str == NULL
-	free(tmp);
-	return (str);
-
+}
+int main ()
+{
+	check_max_heredoc("a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<a <<");
+	return (0);
 }

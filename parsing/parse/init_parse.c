@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_func.c                                       :+:      :+:    :+:   */
+/*   init_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 20:44:40 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/08 16:27:42 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/08 18:23:02 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/08 18:32:54 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-void	error_func(int err)
+/*
+    function to initialize the parser and return a pointer to the parser struct 
+*/
+t_parser	*init_parser(t_lexer *lexer)
 {
-	char	*str;
+    t_parser	*parser;
 
-	str = strerror(err);
-	ft_putendl_fd(str, 2);
-	exit(EXIT_FAILURE);
+    parser = (t_parser *)ft_calloc(1, sizeof( t_parser));
+    if (!parser)
+        return (NULL);
+    parser->lexer = lexer;
+    parser->current_token = get_next_token(lexer);
+    return (parser);
 }

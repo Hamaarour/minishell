@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:29:10 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 16:02:20 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:38:48 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_pipe_begin_end(t_str *lex)
 	len = ft_strlen(lex->str);
 	if (lex->str[0] == '|' || lex->str[len - 1] == '|')
 	{
-		printf("Error: Syntax error\n");
+		ft_putendl_fd("Error: Syntax error", 2);
 		lex->printed_error = 1;
 	}
 }
@@ -65,7 +65,7 @@ void	check_pipe_repeated(t_str *lex)
 			{
 				if (!lex->printed_error)
 				{
-					printf("Error: Syntax error\n");
+					ft_putendl_fd("Error: Syntax error", 2);
 					lex->printed_error = 1;
 				}
 			}
@@ -95,7 +95,7 @@ void	check_pipe_space(t_str *lex)
 			{
 				if (!lex->printed_error)
 				{
-					printf("Error: Syntax error\n");
+					ft_putendl_fd("Error: Syntax error", 2);
 					lex->printed_error = 1;
 				}
 			}

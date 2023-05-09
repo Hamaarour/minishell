@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_func.c                                       :+:      :+:    :+:   */
+/*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 20:44:40 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/08 16:27:42 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/09 13:14:06 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/09 13:35:47 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-void	error_func(int err)
+/* free Tocken */
+void	free_tocken(t_token *token)
 {
-	char	*str;
-
-	str = strerror(err);
-	ft_putendl_fd(str, 2);
-	exit(EXIT_FAILURE);
+	if (token != NULL)
+	{
+		if (token->type != t_CHAR)
+		{
+			if (token->val)
+				free(token->val);
+		}
+		if (token)
+			free(token);
+	}
 }

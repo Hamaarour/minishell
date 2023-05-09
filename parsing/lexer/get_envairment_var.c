@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:37:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/07 17:42:40 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:22:59 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,18 @@ char    *get_envairment_var(char *to_find, t_lexer *lexer)
 	
 	i = 0;
 	env_tmp = lexer->env;
-	
+	var = NULL;
 	while(env_tmp->next)
 	{
 		if (ft_strcmp(env_tmp->key, to_find) == 0)
+		{
 			var = ft_strdup(env_tmp->value);
-		env_tmp = env_tmp->next;
+			if (var == NULL)
+				error_func(errno);
+			//break ;
+		}
+		env_tmp = env_tmp->next;	
 	}
-	if (var == NULL)
-		error_func(errno);
+	
 	return (var);
 }

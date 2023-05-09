@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/07 17:53:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:35:37 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,31 @@ void	print_str(char **str)
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
-	// t_str	str_s;
-	// char	*in;
 	t_env	*env_p;
+	t_lexer *lexer;
+	t_token *token;
 	
+	g_gob.ex_status = 0;
 	if (ac > 1)
 	{
-		printf("You cannot pass arguments to this program\n");
-		exit(1);
+		ft_putendl_fd("You cannot pass arguments to this program", 2);
+		exit(EXIT_FAILURE);
 	}
 	get_env(&env_p, env);
-
-	// printf("%s    %s\n", env_p->key, env_p->value);
-	// printf("%s    %s\n", env_p->next->key, env_p->next->value);
-	//system("leaks minishell");
-	
-	t_lexer *lexer;
-    lexer = init_lexer("ls -l | grep main.c > $USER");
+    lexer = init_lexer("ls -l | \"\'$USER$ahmed $USER\' \'$HOME\'  >> ls << oput > ls < cat -e");
 	lexer->env = env_p;
-    t_token *token = get_next_token(lexer);
+    token = get_next_token(lexer);
+	
     while (token->type != t_EOF)
     {
-        printf("Token type: %d, value: %s\n", token->type, token->val);
+        printf("Token ( %d , %s)\n", token->type, token->val);
+		free(token->val);
+		free(token);
         token = get_next_token(lexer);
     }
-	printf("%s\n", lexer->src);
+	system("leaks minishell");
+	
+	//printf("%s\n", lexer->src);
 
 	/*
 	

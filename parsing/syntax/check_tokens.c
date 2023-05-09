@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:29:31 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 16:02:40 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:39:36 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	check_syntaxe(char *str)
 {
 	if (check_i_o_redirection(str) || check_here_doc(str) || check_append(str))
 	{
-		printf("Error: Syntax error\n");
+		ft_putendl_fd("Syntaxe Error", 2);
 		return (1);
 	}
 	return (0);
