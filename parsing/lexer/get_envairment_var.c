@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:37:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 16:22:59 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:58:03 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ char    *get_envairment_var(char *to_find, t_lexer *lexer)
 			var = ft_strdup(env_tmp->value);
 			if (var == NULL)
 				error_func(errno);
-			//break ;
 		}
 		env_tmp = env_tmp->next;	
 	}
-	
 	return (var);
 }

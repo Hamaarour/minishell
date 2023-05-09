@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 13:18:44 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:04:37 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*single_quote(t_lexer *lexer)
 	char	*tmp;
 	int 	begin;
 	int		end;
+	
 	advance_lexer(lexer);
 	begin = lexer->i;
 	if(check_qutes(lexer->src, '\'') == 1)
@@ -48,8 +49,8 @@ char	*single_quote(t_lexer *lexer)
 		advance_lexer(lexer);
 	end = lexer->i;
 	tmp = ft_substr(lexer->src, begin, end - begin);
-	if (tmp == NULL)
-		error_func(errno);
+	// if (tmp == NULL)
+	// 	error_func(errno);
 	advance_lexer(lexer);
 	return (tmp);
 }
@@ -61,6 +62,7 @@ char	*single_quote(t_lexer *lexer)
 char	*envairment_var(t_lexer *lexer)
 {
 	char	*str;
+	char	*tmp;// another pointer to free the str after the get_envairment_var function
 	int 	begin;
 	int		end;
 
@@ -68,14 +70,15 @@ char	*envairment_var(t_lexer *lexer)
 	while (ft_isalnum(lexer->c))
 		advance_lexer(lexer);
 	end = lexer->i;
-	
 	str = ft_substr(lexer->src, begin, end - begin);
-	//add here an error function if str == NULL
+	printf("str = %s\n", str);
+	tmp = str;
 	if(str == NULL)
 		error_func(errno);
-	str = get_envairment_var(str, lexer);
+	str = get_envairment_var(tmp, lexer);
 	if (str == NULL)
 		str = ft_strdup("");
+	free(tmp);
 	return (str);
 }
 
@@ -182,6 +185,7 @@ char	*get_dollar(t_lexer *lexer)
 	if (tmp == NULL)
 		return (NULL);	
 	str = ft_strjoin(str, tmp);
+	
 	if (ft_strlen(tmp) >= 0)
 		free(tmp);
 	if (str == NULL)

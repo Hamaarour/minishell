@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 18:35:37 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:04:03 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 		exit(EXIT_FAILURE);
 	}
 	get_env(&env_p, env);
-    lexer = init_lexer("ls -l | \"\'$USER$ahmed $USER\' \'$HOME\'  >> ls << oput > ls < cat -e");
+    lexer = init_lexer("ls -l |   $USER $USER $USER \"$USER\" >> ls << oput > ls < cat -e");
 	lexer->env = env_p;
     token = get_next_token(lexer);
 	

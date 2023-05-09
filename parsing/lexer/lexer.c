@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 17:44:53 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:00:29 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,13 @@ t_token	*fetch_string(t_lexer *lexer)
 		else if (lexer->c == '"')
 			tmp = double_quote(lexer);	
 		else if (lexer->c == '$')
-		{
 			tmp = get_dollar(lexer);
-		}
 		else
-		{
-			tmp = get_char(lexer);
-		}
-		
+			tmp = get_char(lexer);		
 		str = ft_strjoin(str, tmp);
 		free(tmp);
-		if (!str)
-			error_func(errno);
-			
+		// if (!str)
+		// 	error_func(errno);
 	}
 	return (init_tokens(t_CHAR, str));
 }
@@ -142,7 +136,7 @@ t_token	*get_next_token(t_lexer *lexer)
 			return (lexer_advance_with_token(lexer, init_tokens(t_LESS_THAN, ft_strdup("<"))));
 		}
 		else if (lexer->c != ' ' && lexer->c != '\t')
-			return fetch_string(lexer);
+			return (fetch_string(lexer));
 		
 	}
 	return (init_tokens(t_EOF, ft_strdup("EOF")));
