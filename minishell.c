@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 15:20:54 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:24:42 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	read_line(char **line)
 {
-	*line = readline("\e[1;35m minishell~$ \e[1;35m");
+	*line = readline("minishell~$ ");
 	if (*line == NULL)
 	{
 		free(*line);
@@ -41,6 +41,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 		if (read_line(&cmd_enter) == 0)
 		{
 			add_history(cmd_enter);
+			
 		}
 	}
 }
