@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 16:49:51 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:52:44 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ typedef struct s_str
 
 }	t_str;
 
-typedef struct s_replace_var
-{
-	int		i;
-	int		index;
-	char	*truncated_str;
-	char	*new_str;
-	char	*tmp;
-	int		start;
-	char	*last_str;
+// typedef struct s_replace_var
+// {
+// 	int		i;
+// 	int		index;
+// 	char	*truncated_str;
+// 	char	*new_str;
+// 	char	*tmp;
+// 	int		start;
+// 	char	*last_str;
 
-}	t_replace_var;
+// }	t_replace_var;
 typedef struct s_all
 {
 	t_env	*env;
@@ -112,13 +112,23 @@ typedef struct parser_struct
 {
 	t_lexer		*lexer;
 	t_token		*current_token;
+	t_token		*previous_token;
 }	t_parser;
 
+// !this struct for the cmd
+typedef struct t_cmd
+{
+	char			*cmd;
+	struct t_cmd	*next;
+}	t_cmd;
+
+// !this struct for the all cmd in the line
 typedef struct s_data
 {
-	char		**args;
-	int			fd_in;
-	int			fd_out;
+	t_cmd		*cmd;// the cmd that we will execute 
+	int			fd_in; // if there is a redirection we will have a fd_in otherwise it will be -1 if there is no redirection
+	int			fd_out; // if there is a redirection we will have a fd_out otherwise it will be -1 if there is no redirection
+	t_data		*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
 } t_data;
 
 // init_parser will create a parser object and return it 

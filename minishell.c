@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 21:04:03 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:40:14 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 		exit(EXIT_FAILURE);
 	}
 	get_env(&env_p, env);
-    lexer = init_lexer("ls -l |   $USER $USER $USER \"$USER\" >> ls << oput > ls < cat -e");
+    lexer = init_lexer("ls -l |   \"$USER\" >>");
 	lexer->env = env_p;
     token = get_next_token(lexer);
 	
@@ -50,12 +50,10 @@ int	main(int ac, char **av, char **env)
 		free(token);
         token = get_next_token(lexer);
     }
-	system("leaks minishell");
-	
-	//printf("%s\n", lexer->src);
+	//system("leaks minishell");
 
-	/*
 	
+	/*
 	while (1)
 	{
 		in = readline("[minishell~$]->> ");
@@ -65,19 +63,6 @@ int	main(int ac, char **av, char **env)
 			str_s.str = in;
 			check_pipes(&str_s);
 			check_syntaxe(str_s.str);
-			spliting_cmd(&str_s);
-			//expand_var(&str_s, env_p);
-
-			print_str(str_s.splited_str);
-			
-			int i = 0;
-			while (str_s.splited_str[i])
-			{
-				free(str_s.splited_str[i]);
-				str_s.splited_str[i] = NULL;
-				i++;
-			}
-			free(str_s.splited_str);
 			//system("leaks minishell");
 		}
 		//system("leaks minishell");

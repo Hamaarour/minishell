@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/09 21:04:37 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:37:08 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char	*envairment_var(t_lexer *lexer)
 		advance_lexer(lexer);
 	end = lexer->i;
 	str = ft_substr(lexer->src, begin, end - begin);
-	printf("str = %s\n", str);
 	tmp = str;
 	if(str == NULL)
 		error_func(errno);
@@ -185,7 +184,6 @@ char	*get_dollar(t_lexer *lexer)
 	if (tmp == NULL)
 		return (NULL);	
 	str = ft_strjoin(str, tmp);
-	
 	if (ft_strlen(tmp) >= 0)
 		free(tmp);
 	if (str == NULL)

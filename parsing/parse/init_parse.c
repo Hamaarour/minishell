@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:23:02 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/08 18:32:54 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:50:50 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ t_parser	*init_parser(t_lexer *lexer)
         return (NULL);
     parser->lexer = lexer;
     parser->current_token = get_next_token(lexer);
+    parser->previous_token = NULL;
     return (parser);
 }
