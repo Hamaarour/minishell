@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 15:10:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:31:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,6 @@ typedef struct s_lexer
 	size_t				len_src;//len_src: an integer that represents the length of the source string
 	t_env				*env;// a pointer to a t_env object that represents the environment variables.
 }	t_lexer;
-
-
-typedef struct  s_gob
-{
-	int 	ex_status;
-} t_gob;
 
 typedef struct s_str
 {
@@ -107,7 +101,11 @@ typedef struct s_all
 //! 							Struct :: Parser							!//
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+typedef struct  s_gob
+{
+	int 	ex_status;
+	int 	nb_cmd;// number of command;
+} t_gob;
 typedef struct parser_struct
 {
 	t_lexer		*lexer;
@@ -122,7 +120,6 @@ typedef struct t_cmd
 	struct t_cmd	*next;
 }	t_cmd;
 
-
 // !this struct for the all cmd in the line
 typedef struct s_data
 {
@@ -133,30 +130,30 @@ typedef struct s_data
 }	t_data;
 
 // init_parser will create a parser object and return it 
-t_parser	*init_parser(t_lexer *lexer);
+t_parser	*initialize_parser(char *input);
 // check_max_heredoc will check if the heredoc "<<" is not more than 16
 void		check_max_heredoc(char *str);
-
+t_cmd    	*start_parsing(t_parser *parser);
+int 		syntaxe_check(t_parser *parser);
 
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-//+ Syntax
-void	check_pipes(t_str *lex);
+// //+ Syntax
+// void	check_pipes(t_str *lex);
 int		check_qutes(char *str, char q);
-int		check_i_o_redirection(char *str);
-int		check_here_doc(char *str);
-int		check_append(char *str);
-int		check_syntaxe(char *str);
-//+ Envirment
-void	get_env(t_env **env, char **envp);// get the envirment variables
-//+ spliting the string
-char	**spliting_cmd(t_str *str);// spliting the string by pipes
-//+Expanding the envirment variables
-int		check_dollar(char *str, char dollar);
-int		ft_find(char *str, char c);
-char	*find_var(t_env *env_p, char *var);
-void	expand_var(t_str *str, t_env *env_p);
-int		is_substring(char *str, char *to_find);
+// int		check_i_o_redirection(char *str);
+// int		check_here_doc(char *str);
+// int		check_append(char *str);
+// int		check_syntaxe(char *str);
+// //+ Envirment
+// //+ spliting the string
+// char	**spliting_cmd(t_str *str);// spliting the string by pipes
+// //+Expanding the envirment variables
+// int		check_dollar(char *str, char dollar);
+// int		ft_find(char *str, char c);
+// char	*find_var(t_env *env_p, char *var);
+// void	expand_var(t_str *str, t_env *env_p);
+// int		is_substring(char *str, char *to_find);
 
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -181,6 +178,7 @@ char 		*get_dollar(t_lexer *lexer);
 char    	*get_envairment_var(char *to_find, t_lexer *lexer);
 char		*get_char(t_lexer *lexer);
 char		*remove_multiple_spaces(char* s);
+void		get_env(t_env **env, char **envp);// get the envirment variables
 t_gob 		g_gob;
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

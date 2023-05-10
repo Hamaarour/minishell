@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 15:02:43 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:50:07 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ t_token	*fetch_string(t_lexer *lexer)
 			tmp = get_char(lexer);		
 		str = ft_strjoin(str, tmp);
 		free(tmp);
-		// if (!str)
-		// 	error_func(errno);
+		if (!str)
+		 	error_func(errno);
 	}
 	return (init_tokens(t_CHAR, str));
 }
