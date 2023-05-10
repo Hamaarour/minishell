@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 12:52:44 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:10:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,15 @@ typedef struct t_cmd
 	struct t_cmd	*next;
 }	t_cmd;
 
+
 // !this struct for the all cmd in the line
 typedef struct s_data
 {
-	t_cmd		*cmd;// the cmd that we will execute 
-	int			fd_in; // if there is a redirection we will have a fd_in otherwise it will be -1 if there is no redirection
-	int			fd_out; // if there is a redirection we will have a fd_out otherwise it will be -1 if there is no redirection
-	t_data		*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
-} t_data;
+	t_cmd			*cmd;// the cmd that we will execute 
+	int				fd_in; 
+	int				fd_out;
+	struct s_data	*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
+}	t_data;
 
 // init_parser will create a parser object and return it 
 t_parser	*init_parser(t_lexer *lexer);
