@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 19:31:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:00:51 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_all
 typedef struct  s_gob
 {
 	int 	ex_status;
+	int 	nb_tokens;// number of pipe;
 	int 	nb_cmd;// number of command;
 } t_gob;
 typedef struct parser_struct
@@ -135,7 +136,7 @@ t_parser	*initialize_parser(char *input);
 void		check_max_heredoc(char *str);
 t_cmd    	*start_parsing(t_parser *parser);
 int 		syntaxe_check(t_parser *parser);
-
+void		parser_free(t_parser *parser);
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // //+ Syntax

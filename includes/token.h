@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:43:32 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/07 17:55:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:25:12 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
 
 typedef enum s_tokens_type
 {
-	t_CHAR, // any word
-	t_PIPE , // |
-	t_GREAT_THAN,// >
-	t_LESS_THAN, // <
-	t_HEREDOC, // <<
-	t_APPEND, // >>
+	t_CHAR, // any word 0
+	t_PIPE , // | 1
+	t_GREAT_THAN,// > 2
+	t_LESS_THAN, // < 3
+	t_HEREDOC, // << 4
+	t_APPEND, // >> 5
 	t_EOF, // end of file
-	TOKEN_EXIT, // $? exit status
 }	t_tokens_type;
 
 typedef struct s_tokens

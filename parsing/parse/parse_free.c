@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_lexer.c                                       :+:      :+:    :+:   */
+/*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 13:14:06 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/11 17:35:09 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/11 10:51:19 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/11 11:01:02 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-/* free Tocken */
-void	free_tocken(t_token *token)
+void	parser_free(t_parser *parser)
 {
-	if (token)
+	if (parser != NULL)
 	{
-		if (token->type != t_CHAR)
+		if (parser->lexer != NULL)
 		{
-			if (token->val)
-				free(token->val);
+			free(parser->lexer->src);
+			free(parser->lexer);
 		}
-		if (token)
-			free(token);
+		if (parser->previous_token)
+			free_tocken(parser->previous_token);
+		if (parser->current_token)
+			free_tocken(parser->current_token);
+		if (parser)
+			free(parser);
 	}
 }

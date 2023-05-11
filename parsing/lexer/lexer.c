@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 16:50:07 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:09:03 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,17 @@ t_token	*get_next_token(t_lexer *lexer)
 		if (lexer->c == ' ' || lexer->c == '\t')
 			lexer_skip_whitespace(lexer);
 		else if (lexer->c == '|')
+		{
 			return (lexer_advance_with_token(lexer, init_tokens(t_PIPE, ft_strdup("|"))));
+		}
 		else if (lexer->c == '>')
 		{
-			//	condition to check if the next character is also a >, if so, return a token with type t_APPEND and value ">>"
 			if(lexer->src[lexer->i + 1] == '>')
 				return (lexer_advance_with_token(lexer, init_tokens(t_APPEND, ft_strdup(">>"))));
 			return (lexer_advance_with_token(lexer, init_tokens(t_GREAT_THAN, ft_strdup(">"))))	;
 		}
 		else if (lexer->c == '<')
 		{
-			//	condition to check if the next character is also a <, if so, return a token with type t_HEREDOC and value "<<"
 			if (lexer->src[lexer->i + 1] == '<')
 				return (lexer_advance_with_token(lexer, init_tokens(t_HEREDOC, ft_strdup("<<"))));
 			return (lexer_advance_with_token(lexer, init_tokens(t_LESS_THAN, ft_strdup("<"))));
