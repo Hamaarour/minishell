@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/04/12 16:55:30 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:01:54 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <readline/history.h>
 # include <string.h>
 # include <ctype.h>
+
+typedef struct  s_gob
+{
+	int 	ex_status;
+	int 	nb_cmd;// number of command;
+} t_gob;
 
 typedef struct s_str
 {
@@ -71,4 +77,11 @@ int		ft_find(char *str, char c);
 char	*find_var(t_env *env_p, char *var);
 void	expand_var(t_str *str, t_env *env_p);
 int		is_substring(char *str, char *to_find);
+
+//////////////BUILTINS_PART/////////////////
+void	unset(char **cmd, t_env *evr);
+void	env(t_env *evr, int outf);
+void    ft_exit(char **cmd);
+//////////////BUILTINS_PART/////////////////
+t_gob glob;
 #endif

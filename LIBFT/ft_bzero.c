@@ -1,47 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   epur_str.c                                         :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 21:28:27 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/11 17:34:48 by zjaddad          ###   ########.fr       */
+/*   Created: 2022/10/07 10:50:06 by zjaddad           #+#    #+#             */
+/*   Updated: 2022/10/27 18:33:28 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-char	*epur_str(char* s)
+void	ft_bzero(void *s, size_t n)
 {
-	int		space;
-	int		i;
-	int		j;
-	char	*new;
+	size_t	i;
+	char	*pr;
 
 	i = 0;
-	j = 0;
-	space = 0;
-	while (*s == ' ' || *s == '\t')
-		s++;
-	new = malloc(strlen(s) + 1);
-	if (!new)
-		return NULL;
-	while (s[i] != '\0')
+	pr = (char *)s;
+	while (i < n)
 	{
-		if (s[i] == ' ')
-			space = 1;
-		else
-		{
-			if (space)
-			{
-				new[j++] = ' ';
-				space = 0;
-			}
-			new[j++] = s[i];
-		}
+		pr[i] = 0;
 		i++;
 	}
-	new[j] = '\0';
-	return (new);
 }

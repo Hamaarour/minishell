@@ -1,47 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   epur_str.c                                         :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 21:28:27 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/11 17:34:48 by zjaddad          ###   ########.fr       */
+/*   Created: 2023/05/08 13:48:29 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/08 13:48:31 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-char	*epur_str(char* s)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	int		space;
-	int		i;
-	int		j;
-	char	*new;
-
-	i = 0;
-	j = 0;
-	space = 0;
-	while (*s == ' ' || *s == '\t')
-		s++;
-	new = malloc(strlen(s) + 1);
-	if (!new)
-		return NULL;
-	while (s[i] != '\0')
-	{
-		if (s[i] == ' ')
-			space = 1;
-		else
-		{
-			if (space)
-			{
-				new[j++] = ' ';
-				space = 0;
-			}
-			new[j++] = s[i];
-		}
-		i++;
-	}
-	new[j] = '\0';
-	return (new);
+	if (!lst)
+		return ;
+	del(lst->content);
+	free(lst);
 }
