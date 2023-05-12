@@ -1,35 +1,91 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   CD.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/07 03:52:59 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/12 04:45:34 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "../libft/libft.h"
+#include "minishell.h"
 
-int main() {
- 
-// changing the current
-// working directory(cwd)
-// to /usr
-if (chdir("/usr") != 0)
-    perror("chdir() to /usr failed");
- 
-// changing the cwd to /tmp
-if (chdir("/tmp") != 0)
-    perror("chdir() to /temp failed");
- 
-// there is no /error
-// directory in my pc
-if (chdir("/error") != 0)
- 
-    // so chdir will return -1
-    perror("chdir() to /error failed");
- 
-	return 0;
+void	update_old(char *old_p, t_env *evr)
+{
+	t_env *tmp;
+
+	tmp = evr;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, "OLDPWD"))
+			tmp->value = old_p;
+		tmp = tmp->next;
+	}
+}
+
+void	update_pwd(char *pwd, t_env *evr)
+{
+	t_env *tmp;
+
+	tmp = evr;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, "PWD"))
+			tmp->value = pwd;
+		tmp = tmp->next;
+	}
+}
+
+void	get_home(t_env *evr)
+{
+	t_env	*tmp;
+	char	*old_p;
+	char	*home;
+
+	tmp = evr;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, "HOME"))
+		{
+			old_p = getcwd(NULL, 0);
+			update_old(old_p, evr);
+			if (chdir(tmp->value) == -1)
+				printf("ERROR: chdir\n");
+			else
+			{
+				home = getcwd(NULL, 0);
+				printf("%s\n", home);
+			}
+		}
+		tmp = tmp->next;
+	}
+	update_pwd(home, evr);
+}
+
+void	cd(char **cmd, t_env *envr)
+{
+	int	args;
+	char	*pwd;
+	char	*old_p;
+
+	glob.ex_status = 0;
+	args = args_len(cmd);
+	if (args == 1)
+		get_home(envr);
+	else
+	{
+		old_p = getcwd(NULL, 0);
+		update_old(old_p, envr);
+		if (chdir(cmd[1]) == -1)
+		{
+			printf("No such file or directory\n");
+			glob.ex_status = 1;
+		}
+		pwd = getcwd(NULL, 0);
+		update_pwd(pwd, envr);
+	}
 }

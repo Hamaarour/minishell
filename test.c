@@ -4,8 +4,6 @@
 
 void	check_builtin(char **cmd, int fd, t_env	*envr)
 {
-	int	i = 1;
-
 	if (!ft_strcmp(cmd[0], "echo"))
 		echo(cmd, fd);
 	else if (!ft_strcmp(cmd[0], "pwd"))
@@ -16,10 +14,10 @@ void	check_builtin(char **cmd, int fd, t_env	*envr)
 		env(envr, fd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(cmd);
+	else if (!ft_strcmp(cmd[0], "cd"))
+		cd(cmd, envr);
 	else
 		printf("NO BUILTINS\n");
-	// else if (!ft_strcmp(cmd[i], "cd"))
-	// 	cd(cmd[i]);
 	// else if (!ft_strcmp(cmd[i], "export"))
 	// 	export();
 	// else

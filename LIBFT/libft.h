@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:17:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/08 13:49:04 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/12 00:37:06 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <limits.h>
 
 
 typedef struct s_list
@@ -24,6 +25,14 @@ typedef struct s_list
 void *content;
 struct s_list *next;
 } t_list;
+
+typedef struct atoi
+{
+	int					i;
+	unsigned long long	result;
+	int					sign;
+
+}	t_ati;
 
 t_list  *ft_lstnew(void *content);
 t_list  *ft_lstlast(t_list *lst);

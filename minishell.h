@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/11 19:01:54 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/12 04:28:07 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@
 # include <string.h>
 # include <ctype.h>
 
-typedef struct  s_gob
-{
-	int 	ex_status;
-	int 	nb_cmd;// number of command;
-} t_gob;
 
 typedef struct s_str
 {
@@ -34,6 +29,7 @@ typedef struct s_str
 	char		**splited_str;// the string splited by pipes
 
 }	t_str;
+
 typedef struct s_env
 {
 	char			*key;// the key of the envirment variable
@@ -41,6 +37,15 @@ typedef struct s_env
 	//struct s_env	*prev;  // Add a pointer to the previous node
 	struct s_env	*next;
 }	t_env;
+
+typedef struct  s_gob
+{
+	int 	ex_status;
+	int 	nb_cmd;
+	t_env	*envr;
+	// number of command;
+} t_gob;
+
 typedef struct s_replace_var
 {
 	int		i;
@@ -52,6 +57,7 @@ typedef struct s_replace_var
 	char	*last_str;
 	
 }	t_replace_var;
+
 typedef struct s_all
 {
 	t_env	*env;
@@ -82,6 +88,8 @@ int		is_substring(char *str, char *to_find);
 void	unset(char **cmd, t_env *evr);
 void	env(t_env *evr, int outf);
 void    ft_exit(char **cmd);
+void	cd(char **cmd, t_env *envr);
+int		args_len(char **s);
 //////////////BUILTINS_PART/////////////////
 t_gob glob;
 #endif
