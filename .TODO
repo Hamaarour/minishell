@@ -1,2 +1,35 @@
 1/ expand in here doc 
 2/check syntaxe in correct
+
+
+/*  
+*pipe 
+ | cmd
+cmd |
+cmd |       | cmd
+cmd || cmd
+time | ls "just if time cmd is first cmd"
+
+*/
+/*
+*redirections
+><
+<>
+<<<
+>>>
+cmd <
+cmd >
+cmd <<
+cdm >>
+
+< |
+> | 
+>> |
+<< |
+
+*/
+
+/*
+echo test\' -> sysntax error
+
+*/

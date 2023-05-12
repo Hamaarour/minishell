@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:43:32 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/11 18:25:12 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:37:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum s_tokens_type
 	t_LESS_THAN, // < 3
 	t_HEREDOC, // << 4
 	t_APPEND, // >> 5
-	t_EOF, // end of file
+	t_EOF, // end of file 6 
 }	t_tokens_type;
 
 typedef struct s_tokens
@@ -38,4 +38,5 @@ typedef struct s_tokens
 t_token	*init_tokens(t_tokens_type typ, char *val);
 
 #endif
+
 

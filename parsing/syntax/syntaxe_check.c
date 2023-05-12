@@ -6,13 +6,23 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/12 12:38:24 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:59:35 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	type_is_rederec(t_token *token)
+int type_is_char(t_token *token)
+{
+	if (token)
+	{
+		if (token->type == t_CHAR)
+			return (0);
+	}
+	return (1);
+}
+
+t_tokens_type	type_is_rederec(t_token *token)
 {
 	if (token)
 	{
@@ -28,46 +38,59 @@ int	type_is_pipe(t_token *token)
 	if (token)
 	{
 		if (token->type == t_PIPE)
-			return (1);
+			return (0);
 	}
-	return (0);
+	return (1);
 }
-int type_is_char(t_token *token)
+
+/* Check PIPE syntax */
+int	pipe_syntax(t_parser *parser)
 {
-	if (token)
+	t_parser *tmp;
+	
+	tmp = parser;
+	while (tmp->current_token->type != t_EOF)
 	{
-		if (token->type == t_CHAR)
-			return (1);
+		if (tmp->current_token->type == t_PIPE)
+		{
+			if (tmp->previous_token == NULL)
+				return (1);
+			else if (tmp->previous_token->type == t_PIPE)
+				return (1);
+		}
+		tmp->previous_token = tmp->current_token;
+		tmp->current_token = get_next_token(tmp->lexer);
+		if (tmp->current_token->type == t_EOF && tmp->previous_token->type == t_PIPE)
+			return (1);	
 	}
 	return (0);
 }
 
-int syntaxe_check(t_parser *parser)
+/* Check redirection syntax */
+int	redirect_syntax(t_parser *parser)
 {
-	if(parser->current_token != NULL)
+	t_parser *tmp;
+	
+	tmp = parser;
+	while (tmp->current_token->type != t_EOF)
 	{
-		if(parser->current_token->type == t_PIPE || parser->current_token->type == t_EOF)
+		if (type_is_rederec(tmp->current_token) != 10)
 		{
-			if (type_is_char(parser->previous_token) == 0 || type_is_rederec(parser->previous_token) == 0)
-				return (err_msg("Bash : syntax error"));
+			if (tmp->previous_token->type == type_is_rederec(tmp->current_token))
+				return (1);
 		}
-		else if (type_is_rederec(parser->current_token) == 0)
-		{
-			if (type_is_char(parser->previous_token) == 0)
-				return (err_msg("Bash : syntax error"));
-		}
+		tmp->previous_token = tmp->current_token;
+		tmp->current_token = get_next_token(tmp->lexer);
 	}
 	return (0);
 }
 
 int iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
-	while (parser->current_token->type != t_EOF)
-	{
-		if (syntaxe_check(parser) == 258)
-			return (258);
-		parser->previous_token = parser->current_token;
-		parser->current_token = get_next_token(parser->lexer);
-	}
+	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
+		return (err_msg("Bash : syntax error"));
+	
+	// printf("current_token : %u\n", parser->current_token->type);
+	// printf("previous_token : %u\n", parser->previous_token->type);
 	return (0);
 }

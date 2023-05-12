@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/12 12:37:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:07:26 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,9 @@ t_parser	*initialize_parser(char *input);
 // check_max_heredoc will check if the heredoc "<<" is not more than 16
 void		check_max_heredoc(char *str);
 t_cmd    	*start_parsing(t_parser *parser);
-int 		syntaxe_check(t_parser *parser);
 int			iterate_over_tokens_check_syntaxe(t_parser *parser);
 void		parser_free(t_parser *parser);
-int			err_msg(char *msg);
+int		err_msg(char *msg);
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // //+ Syntax
