@@ -6,11 +6,17 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/11 19:09:59 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:53:06 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parsing.h"
+
+void	init_g_gob(void)
+{
+	g_gob.ex_status = 0;
+	g_gob.nb_cmd = 0;
+}
 
 int	read_line(char **line)
 {
@@ -30,24 +36,24 @@ int	read_line(char **line)
 
 void	lets_go(t_parser *parser, t_cmd *args,char *cmd_enter, int ac)
 {
-	if (ac > 1)
+	if (ac == 1)
 	{
-		ft_putendl_fd("You cannot pass arguments to this program", 2);
-		exit(EXIT_FAILURE);
-	}
-	while(1)
-	{
-		if (read_line(&cmd_enter) == 0)
+		while(1)
 		{
-			add_history(cmd_enter);
-			
-			parser = initialize_parser(cmd_enter);
-			args = start_parsing(parser);
-			//parser_free(parser);
-			free(cmd_enter);
+			g_gob.nb_cmd = 0;
+			if (read_line(&cmd_enter) == 0)
+			{
+				add_history(cmd_enter);
+				parser = initialize_parser(cmd_enter);
+				args = start_parsing(parser, cmd_enter);
+				printf("nb_cmd = %d\n", g_gob.nb_cmd);
+				printf("ex_status = %d\n", g_gob.ex_status);
+				free(cmd_enter);
+			}
 		}
 	}
-	
+	ft_putendl_fd("You cannot pass arguments to this program", 2);
+	exit(EXIT_FAILURE);
 }
 
 int	main(int ac, char **av, char **env)

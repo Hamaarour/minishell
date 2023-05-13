@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/13 18:03:53 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:50:13 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	pipe_syntax(t_parser *parser, char *cmd)
 	{
 		if (tmp->current_token->type == t_PIPE)
 		{
-			
+			g_gob.nb_cmd++;
 			if (tmp->previous_token == NULL)
 				return (1);
 			else if (tmp->previous_token->type == t_PIPE || type_is_rederec(tmp->previous_token) == 0)
@@ -74,7 +74,6 @@ int	pipe_syntax(t_parser *parser, char *cmd)
 		if (tmp->current_token->type == t_EOF && tmp->previous_token->type == t_PIPE)
 			return (1);	
 	}
-	free(tmp);
 	return (0);
 }
 
@@ -102,7 +101,6 @@ int	redirect_syntax(t_parser *parser, char *cmd)
 		if (tmp->current_token->type == t_EOF && type_is_rederec(tmp->previous_token) == 0)
 				return (1);	
 	}
-	free(tmp);
 	return (0);
 }
 
@@ -112,7 +110,6 @@ int iterate_over_tokens_check_syntaxe(t_parser *parser, char *cmd)
 
 	if ((pipe_syntax(parser, cmd) == 1) || (redirect_syntax(parser, cmd) == 1))
 		return (err_msg("Bash : syntax error"));
-	
 	// printf("current_token : %u\n", parser->current_token->type);
 	// printf("previous_token : %u\n", parser->previous_token->type);
 	return (0);

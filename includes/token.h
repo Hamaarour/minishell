@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:43:32 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/12 16:37:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:36:58 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_tokens
 {
 	t_tokens_type	type;
 	char			*val;
-
 }	t_token;
 
 // function to initialize the tokens
