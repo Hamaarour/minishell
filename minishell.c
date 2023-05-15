@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/13 21:53:06 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/15 01:14:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,22 @@ int	read_line(char **line)
 	return (0);
 }
 
-void	lets_go(t_parser *parser, t_cmd *args,char *cmd_enter, int ac)
+void	lets_go(t_parser *parser,char *cmd_enter, int ac, t_data_cmd **data_cmd)
 {
+	(void)data_cmd;
+	(void)parser;
 	if (ac == 1)
 	{
 		while(1)
 		{
-			g_gob.nb_cmd = 0;
+			init_g_gob();
 			if (read_line(&cmd_enter) == 0)
 			{
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
-				args = start_parsing(parser, cmd_enter);
-				printf("nb_cmd = %d\n", g_gob.nb_cmd);
-				printf("ex_status = %d\n", g_gob.ex_status);
+				
+				start_parsing(parser, cmd_enter, data_cmd);
+
 				free(cmd_enter);
 			}
 		}
@@ -59,19 +61,15 @@ void	lets_go(t_parser *parser, t_cmd *args,char *cmd_enter, int ac)
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
-	t_env	*env_p;
-	t_parser *parser;
-	t_cmd	*cmd;
-	char	*input;
+	t_parser 	*parser;
+	char		*input;
+	t_data_cmd	*data_cmd;
 	
-	g_gob.ex_status = 0;
-	g_gob.nb_cmd = 0;
-	
+	data_cmd = NULL;
 	input = NULL;
 	parser = NULL;
-	cmd = NULL;
-	get_env(&env_p, env);
-	lets_go(parser, cmd, input, ac);
+	get_env(env);
+	lets_go(parser, input, ac, &data_cmd);
 }
 
 

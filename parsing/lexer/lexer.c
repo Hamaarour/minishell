@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/11 19:09:03 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/15 01:14:08 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ t_lexer	*init_lexer(char *src)
 	if (!lexer)
 		return (NULL);
 	lexer->src = src;
-	lexer->c = src[lexer->i];
 	lexer->i = 0;
+	lexer->c = src[lexer->i];
 	lexer->len_src = ft_strlen(src);
+	
 	return (lexer);
 }
 /*
@@ -85,13 +86,15 @@ t_token	*fetch_string(t_lexer *lexer)
 	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' 
 		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
 	{
-		//printf("lexer->c = %c\n", lexer->c);
 		if (lexer->c == '\'')
 			tmp = single_quote(lexer);
 		else if (lexer->c == '"')
 			tmp = double_quote(lexer);	
 		else if (lexer->c == '$')
-			tmp = get_dollar(lexer);
+		{
+			tmp = get_dollar(lexer);	
+			// printf("TTTTTt\n");
+		}
 		else
 			tmp = get_char(lexer);		
 		str = ft_strjoin(str, tmp);

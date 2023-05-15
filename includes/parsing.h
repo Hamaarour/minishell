@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/13 22:19:58 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/15 00:01:06 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char 		*get_dollar(t_lexer *lexer);
 char    	*get_envairment_var(char *to_find, t_lexer *lexer);
 char		*get_char(t_lexer *lexer);
 char		*remove_multiple_spaces(char* s);
-void		get_env(t_env **env, char **envp);// get the envirment variables
+void		get_env(char **envp);// get the envirment variables
 int			check_qutes(char *str, char q);// check if the qutes are balanced
 
 
@@ -81,6 +81,8 @@ typedef struct  s_gob
 	int 	ex_status;
 	int 	nb_tokens;// number of pipe;
 	int 	nb_cmd;// number of command == nmbr of pipes;
+	char 	**envp;
+	t_env	*env_p;
 } t_gob;
 typedef struct parser_struct
 {
@@ -89,32 +91,39 @@ typedef struct parser_struct
 	t_token		*previous_token;
 }	t_parser;
 
-// !this struct for the cmd
-typedef struct t_cmd
+// !this struct for the args
+typedef struct t_args
 {
-	char			*cmd;
-	struct t_cmd	*next;
-}	t_cmd;
+	char			*args;
+	struct t_args	*next;
+}	t_args;
 
 // !this struct for the all cmd in the line
-typedef struct s_data
+typedef struct s_data_cmd
 {
-	t_cmd			*cmd;// the cmd that we will execute 
-	int				fd_in; 
-	int				fd_out;
-	struct s_data	*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
-}	t_data;
+	t_args				*args;// the cmd that we will execute 
+	int					fd_in;// the fd of the input 0
+	int					fd_out;// the fd of the output 1
+	struct s_data_cmd	*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
+}	t_data_cmd;
 
 
 t_parser	*initialize_parser(char *input);// init_parser will create a parser object and return it 
 void		check_max_heredoc(char *str);// check_max_heredoc will check if the heredoc "<<" is not more than 16
-t_cmd    	*start_parsing(t_parser *parser, char *input);
+void    	start_parsing(t_parser *parser, char *input, t_data_cmd **cmd);// start_parsing will start parsing the input and return the head of the linked list
 int			iterate_over_tokens_check_syntaxe(t_parser *parser, char *cmd);
 void		parser_free(t_parser *parser);
 int			err_msg(char *msg);
-void	free_tocken(t_token *token);
-
+void		free_tocken(t_token *token);
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+t_data_cmd	*ft_new_cmd(t_args *args);//creat new node of t_data_cmd type and return it
+void		ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);// add back the new node to the linked list
+t_args		*ft_new_arg(char *arg);//creat new node of t_args type and return it
+void		ft_add_back_arg(t_args **head, t_args *new);// add back the new node to the linked list
+
+
+
+//!+++++++++++++++++++++++++++++++Global++++++++++++++++++++++++++++++++
 t_gob 		g_gob;
 
 

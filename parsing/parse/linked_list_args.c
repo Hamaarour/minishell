@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   linked_list_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 01:26:25 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 00:00:49 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/14 11:42:43 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/14 14:27:02 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-t_env	*ft_lstnew(char *key, char *value)
+//creat new node of t_args type and return it
+t_args *ft_new_arg(char *arg)
 {
-	t_env	*elt;
+	t_args	*new_arg_node;
 
-	elt = (t_env *)malloc(sizeof(*elt));
-	if (elt == NULL)
+	new_arg_node = (t_args *)malloc(sizeof(*new_arg_node));
+	if (new_arg_node == NULL)
 		return (NULL);
-	elt->value = ft_strdup(value);
-	elt->key = ft_strdup(key);
-	elt->next = NULL;
-	return (elt);
+	new_arg_node->args = ft_strdup(arg);
+	return (new_arg_node);
 }
 
-void	ft_lstadd_back(t_env **head, t_env *new)
+// add back the new node to the linked list
+void	ft_add_back_arg(t_args **head, t_args *new)
 {
-	t_env	*tmp;
-
+	t_args	*tmp;
+	
 	if (!head || !*head)
 	{
 		(*head) = new;
@@ -41,26 +41,4 @@ void	ft_lstadd_back(t_env **head, t_env *new)
 		tmp = tmp->next;
 	tmp->next = new;
 	new->next = NULL;
-}
-
-void	get_env(char **envp)
-{
-	int		i;
-	char	**tmp;
-	t_env	*new_node;
-
-	i = 0;
-	while (envp[i])
-	{
-		tmp = ft_split(envp[i], '=');
-		if (tmp && tmp[0] && tmp[1])
-		{
-			new_node = ft_lstnew(tmp[0], tmp[1]);
-			ft_lstadd_back(&g_gob.env_p, new_node);
-			free(tmp[0]);
-			free(tmp[1]);
-			free(tmp);
-		}
-		i++;
-	}
 }
