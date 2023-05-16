@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 05:38:34 by zjaddad          ###   ########.fr       */
+/*   Created: 2022/10/06 12:57:46 by zjaddad           #+#    #+#             */
+/*   Updated: 2022/10/25 16:00:33 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../libft/libft.h"
-#include "builtins.h"
-#include "minishell.h"
+#include "libft.h"
 
-void	env(int outf)
+char	*ft_strchr(const char *str, int c)
 {
-	t_env *tmp;
+	int	i;
 
-	tmp = glob.env_p;
-	glob.ex_status = 0;
-	while (tmp)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		ft_putstr_fd(tmp->key, outf);
-		ft_putstr_fd("=", outf);
-		ft_putstr_fd(tmp->value, outf);
-		ft_putstr_fd("\n", outf);
-		tmp = tmp->next;
+		if (str[i] == (char)c)
+			return ((char *)str + i);
+		i++;
 	}
+	if ((char)c == '\0')
+		return ((char *)str + i);
+	return (NULL);
 }

@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 05:38:34 by zjaddad          ###   ########.fr       */
+/*   Created: 2023/01/19 21:11:02 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/15 15:20:04 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../libft/libft.h"
-#include "builtins.h"
-#include "minishell.h"
+#include "libft.h"
 
-void	env(int outf)
+t_list *ft_lstlast(t_list *lst)
 {
-	t_env *tmp;
+	t_list	*last;
 
-	tmp = glob.env_p;
-	glob.ex_status = 0;
-	while (tmp)
+	last = NULL;
+	
+	if (lst)
 	{
-		ft_putstr_fd(tmp->key, outf);
-		ft_putstr_fd("=", outf);
-		ft_putstr_fd(tmp->value, outf);
-		ft_putstr_fd("\n", outf);
-		tmp = tmp->next;
+		last = lst;
+		while (last->next)
+			last = last->next;
 	}
+	return (last);
 }

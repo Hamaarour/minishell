@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/12 14:46:56 by zjaddad           #+#    #+#             */
+/*   Updated: 2023/05/12 14:46:56 by zjaddad          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft/libft.h"
 #include "minishell.h"
 #include "builtins.h"
@@ -36,22 +48,25 @@ void	arg_one(char *arg)
 		invalid_arg();
 }
 
-void    ft_exit(char **cmd)
+void ft_exit(t_args *cmd)
 {
-	int	args_nb;
+    int 	args_nb;
+	t_args	*tmp;
 
-	args_nb = args_len(cmd);
-	if (args_nb == 1)
-	{
-		write(1, "exit\n", sizeof("exit"));
-		exit(glob.ex_status);
-	}
-	else if (args_nb == 2)
-		arg_one(cmd[1]);
-	else
-	{
-		if (!ft_atoi(cmd[1]))
-			invalid_arg();
-		write(1, "too many arguments\n", 19);
-	}
+	args_nb = ft_lstsizes(cmd);
+	tmp = cmd->next;
+    if (args_nb == 1)
+    {
+        write(1, "exit\n", sizeof("exit"));
+        exit(glob.ex_status);
+    }
+    else if (args_nb == 2)
+        arg_one(tmp->args);
+    else
+    {
+        if (!ft_atoi(tmp->args))
+            invalid_arg();
+		printf("exit\n");
+        write(1, "too many arguments\n", 19);
+    }
 }

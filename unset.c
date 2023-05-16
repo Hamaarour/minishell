@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/11 01:32:00 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/16 05:37:40 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,36 @@ void	ft_free(t_env *evr)
 	free(evr);
 }
 
-void	unset(char **cmd, t_env *evr)
+void unset(t_args *cmd)
 {
-	int	i;
-	t_env	*tmp;
-	t_env	*prev;
+    int i;
+    t_env *tmp;
+    t_env *prev;
 
-	tmp = evr;
-	i = 0;
-	// PS: check if program get env_value(mean those are after '=' in env)
-	//it must display nothing. Become functional just if get it env_key
-	if (cmd[0] && !cmd[1])
-		return ;
-	while (cmd[++i])
-	{
-		if (!(foreign_letter(cmd[i])))
-			return ;
-		while (tmp)
-		{
-			if (!ft_strcmp(cmd[i], tmp->key))
-			{
-				prev->next = tmp->next;
-				ft_free(tmp);
-				break ;
-			}
-			prev = tmp;
-			tmp = tmp->next;	
-		}
-		tmp = evr;
-	}
+    tmp = glob.env_p;
+    i = 0;
+    if (cmd == NULL || cmd->next == NULL)
+        return;
+    while (cmd->next != NULL)
+    {
+        i++;
+        if (!(foreign_letter(cmd->next->args)))
+            return;
+        while (tmp)
+        {
+            if (!ft_strcmp(cmd->next->args, tmp->key))
+            {
+                if (tmp == glob.env_p)
+                    glob.env_p = glob.env_p->next;
+                else
+                    prev->next = tmp->next;
+                ft_free(tmp);
+                break;
+            }
+            prev = tmp;
+            tmp = tmp->next;
+        }
+        tmp = glob.env_p;
+        cmd = cmd->next;
+    }
 }
-

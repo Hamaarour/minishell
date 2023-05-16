@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:11:22 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/12 00:15:03 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/16 00:09:16 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_lstadd_backs(t_env **head, t_env *new)
 	new->next = NULL;
 }
 
-void	get_env(t_env **env, char **envp)
+void	get_env(char **envp)
 {
 	int		i;
 	char	**tmp;
@@ -57,7 +57,7 @@ void	get_env(t_env **env, char **envp)
 		if (tmp && tmp[0] && tmp[1])
 		{
 			new_node = ft_lstnews(tmp[0], tmp[1]);
-			ft_lstadd_backs(env, new_node);
+			ft_lstadd_backs(&glob.env_p, new_node);
 			free(tmp[0]);
 			free(tmp[1]);
 			free(tmp);

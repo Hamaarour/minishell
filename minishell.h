@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/12 04:28:07 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/16 06:07:28 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,54 +42,44 @@ typedef struct  s_gob
 {
 	int 	ex_status;
 	int 	nb_cmd;
-	t_env	*envr;
+	t_env	*env_p;
+	t_env	*exprt;
 	// number of command;
 } t_gob;
 
-typedef struct s_replace_var
+typedef struct t_args
 {
-	int		i;
-	int		index;
-	char	*truncated_str;
-	char	*new_str;
-	char	*tmp;
-	int		start;
-	char	*last_str;
-	
-}	t_replace_var;
+	char			*args;
+	struct t_args	*next;
+}	t_args;
 
-typedef struct s_all
+typedef struct s_data_cmd
 {
-	t_env	*env;
-	int		index;
-	char	**str;
-}	t_all;
-
-
-//+ Syntax
-void	check_pipes(t_str *lex);
-void	check_qutes(char *str);
-int		check_i_o_redirection(char *str);
-int		check_here_doc(char *str);
-int		check_append(char *str);
-int		check_syntaxe(char *str);
-//+ Envirment
-void	get_env(t_env **env, char **envp);// get the envirment variables
-//+ spliting the string
-char	**spliting_cmd(t_str *str);// spliting the string by pipes
-//+Expanding the envirment variables
-int		check_dollar(char *str, char dollar);
-int		ft_find(char *str, char c);
-char	*find_var(t_env *env_p, char *var);
-void	expand_var(t_str *str, t_env *env_p);
-int		is_substring(char *str, char *to_find);
+	t_args				*args;// the cmd that we will execute 
+	int					fd_in;// the fd of the input 0
+	int					fd_out;// the fd of the output 1
+	struct s_data_cmd	*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
+}	t_data_cmd;
 
 //////////////BUILTINS_PART/////////////////
-void	unset(char **cmd, t_env *evr);
-void	env(t_env *evr, int outf);
-void    ft_exit(char **cmd);
-void	cd(char **cmd, t_env *envr);
+void 	unset(t_args *cmd);
+void	env(int outf);
+void 	ft_exit(t_args *cmd);
+void 	echo(t_args *input, int outf);
+void 	cd(t_args *cmd);
+void	ft_export(char **cmd, int outf);
+void	pwd(t_args *input, int fd);
 int		args_len(char **s);
+int		foreign_letter(char *cmd);
+void	ft_lstadd_back_s(t_env **head, t_env *new);
+t_env	*ft_lstnew_s(char *key, char *value);
+void	get_env(char **envp);
 //////////////BUILTINS_PART/////////////////
+//////////////FT_LST////////////////////////
+t_args  *ft_lstnew_arg(void *content);
+t_args  *ft_lstlast_arg(t_args *lst);
+void 	ft_lstadd_back_arg(t_args **lst, t_args *new);
+int 	ft_lstsizes(t_args *lst);
+//////////////FT_LST////////////////////////
 t_gob glob;
 #endif
