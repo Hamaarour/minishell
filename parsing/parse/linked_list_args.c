@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:43 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/14 14:27:02 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:11:30 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_args *ft_new_arg(char *arg)
 	if (new_arg_node == NULL)
 		return (NULL);
 	new_arg_node->args = ft_strdup(arg);
+	new_arg_node->next = NULL;
 	return (new_arg_node);
 }
 

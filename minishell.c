@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 01:14:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:42:43 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,24 @@ int	read_line(char **line)
 	}
 	return (0);
 }
-
-void	lets_go(t_parser *parser,char *cmd_enter, int ac, t_data_cmd **data_cmd)
+void print_args(t_data_cmd *data_cmd) {
+    while (data_cmd != NULL) {
+        while (data_cmd->args != NULL) {
+            printf("--%s--", data_cmd->args->args);
+            data_cmd->args = data_cmd->args->next;
+        }
+        printf("****************************\n");
+        data_cmd = data_cmd->next;
+    }
+}
+void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 {
-	(void)data_cmd;
+
 	(void)parser;
+
+	t_data_cmd	*data_cmd;
+
+	data_cmd = NULL;
 	if (ac == 1)
 	{
 		while(1)
@@ -47,12 +60,12 @@ void	lets_go(t_parser *parser,char *cmd_enter, int ac, t_data_cmd **data_cmd)
 			{
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
-				
-				start_parsing(parser, cmd_enter, data_cmd);
-
+				start_parsing(parser, cmd_enter, &data_cmd);
+				print_args(data_cmd);
 				free(cmd_enter);
 			}
 		}
+		
 	}
 	ft_putendl_fd("You cannot pass arguments to this program", 2);
 	exit(EXIT_FAILURE);
@@ -63,28 +76,9 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	t_parser 	*parser;
 	char		*input;
-	t_data_cmd	*data_cmd;
 	
-	data_cmd = NULL;
 	input = NULL;
 	parser = NULL;
 	get_env(env);
-	lets_go(parser, input, ac, &data_cmd);
+	lets_go(parser, input, ac);
 }
-
-
-// ? test token 
-	// t_lexer *lexer;
-	// t_token *token;
- 	// 	lexer = init_lexer("ls -l |   \"$USER\" >>");
-	// lexer->env = env_p;
-    // token = get_next_token(lexer);
-	
-    // while (token->type != t_EOF)
-    // {
-    //     printf("Token ( %d , %s)\n", token->type, token->val);
-	// 	free(token->val);
-	// 	free(token);
-    //     token = get_next_token(lexer);
-    // }
-	//system("leaks minishell");

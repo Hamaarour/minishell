@@ -6,21 +6,21 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/14 14:28:32 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:02:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
 //creat new node of t_data_cmd type and return it
-t_data_cmd	*ft_new_cmd(t_args *args)
+t_data_cmd	*ft_new_cmd(t_args *arg)
 {
 	t_data_cmd	*new_cmd_node;
 
 	new_cmd_node = (t_data_cmd *)malloc(sizeof(*new_cmd_node));
 	if (new_cmd_node == NULL)
 		return (NULL);
-	new_cmd_node->args = args;
+	new_cmd_node->args = arg;
 	new_cmd_node->fd_in = 0;
 	new_cmd_node->fd_out = 1;
 	new_cmd_node->next = NULL;

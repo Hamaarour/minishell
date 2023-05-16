@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 00:01:06 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:06:28 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct t_args
 }	t_args;
 
 // !this struct for the all cmd in the line
+
 typedef struct s_data_cmd
 {
 	t_args				*args;// the cmd that we will execute 
@@ -106,7 +107,6 @@ typedef struct s_data_cmd
 	int					fd_out;// the fd of the output 1
 	struct s_data_cmd	*next;// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
 }	t_data_cmd;
-
 
 t_parser	*initialize_parser(char *input);// init_parser will create a parser object and return it 
 void		check_max_heredoc(char *str);// check_max_heredoc will check if the heredoc "<<" is not more than 16
@@ -116,7 +116,7 @@ void		parser_free(t_parser *parser);
 int			err_msg(char *msg);
 void		free_tocken(t_token *token);
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-t_data_cmd	*ft_new_cmd(t_args *args);//creat new node of t_data_cmd type and return it
+t_data_cmd	*ft_new_cmd(t_args *arg);//creat new node of t_data_cmd type and return it
 void		ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);// add back the new node to the linked list
 t_args		*ft_new_arg(char *arg);//creat new node of t_args type and return it
 void		ft_add_back_arg(t_args **head, t_args *new);// add back the new node to the linked list
