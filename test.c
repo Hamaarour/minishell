@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 03:21:45 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 06:13:57 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 00:10:16 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,19 @@ t_args *init_struct_cmd(char **args)
     return (head);
 }
 
+void	ft_free_node(t_args *cmd)
+{
+	t_args	*tmp;
+
+	while (cmd)
+	{
+		tmp = cmd->next;
+		// free(cmd->args);
+		free(cmd);
+		cmd = tmp;
+	}
+}
+
 int main(int ac, char **av, char **env) {
     int i = 0;
 	int	fd = 1;
@@ -122,6 +135,7 @@ int main(int ac, char **av, char **env) {
 		free(cmd_prt);
 		free(input);
 		free(ss);
+		ft_free_node(comd);
 		i = 0;
 	}
     return 0;

@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 05:36:18 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 00:47:38 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ int ft_lstsizes(t_args *lst)
 	i = 0;
 	if (lst)
 	{
-		lent = malloc(sizeof(t_args));
-		if (!lent)
-			return (0);
 		lent = lst;
 		while (lent)
 		{
@@ -44,7 +41,9 @@ void	update_old(char *old_p, t_env *evr)
 	{
 		if (!ft_strcmp(tmp->key, "OLDPWD"))
 		{
-			tmp->value = old_p;
+			if (tmp->value)
+				free(tmp->value);
+			tmp->value = ft_strdup(old_p);
 			break ;
 		}
 		tmp = tmp->next;
@@ -60,7 +59,9 @@ void	update_pwd(char *pwd, t_env *evr)
 	{
 		if (!ft_strcmp(tmp->key, "PWD"))
 		{
-			tmp->value = pwd;
+			if (tmp->value)
+				free(tmp->value);
+			tmp->value = ft_strdup(pwd);
 			break ;
 		}
 		tmp = tmp->next;
@@ -73,6 +74,7 @@ void	get_home(t_env *evr)
 	char	*old_p;
 	char	*home;
 
+	home = NULL;
 	tmp = evr;
 	while (tmp)
 	{
@@ -84,10 +86,14 @@ void	get_home(t_env *evr)
 				printf("ERROR: chdir\n");
 			else
 				home = getcwd(NULL, 0);
+			break ;
 		}
 		tmp = tmp->next;
 	}
 	update_pwd(home, evr);
+	free(old_p);
+	if (home)
+		free(home);
 }
 ///////////Ps : chekc PWD in env list if chnge it or not /////////////////
 void cd(t_args *cmd)
@@ -111,5 +117,7 @@ void cd(t_args *cmd)
         }
         pwd = getcwd(NULL, 0);
         update_pwd(pwd, glob.env_p);
+		free(old_p);
+		free(pwd);
     }
 }
