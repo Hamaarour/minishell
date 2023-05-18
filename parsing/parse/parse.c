@@ -6,29 +6,60 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/16 23:13:28 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:49:32 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
+
+void print_cmd_data(t_data_cmd **cmd_data) 
+{
+	//(*cmd_data) = (*cmd_data)->next;
+    while ((*cmd_data) != NULL) {
+        t_args *arg = (*cmd_data)->args;
+        while (arg != NULL) {
+            printf("%s\n", arg->args);
+            arg = arg->next;
+        }
+
+		printf("* * * * * new node * * * * *\n");
+        (*cmd_data) = (*cmd_data)->next;
+    }
+}
+
+t_args	*create_node(t_parser *parser)
+{
+	t_parser	*tmp;
+	t_args		*arg;
+
+	arg = NULL;
+	tmp = parser;
+	while (tmp->current_token->type != t_PIPE && tmp->current_token->type != t_EOF)
+	{
+		ft_add_back_arg(&arg, ft_new_arg(tmp->current_token->val));
+		tmp->current_token = get_next_token(tmp->lexer);
+	}
+	return (arg);
+}
 //divide the cmd into tokens and add them to the linked list
 void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 {
-	t_args *args = NULL;
+	t_args	*arg;
+
+	arg = NULL;
 	while (parser->current_token->type != t_EOF)
 	{
 		if (parser->current_token->type != t_PIPE)
 		{
-			(*cmd_data)->args = ft_new_arg(parser->current_token->value);
+			arg = create_node(parser);
+			ft_add_back_cmd(cmd_data, ft_new_cmd(arg));
+			arg = NULL;
 		}
-		else if (parser->current_token->type == t_PIPE)
-		{
-			ft_add_back_cmd(cmd_data, ft_new_cmd());
-		}
-		
 		parser->current_token = get_next_token(parser->lexer);
+	
 	}
+	print_cmd_data(cmd_data);
 }  
 
 void	start_parsing(t_parser *parser, char *cmd, t_data_cmd **cmd_data)

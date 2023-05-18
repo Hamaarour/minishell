@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/16 14:42:43 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:45:47 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ int	read_line(char **line)
 	return (0);
 }
 void print_args(t_data_cmd *data_cmd) {
-    while (data_cmd != NULL) {
-        while (data_cmd->args != NULL) {
-            printf("--%s--", data_cmd->args->args);
+    while (data_cmd)
+	{
+        while (data_cmd->args)
+		{
+            printf("--%s--\n", data_cmd->args->args);
             data_cmd->args = data_cmd->args->next;
         }
         printf("****************************\n");
@@ -61,7 +63,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
 				start_parsing(parser, cmd_enter, &data_cmd);
-				print_args(data_cmd);
+				//print_args(data_cmd);
 				free(cmd_enter);
 			}
 		}
