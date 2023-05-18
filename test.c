@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 03:21:45 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/17 00:10:16 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 05:53:41 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	check_builtin(t_args *cmd, int fd, t_env *envr)
 		env(fd);
 	else if (!ft_strcmp(cmd->args, "exit"))
 		ft_exit(cmd);
-	// else if (!ft_strcmp(cmd->args, "export"))
-	// 	ft_export(cmd, fd);
+	else if (!ft_strcmp(cmd->args, "export"))
+		ft_export(cmd, fd);
 	else
 		printf("NO BUILTINS\n");
 }
@@ -118,8 +118,8 @@ int main(int ac, char **av, char **env) {
 	char *ss;
 	char	**cmd_prt;
 	t_args	*comd;
-
-	get_env(env);
+	extern char **environ;
+	get_env(environ);
 	while (1)
 	{
 		input = readline("\033[0;32mExecution =>> ");

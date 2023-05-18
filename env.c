@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 05:38:34 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 18:45:52 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	env(int outf)
 	glob.ex_status = 0;
 	while (tmp)
 	{
-		ft_putstr_fd(tmp->key, outf);
-		ft_putstr_fd("=", outf);
-		ft_putstr_fd(tmp->value, outf);
-		ft_putstr_fd("\n", outf);
+		if (tmp->value)
+		{
+			ft_putstr_fd(tmp->key, outf);
+			ft_putstr_fd("=", outf);
+			ft_putstr_fd(tmp->value, outf);
+			ft_putstr_fd("\n", outf);
+		}
 		tmp = tmp->next;
 	}
 }

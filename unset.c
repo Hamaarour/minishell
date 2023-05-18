@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 23:40:04 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 05:19:12 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	foreign_letter(char *cmd)
 			|| (cmd[0] >= '0' && cmd[0] <= '9'))
 		{
 			printf("%s: not a valid\n", cmd);
+			glob.ex_status = 1;
 			return (0);
 		}
 		i++;
@@ -40,7 +41,8 @@ int	foreign_letter(char *cmd)
 void	ft_free(t_env *evr)
 {
 	free((evr)->key);
-	free((evr)->value);
+	if (evr->value)
+		free((evr)->value);
 	free(evr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/16 06:07:28 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 04:26:53 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	env(int outf);
 void 	ft_exit(t_args *cmd);
 void 	echo(t_args *input, int outf);
 void 	cd(t_args *cmd);
-void	ft_export(char **cmd, int outf);
+//void	ft_export(char **cmd, int outf);
+void	ft_export(t_args *cmd, int outf);
 void	pwd(t_args *input, int fd);
 int		args_len(char **s);
 int		foreign_letter(char *cmd);
@@ -81,5 +82,8 @@ t_args  *ft_lstlast_arg(t_args *lst);
 void 	ft_lstadd_back_arg(t_args **lst, t_args *new);
 int 	ft_lstsizes(t_args *lst);
 //////////////FT_LST////////////////////////
+//////////////Free/////////////////////////
+void	ft_free(t_env *evr);
+//////////////Free/////////////////////////
 t_gob glob;
 #endif

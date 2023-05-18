@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/17 00:47:38 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/17 00:59:14 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	get_home(t_env *evr)
 	if (home)
 		free(home);
 }
-///////////Ps : chekc PWD in env list if chnge it or not /////////////////
+
 void cd(t_args *cmd)
 {
     int args;
