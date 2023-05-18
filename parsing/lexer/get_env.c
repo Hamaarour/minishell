@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:26:25 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 00:00:49 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:12:19 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	get_env(char **envp)
 	int		i;
 	char	**tmp;
 	t_env	*new_node;
-
+	// char	*null;
+	
+	//null = NULL;
 	i = 0;
 	while (envp[i])
 	{
@@ -63,4 +65,6 @@ void	get_env(char **envp)
 		}
 		i++;
 	}
+	// new_node = ft_lstnew_s("OLDPWD", null);
+	// ft_lstadd_backs(&g_gob.env_p, new_node);
 }
