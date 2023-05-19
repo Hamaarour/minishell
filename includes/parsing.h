@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/19 19:21:44 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:57:40 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <ctype.h>
 # include <errno.h>
+#include <fcntl.h>
 # include "libft.h"
 # include "token.h"
 

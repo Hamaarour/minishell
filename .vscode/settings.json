@@ -3,7 +3,8 @@
     "string.h": "c",
     "parsing.h": "c",
     "token.h": "c",
-    "errno.h": "c"
+    "errno.h": "c",
+    "fcntl.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

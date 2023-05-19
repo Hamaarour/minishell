@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/19 15:02:34 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:40:02 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	pipe_syntax(t_parser *parser, char *cmd)
 {
 	t_parser *tmp;
 	(void)parser;
-	(void)cmd;
+	
 	tmp = initialize_parser(cmd);
 	while (tmp->current_token->type != t_EOF)
 	{
@@ -91,7 +91,6 @@ int	pipe_syntax(t_parser *parser, char *cmd)
 			}
 		}
 		tmp->previous_token = tmp->current_token;
-		free(tmp->current_token);
 		tmp->current_token = get_next_token(tmp->lexer);
 		if (tmp->current_token->type == t_EOF && tmp->previous_token->type == t_PIPE)
 		{
@@ -134,7 +133,6 @@ int	redirect_syntax(t_parser *parser, char *cmd)
 
 int iterate_over_tokens_check_syntaxe(t_parser *parser, char *cmd)
 {
-	// 
 	if ((pipe_syntax(parser, cmd) == 1) || (redirect_syntax(parser, cmd) == 1))
 	{
 		return (err_msg("Bash : syntax error"));

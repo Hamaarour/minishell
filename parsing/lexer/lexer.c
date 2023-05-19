@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 01:14:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/20 00:35:23 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,40 @@ t_token	*fetch_string(t_lexer *lexer)
 }
 
 /*
+	get the next token 
+*/
+
+t_token	*advance_to_next_tocken(t_lexer *lexer, t_token *token)
+{
+	advance_lexer(lexer);
+	return (token);
+}
+
+/*
+	outfile 
+	append
+*/
+t_token	*rederection_great(t_lexer *lexer)
+{
+	advance_lexer(lexer);
+	if (lexer->c == '>')
+		return (advance_to_next_tocken(lexer, init_tokens(t_APPEND, ft_strdup(">>"))));
+	return (init_tokens(t_GREAT_THAN, ft_strdup(">")));
+}
+
+/*
+infile
+here document
+*/
+t_token	*rederection_less(t_lexer *lexer)
+{
+	advance_lexer(lexer);
+	if (lexer->c == '<')
+		return (advance_to_next_tocken(lexer, init_tokens(t_HEREDOC, ft_strdup("<<"))));
+	return (init_tokens(t_LESS_THAN, ft_strdup("<")));
+}
+
+/*
 The lexer, also called the tokenizer, takes as the entered line as input.
 It then reads through the line word by word, using white space as delimiters.
 First it checks wether or not the word is a token, ie: |, <, <<, >, or >>,
@@ -118,29 +152,18 @@ First it checks wether or not the word is a token, ie: |, <, <<, >, or >>,
 */
 t_token	*get_next_token(t_lexer *lexer)
 {
-	while (lexer->c != '\0' && lexer->i < lexer->len_src)
+	while (lexer->c != '\0')
 	{
 		if (lexer->c == ' ' || lexer->c == '\t')
 			lexer_skip_whitespace(lexer);
 		else if (lexer->c == '|')
-		{
-			return (lexer_advance_with_token(lexer, init_tokens(t_PIPE, ft_strdup("|"))));
-		}
+			return (advance_to_next_tocken(lexer, init_tokens(t_PIPE, ft_strdup("|"))));
 		else if (lexer->c == '>')
-		{
-			if(lexer->src[lexer->i + 1] == '>')
-				return (lexer_advance_with_token(lexer, init_tokens(t_APPEND, ft_strdup(">>"))));
-			return (lexer_advance_with_token(lexer, init_tokens(t_GREAT_THAN, ft_strdup(">"))))	;
-		}
+			return (rederection_great(lexer));
 		else if (lexer->c == '<')
-		{
-			if (lexer->src[lexer->i + 1] == '<')
-				return (lexer_advance_with_token(lexer, init_tokens(t_HEREDOC, ft_strdup("<<"))));
-			return (lexer_advance_with_token(lexer, init_tokens(t_LESS_THAN, ft_strdup("<"))));
-		}
+			return (rederection_less(lexer));
 		else if (lexer->c != ' ' && lexer->c != '\t')
 			return (fetch_string(lexer));
-		
 	}
 	return (init_tokens(t_EOF, ft_strdup("EOF")));
 }
