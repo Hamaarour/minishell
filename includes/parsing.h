@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/19 15:11:43 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:21:44 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,18 @@ void		parser_free(t_parser *parser);
 int			err_msg(char *msg);
 void		free_tocken(t_token *token);
 //! +++++++++++++++++++++++++++ linked list functions ++++++++++++++++++++++++++++++++++++++++
-t_data_cmd	*ft_new_cmd(t_args *arg);//creat new node of t_data_cmd type and return it
+t_data_cmd	*ft_new_cmd(t_args *arg, int fd_in, int fd_out);//creat new node of t_data_cmd type and return it
 void		ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);// add back the new node to the linked list
 t_args		*ft_new_arg(char *arg);//creat new node of t_args type and return it
 void		ft_add_back_arg(t_args **head, t_args *new);// add back the new node to the linked list
 //!+++++++++++++++++++++++++Dividing cmd+++++++++++++++++++++++++++++++++++++
-t_args	*create_node(t_parser *parser);// this function create a new node of the linked list of the tokens and return the head
+t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out);// this function create a new node of the linked list of the tokens and return the head
 void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data);//divide the cmd into tokens and add them to the linked list
 
-
+//!+++++++++++++++++++++++++++++++files++++++++++++++++++++++++++++++++
+void	out_file(char *file_name, t_data_cmd *tmp);
+void 	in_file(char *file_name, t_data_cmd *tmp);
+void	append_file(char *file_name, t_data_cmd *tmp);
 
 
 void print_cmd_data(t_data_cmd **cmd_data);
