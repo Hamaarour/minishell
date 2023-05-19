@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/18 17:12:48 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:02:34 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,7 @@ void free_env(t_env *env)
     }
 }
 
-void free_parser(t_parser* parser) {
-    if (parser)
-	{
-        if (parser->lexer)
-		{
-            free(parser->lexer->src);
-            free(parser->lexer);
-        }
-	free(parser->current_token);
-	free(parser->previous_token);
-	free(parser);
-    }
-}
+
 /* Check PIPE syntax */
 int	pipe_syntax(t_parser *parser, char *cmd)
 {
@@ -95,20 +83,10 @@ int	pipe_syntax(t_parser *parser, char *cmd)
 			g_gob.nb_cmd++;
 			if (tmp->previous_token == NULL)
 			{
-				free(tmp->previous_token);
-				free(tmp->current_token);
-				free(tmp->lexer->src);
-				free(tmp->lexer);
-				free(tmp);
 				return (1);
 			}
 			else if (tmp->previous_token->type == t_PIPE || type_is_rederec(tmp->previous_token) == 0)
 			{
-				free(tmp->previous_token);
-				free(tmp->current_token);
-				free(tmp->lexer->src);
-				free(tmp->lexer);
-				free(tmp);
 				return (1);
 			}
 		}
@@ -117,20 +95,9 @@ int	pipe_syntax(t_parser *parser, char *cmd)
 		tmp->current_token = get_next_token(tmp->lexer);
 		if (tmp->current_token->type == t_EOF && tmp->previous_token->type == t_PIPE)
 		{
-			free(tmp->previous_token);
-			free(tmp->current_token);
-			free(tmp->lexer->src);
-			free(tmp->lexer);
-			free(tmp);
-		
 			return (1);
 		}
 	}
-	free(tmp->previous_token);
-	free(tmp->current_token);
-	free(tmp->lexer->src);
-	free(tmp->lexer);
-	free(tmp);
 	return (0);
 }
 
@@ -167,10 +134,9 @@ int	redirect_syntax(t_parser *parser, char *cmd)
 
 int iterate_over_tokens_check_syntaxe(t_parser *parser, char *cmd)
 {
-	//
-	if ((pipe_syntax(parser, cmd) == 1))
+	// 
+	if ((pipe_syntax(parser, cmd) == 1) || (redirect_syntax(parser, cmd) == 1))
 	{
-
 		return (err_msg("Bash : syntax error"));
 	}
 	return (0);

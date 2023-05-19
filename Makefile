@@ -6,7 +6,7 @@
 #    By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 16:07:00 by hamaarou          #+#    #+#              #
-#    Updated: 2023/05/18 16:40:27 by hamaarou         ###   ########.fr        #
+#    Updated: 2023/05/19 15:08:27 by hamaarou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC=parsing/Utils/lib_utils/ft_strstr.c parsing/Utils/lib_utils/ft_strcmp.c pars
 	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c\
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
+	parsing/parse/print_list.c \
 	minishell.c
 
 OBJ= $(SRC:.c=.o)

@@ -6,29 +6,53 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/18 16:50:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:38:16 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
-
-//this function print the linked list of the tokens
-void print_cmd_data(t_data_cmd **cmd_data) 
+/*
+if (tmp->next->args->args[0] == '<' || tmp->next->args->args[0] == '>')
 {
-	while ((*cmd_data) != NULL)
+	if (tmp->next->args->args[0] == '<')
+		tmp->next->fd_in = open(tmp->next->args->next->args, O_RDONLY);
+	else
+		tmp->next->fd_out = open(tmp->next->args->next->args, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	tmp->next->args = tmp->next->args->next->next;
+}
+*/
+void	out_file(char *file_name, t_data_cmd *tmp)
+{
+	
+}
+
+
+void 	in_file(t_data_cmd **cmd_data)
+{
+
+}
+
+void	openning_redirection(t_data_cmd **cmd_data)
+{
+	t_data_cmd	*tmp;
+
+	tmp = *cmd_data;
+	while (tmp->next != NULL)
 	{
-		t_args *arg = (*cmd_data)->args;
-		while (arg != NULL)
+		if (tmp->args->args[0] == '>')
 		{
-			printf("%s\n", arg->args);
-			arg = arg->next;
+			tmp->fd_out = open(tmp->args->next->args, O_WRONLY | O_CREAT | O_TRUNC);
+			tmp->args = tmp->args->next;
 		}
-		printf("|*-*-*-*-* new_node *-*-*-*-*|\n");
-		(*cmd_data) = (*cmd_data)->next;
+		if (tmp->args->args[0] == '<')
+		{
+			tmp->fd_in = open(tmp->args->next->args, O_RDONLY);
+			tmp->args = tmp->args->next;
+		}
+		tmp = tmp->next;
 	}
 }
 
-// this function create a new node of the linked list of the tokens and return the head
 t_args	*create_node(t_parser *parser)
 {
 	t_parser	*tmp;
@@ -44,7 +68,6 @@ t_args	*create_node(t_parser *parser)
 	return (arg);
 }
 
-//divide the cmd into tokens and add them to the linked list
 void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 {
 	t_args	*arg;
@@ -60,36 +83,20 @@ void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 		}
 		parser->current_token = get_next_token(parser->lexer);
 	}
-	//print_cmd_data(cmd_data);
 }
 
 void	start_parsing(t_parser *parser, char *cmd, t_data_cmd **cmd_data)
 {
 	g_gob.ex_status = iterate_over_tokens_check_syntaxe(parser, cmd);
-	(void)cmd_data;					
+	
 	if (g_gob.ex_status != 258)
 	{
 		parser = initialize_parser(cmd);
-
-		//free_pars(parser);
-
-		//divid_cmd(parser, cmd_data);
+		divid_cmd(parser, cmd_data);
+		openning_redirection(cmd_data);
 	}
 	// if suyntaxe error return NULL and free all the memory 
 	return ;
 }
 
-/*
-void iterate_cmd_data_args(t_data_cmd **cmd_data) {
-    t_data_cmd *current_cmd = *cmd_data;
-    while (current_cmd != NULL) {
-        t_args *current_args = current_cmd->args;
-        while (current_args != NULL) {
-            printf("%s\n", current_args->arg);
-            current_args = current_args->next;
-        }
-        current_cmd = current_cmd->next;
-    }
-}
-*/
 
