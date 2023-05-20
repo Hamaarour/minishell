@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/20 14:45:37 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:13:13 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,25 @@ int	read_line(char **line)
 // lets_go is the main function of the minishell
 void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 {
-
-	(void)parser;
-
 	t_data_cmd	*data_cmd;
 
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		while(1)
+		while (1)
 		{
-			init_g_gob();
+			//init_g_gob();
 			if (read_line(&cmd_enter) == 0)
 			{
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
 				start_parsing(parser, cmd_enter, &data_cmd);
-				print_cmd_data(&data_cmd);
+				//system("leaks minishell");
+				//print_cmd_data(&data_cmd);
 				free(cmd_enter);
 			}
 		}
-		
+		//free_parser_final(parser);
 	}
 	ft_putendl_fd("You cannot pass arguments to this program", 2);
 	exit(EXIT_FAILURE);
@@ -66,11 +64,12 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
-	t_parser 	*parser;
-	char		*input;
-	
+	t_parser *parser;
+	char *input;
+
 	input = NULL;
 	parser = NULL;
 	get_env(env);
 	lets_go(parser, input, ac);
+	//free_parser_final(parser);
 }

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 01:05:28 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:04:41 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 /**
 strerror() is a standard library function that returns a string description of the error code
 stored in errno.
-In summary, errno is a global variable that stores error codes, and strerror() is a standard library function
+In summary, errno is a global variable that stores error codes,
+	and strerror() is a standard library function
 that can be used to convert those error codes into human-readable error messages
 */
 char	*exit_value(t_lexer *lexer)
 {
 	char	*val;
+
 	(void)lexer;
 	val = ft_itoa(g_gob.ex_status);
 	if (val == NULL)
@@ -35,12 +37,12 @@ char	*exit_value(t_lexer *lexer)
 char	*single_quote(t_lexer *lexer)
 {
 	char	*tmp;
-	int 	begin;
+	int		begin;
 	int		end;
-	
+
 	advance_lexer(lexer);
 	begin = lexer->i;
-	if(check_qutes(lexer->src, '\'') == 1)
+	if (check_qutes(lexer->src, '\'') == 1)
 	{
 		g_gob.ex_status = 258;
 		return (NULL);
@@ -49,8 +51,8 @@ char	*single_quote(t_lexer *lexer)
 		advance_lexer(lexer);
 	end = lexer->i;
 	tmp = ft_substr(lexer->src, begin, end - begin);
-	// if (tmp == NULL)
-	// 	error_func(errno);
+	if (tmp == NULL)
+		error_func(errno);
 	advance_lexer(lexer);
 	return (tmp);
 }
@@ -62,17 +64,18 @@ char	*single_quote(t_lexer *lexer)
 char	*envairment_var(t_lexer *lexer)
 {
 	char	*str;
-	char	*tmp;// another pointer to free the str after the get_envairment_var function
-	int 	begin;
+	int		begin;
 	int		end;
 
+	char *tmp;
+		// another pointer to free the str after the get_envairment_var function
 	begin = lexer->i;
 	while (ft_isalnum(lexer->c))
 		advance_lexer(lexer);
 	end = lexer->i;
 	str = ft_substr(lexer->src, begin, end - begin);
 	tmp = str;
-	if(str == NULL)
+	if (str == NULL)
 		error_func(errno);
 	str = get_envairment_var(tmp, lexer);
 	if (str == NULL)
@@ -98,20 +101,18 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 		tmp = envairment_var(lexer);
 	*my_str = ft_strjoin(*my_str, tmp);
 	free(tmp);
-	
 	//add here an error function if my_str == NULL
 }
-
 
 /*
 	get the string between double qoutes  " "   and return it
 */
 void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 {
-	int		begin;
-	int		end;
-	char	*string_btw_dq;//string between double qoutes
+	int	begin;
+	int	end;
 
+	char *string_btw_dq; //string between double qoutes
 	begin = lexer->i;
 	while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
 		advance_lexer(lexer);
@@ -124,7 +125,6 @@ void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 	//add here an error function if my_str == NULL
 }
 
-
 /*
 	get the string between double qoutes  " "   and return it
 	
@@ -134,7 +134,7 @@ char	*double_quote(t_lexer *lexer)
 	char	*string;
 
 	advance_lexer(lexer);
-	if(check_qutes(lexer->src, '"') == 1)
+	if (check_qutes(lexer->src, '"') == 1)
 	{
 		g_gob.ex_status = 258;
 		return (NULL);
@@ -170,9 +170,8 @@ char	*hundle_quotes(t_lexer *lexer)
 */
 char	*get_dollar(t_lexer *lexer)
 {
-	char	*tmp; //str
-	char	*str; //s
-
+	char *tmp; //str
+	char *str; //s
 	str = ft_strdup("");
 	advance_lexer(lexer);
 	if (lexer->c == '?')
@@ -182,12 +181,11 @@ char	*get_dollar(t_lexer *lexer)
 	else
 		tmp = envairment_var(lexer);
 	if (tmp == NULL)
-		return (NULL);	
+		return (NULL);
 	str = ft_strjoin(str, tmp);
 	if (ft_strlen(tmp) >= 0)
 		free(tmp);
 	if (str == NULL)
 		error_func(errno);
 	return (str);
-
 }
