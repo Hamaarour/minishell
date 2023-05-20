@@ -1,35 +1,8 @@
-1/ expand in here doc 
-2/check syntaxe in correct
+
+1- echo test\' -> sysntax error
+2- HERE DOC
 
 
-/*  
-*pipe 
- | cmd
-cmd |
-cmd |       | cmd
-cmd || cmd
-time | ls "just if time cmd is first cmd"
-
-*/
-/*
-*redirections
-><
-<>
-<<<
->>>
-cmd <
-cmd >
-cmd <<
-cdm >>
-
-< |
-> | 
->> |
-<< |
-
-*/
-
-/*
-echo test\' -> sysntax error
-
-*/
+3-  ls > $sgsdgdsg | sleep 2 | ls >$sdgsdgsdgs
+    bash: $sgsdgdsg: ambiguous redirect
+    bash: $sgsdgdsg: ambiguous redirect

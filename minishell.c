@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/19 23:33:38 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:45:37 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
 				start_parsing(parser, cmd_enter, &data_cmd);
-				//print_cmd_data(&data_cmd);
+				print_cmd_data(&data_cmd);
 				free(cmd_enter);
 			}
 		}
