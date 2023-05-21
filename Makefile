@@ -6,7 +6,7 @@
 #    By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 16:07:00 by hamaarou          #+#    #+#              #
-#    Updated: 2023/05/19 15:08:27 by hamaarou         ###   ########.fr        #
+#    Updated: 2023/05/21 13:58:10 by hamaarou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,10 @@ SRC=parsing/Utils/lib_utils/ft_strstr.c parsing/Utils/lib_utils/ft_strcmp.c pars
 	parsing/Utils/lib_utils/ft_calloc.c parsing/Utils/lib_utils/ft_strchr.c parsing/Utils/lib_utils/ft_split.c parsing/Utils/lib_utils/ft_strdup.c \
 	parsing/Utils/lib_utils/ft_strlen.c parsing/Utils/lib_utils/ft_substr.c parsing/Utils/lib_utils/ft_strjoin.c parsing/Utils/lib_utils/ft_itoa.c\
 	parsing/token/tokens.c \
-	parsing/lexer/lexer.c parsing/lexer/error_func.c parsing/lexer/dollar_lexer.c parsing/lexer/rm_extra_spaces.c \
+	parsing/lexer/lexer.c parsing/lexer/error_func.c parsing/lexer/dollar_lexer.c parsing/lexer/init_lexer.c  parsing/lexer/rm_extra_spaces.c parsing/lexer/lexer_utils.c\
+	parsing/lexer/dollar_lexer_utils.c \
 	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c parsing/lexer/get_env.c  parsing/lexer/free_lexer.c\
-	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c\
+	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c parsing/parse/check_types.c\
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
 	parsing/parse/print_list.c \

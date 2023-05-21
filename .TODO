@@ -4,5 +4,5 @@
 
 
 3-  ls > $sgsdgdsg | sleep 2 | ls >$sdgsdgsdgs
-    bash: $sgsdgdsg: ambiguous redirect
+    bash: $sgsdgdsg: c
     bash: $sgsdgdsg: ambiguous redirect
