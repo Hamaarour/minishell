@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 14:00:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:52:55 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,14 @@ typedef struct s_data_cmd
 
 t_parser				*initialize_parser(char *input);
 void					check_max_heredoc(char *str);
-void					start_parsing(t_parser *parser, char *input,
-							t_data_cmd **cmd);
-int	iterate_over_tokens_check_syntaxe(t_parser *parser,
-										char *cmd);
+void					start_parsing(t_parser *parser, t_data_cmd **cmd);
+int						iterate_over_tokens_check_syntaxe(t_parser *parser);
 int						err_msg(char *msg);
 int						type_is_char(t_token *token);
 int						type_is_rederec(t_token *token);
 int						type_is_pipe(t_token *token);
+int						type_out_in(t_token *token);
+int						type_hd_apd(t_token *token);
 //! +++++++++++++++++++++++++++ linked list functions ++++++++++++++++++++++++++++++++++++++++
 t_data_cmd				*ft_new_cmd(t_args *arg, int fd_in, int fd_out);
 void					ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);
