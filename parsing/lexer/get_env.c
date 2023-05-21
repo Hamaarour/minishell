@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:26:25 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/18 15:12:19 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:25:09 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ void	ft_lstadd_back(t_env **head, t_env *new)
 
 void	get_env(char **envp)
 {
-	int		i;
-	char	**tmp;
-	t_env	*new_node;
+	int i;
+	char **tmp;
+	t_env *new_node;
+
 	// char	*null;
-	
 	//null = NULL;
 	i = 0;
 	while (envp[i])
 	{
-		tmp = ft_split(envp[i], '=');
+		tmp = ft_split_p(envp[i], '=');
+		//printf("tmp[0] = %s , tmp[1] = %s\n", tmp[0], tmp[1]);
 		if (tmp && tmp[0] && tmp[1])
 		{
 			new_node = ft_lstnew(tmp[0], tmp[1]);
@@ -65,6 +66,7 @@ void	get_env(char **envp)
 		}
 		i++;
 	}
+
 	// new_node = ft_lstnew_s("OLDPWD", null);
 	// ft_lstadd_backs(&g_gob.env_p, new_node);
 }

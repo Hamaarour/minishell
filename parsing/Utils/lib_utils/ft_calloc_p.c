@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_calloc_p_p.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:13:02 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/04/14 15:59:26 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:05:27 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc_p(size_t count, size_t size)
 {
 	void	*p;
 	size_t	i;

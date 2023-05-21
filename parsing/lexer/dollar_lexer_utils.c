@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 13:59:24 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:08:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*single_quote(t_lexer *lexer)
 	while (lexer->c != '\'' && lexer->c != '\0')
 		advance_lexer(lexer);
 	end = lexer->i;
-	tmp = ft_substr(lexer->src, begin, end - begin);
+	tmp = ft_substr_p(lexer->src, begin, end - begin);
 	if (tmp == NULL)
 		error_func(errno);
 	advance_lexer(lexer);
@@ -55,7 +55,7 @@ char	*envairment_var(t_lexer *lexer)
 	while (ft_isalnum(lexer->c))
 		advance_lexer(lexer);
 	end = lexer->i;
-	str = ft_substr(lexer->src, begin, end - begin);
+	str = ft_substr_p(lexer->src, begin, end - begin);
 	tmp = str;
 	if (str == NULL)
 		error_func(errno);
@@ -99,7 +99,7 @@ void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 	while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
 		advance_lexer(lexer);
 	end = lexer->i;
-	string_btw_dq = ft_substr(lexer->src, begin, end - begin);
+	string_btw_dq = ft_substr_p(lexer->src, begin, end - begin);
 	if (string_btw_dq == NULL)
 		error_func(errno);
 	*my_str = ft_strjoin(*my_str, string_btw_dq);

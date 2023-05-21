@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:52:37 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 13:55:52 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:07:53 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_lexer	*init_lexer(char *src)
 {
 	t_lexer	*lexer;
 
-	lexer = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
+	lexer = (t_lexer *)ft_calloc_p(1, sizeof(t_lexer));
 	if (!lexer)
 		return (NULL);
 	lexer->src = src;

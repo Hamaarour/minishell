@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 17:25:42 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:17:55 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 	{
 		while (1)
 		{
-			//init_g_gob();
+			init_g_gob();
 			if (read_line(&cmd_enter) == 0)
 			{
 				add_history(cmd_enter);
@@ -69,6 +69,7 @@ int	main(int ac, char **av, char **env)
 
 	input = NULL;
 	parser = NULL;
+
 	get_env(env);
 	lets_go(parser, input, ac);
 	//free_parser_final(parser);

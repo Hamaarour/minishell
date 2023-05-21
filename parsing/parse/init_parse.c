@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:23:02 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 00:43:52 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:07:53 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_parser	*initialize_parser(char *input)
 	t_parser	*parser;
 	t_lexer		*lexer;
 
-	parser = (t_parser *)ft_calloc(1, sizeof( t_parser));
+	parser = (t_parser *)ft_calloc_p(1, sizeof( t_parser));
 	if (!parser)
 		return (NULL);
 		

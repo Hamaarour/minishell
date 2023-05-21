@@ -1,41 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_p.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:27:03 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/15 23:38:53 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:26:19 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/libft.h"
 
-/*static size_t	count_word(char const *s, char sep)
-{
-	size_t	i;
-	size_t	count;
-
-	i = 0;
-	count = 0;
-	if (s[i] != sep && s[i])
-	{
-		i++;
-		count++;
-	}
-	while (s[i])
-	{
-		if (s[i] != sep && s[i - 1] == sep)
-			count++;
-		i++;
-	}
-	return (count);
-}*/
-
 static int	free_space(char **p)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (p[i])
@@ -46,12 +25,13 @@ static int	free_space(char **p)
 	return (1);
 }
 
-static	char	**aloc(char const *s, char sep)
+static char	**aloc(char const *s, char sep)
 {
 	char	**k;
-(void)sep;
-(void)s;
-	k = (char **)ft_calloc((2), sizeof(char *));
+
+	(void)sep;
+	(void)s;
+	k = (char **)ft_calloc_p((1), sizeof(char *));
 	if (!k)
 		return (NULL);
 	return (k);
@@ -65,12 +45,12 @@ static int	ww(char const *s, char sep, int i)
 	return (i);
 }
 
-char	**ft_split(char const *s, char sep)
+char	**ft_split_p(char const *s, char sep)
 {
-	char	**p;
-	size_t	start;
-	size_t	i;
-	size_t	j;
+	char **p;
+	size_t start;
+	size_t i;
+	size_t j;
 
 	i = 0;
 	j = 0;
@@ -85,7 +65,7 @@ char	**ft_split(char const *s, char sep)
 		{
 			start = i;
 			i = ww(s, sep, i);
-			p[j++] = ft_substr(s, start, (i - start));
+			p[j++] = ft_substr_p(s, start, (i - start));
 			(!p) && (free_space(p));
 		}
 		else

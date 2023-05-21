@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:24:22 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/10 16:49:36 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:08:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ char	*get_char(t_lexer *lexer)
 	int		end;
 
 	begin = lexer->i;
-	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|' 
-			&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '"'
-			&& lexer->c != '\0' && lexer->c != '\'' && lexer->c != '$')
+	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|'
+		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '"'
+		&& lexer->c != '\0' && lexer->c != '\'' && lexer->c != '$')
 		advance_lexer(lexer);
 	end = lexer->i;
-	tmp = ft_substr(lexer->src, begin, end - begin);
+	tmp = ft_substr_p(lexer->src, begin, end - begin);
 	if (tmp == NULL)
 		error_func(errno);
 	return (tmp);
 }
-
