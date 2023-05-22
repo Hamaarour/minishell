@@ -1,0 +1,11 @@
+
+1- echo test\' -> sysntax error
+2- HERE DOC
+
+
+3-  ls > $sgsdgdsg | sleep 2 | ls >$sdgsdgsdgs
+    bash: $sgsdgdsg: c
+    bash: $sgsdgdsg: ambiguous redirect
+<<< 
+
+>>>
