@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 03:58:01 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/22 20:53:43 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
 				
-				start_parsing(parser, &data_cmd);
+				if (start_parsing(parser, &data_cmd) == 1)
+					continue;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
 				 start_execution(data_cmd);

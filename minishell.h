@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/22 03:06:41 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/22 20:56:24 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ t_token					*rederection_great(t_lexer *lexer);
 //!+++++++++++++++++++++++++++parsing functions+++++++++++++++++++++++++++!//
 t_parser				*initialize_parser(char *input);
 void					check_max_heredoc(char *str);
-void					start_parsing(t_parser *parser, t_data_cmd **cmd);
+int						start_parsing(t_parser *parser, t_data_cmd **cmd);
 int						iterate_over_tokens_check_syntaxe(t_parser *parser);
 int						err_msg(char *msg);
 int						type_is_char(t_token *token);
