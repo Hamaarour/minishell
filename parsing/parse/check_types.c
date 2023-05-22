@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_types.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:46:59 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 17:48:27 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:06:03 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 int	type_is_char(t_token *token)
 {

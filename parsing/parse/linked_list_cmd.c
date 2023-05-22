@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/19 19:11:35 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:06:20 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 //creat new node of t_data_cmd type and return it
 t_data_cmd	*ft_new_cmd(t_args *arg, int fd_in, int fd_out)

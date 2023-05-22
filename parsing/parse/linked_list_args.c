@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:43 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/16 14:11:30 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:06:16 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 //creat new node of t_args type and return it
 t_args *ft_new_arg(char *arg)

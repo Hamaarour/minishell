@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 18:48:33 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:09:19 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 int	check_II(t_token *current, t_token *previous)
 {
@@ -38,7 +39,7 @@ int	pipe_syntax(t_parser *parser)
 	{
 		if (parser->current_token->type == t_PIPE)
 		{
-			g_gob.nb_cmd++;
+			glob.nb_cmds++;
 			if (parser->previous_token == NULL)
 				return (reinitialize_parser(parser), 1);
 			else if (parser->previous_token->type == t_PIPE

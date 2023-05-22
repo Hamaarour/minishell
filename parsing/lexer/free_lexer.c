@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:14:06 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/11 17:35:09 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 03:07:43 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 /* free Tocken */
 void	free_tocken(t_token *token)

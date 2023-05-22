@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rm_extra_spaces.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:41:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/06 23:51:40 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:07:34 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 /*
 	The function works by iterating through the input string s one character

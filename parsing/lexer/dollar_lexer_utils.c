@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 22:08:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 04:31:17 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 /*
 + The function checks whether the quotes in the string are balanced 
@@ -26,7 +27,7 @@ char	*single_quote(t_lexer *lexer)
 	begin = lexer->i;
 	if (check_qutes(lexer->src, '\'') == 1)
 	{
-		g_gob.ex_status = 258;
+		glob.ex_status = 258;
 		return (NULL);
 	}
 	while (lexer->c != '\'' && lexer->c != '\0')

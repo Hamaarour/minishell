@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 18:57:47 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 03:55:00 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 void	error_opennig_file(int fd)
 {
 	if (fd == -1)
 	{
 		ft_putendl_fd("Bash Error: No such file or directory", 2);
-		g_gob.ex_status = 1;
+		glob.ex_status = 1;
 	}
 }
 
@@ -96,8 +97,8 @@ void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 void	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 {
 	(void)cmd_data;
-	g_gob.ex_status = iterate_over_tokens_check_syntaxe(parser);
-	if (g_gob.ex_status != 258)
+	glob.ex_status = iterate_over_tokens_check_syntaxe(parser);
+	if (glob.ex_status != 258)
 	{
 		divid_cmd(parser, cmd_data);
 		

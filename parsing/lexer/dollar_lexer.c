@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 13:59:21 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 04:34:48 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
-
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 /**
 strerror() is a standard library function that returns a string description of the error code
 stored in errno.
@@ -24,7 +24,7 @@ char	*exit_value(t_lexer *lexer)
 	char	*val;
 
 	(void)lexer;
-	val = ft_itoa(g_gob.ex_status);
+	val = ft_itoa(glob.ex_status);
 	if (val == NULL)
 		error_func(errno);
 	return (val);
@@ -41,7 +41,7 @@ char	*double_quote(t_lexer *lexer)
 	advance_lexer(lexer);
 	if (check_qutes(lexer->src, '"') == 1)
 	{
-		g_gob.ex_status = 258;
+		glob.ex_status = 258;
 		return (NULL);
 	}
 	string = ft_strdup("");

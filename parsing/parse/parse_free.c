@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:51:19 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/20 22:52:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:06:31 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 void	token_free(t_token *tocken)
 {

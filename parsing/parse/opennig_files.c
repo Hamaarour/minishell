@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   opennig_files.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:56:09 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/19 23:15:27 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:06:25 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 // void	out_file(char *file_name)
 // {

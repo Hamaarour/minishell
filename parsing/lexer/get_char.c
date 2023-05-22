@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_char.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:24:22 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/21 22:08:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/22 02:07:12 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 /*
 	The get_char function is used to get a single character from the source string.
