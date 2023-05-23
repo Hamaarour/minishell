@@ -6,12 +6,12 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:47:29 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 01:28:48 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 06:48:52 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../LIBFT/libft.h"
+#include "../../minishell.h"
+#include "../../LIBFT/libft.h"
 
 char	*get_line_env(char *s)
 {
@@ -22,8 +22,8 @@ char	*get_line_env(char *s)
 	while (tmp)
 	{
 		if (!ft_strcmp(s, tmp->key))
-			return (tmp->key);
-		tmp = tmp->next
+			return (tmp->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
@@ -35,5 +35,36 @@ char	*get_path(char *cmd)
 	int		i;
 
 	i = 0;
-	path = ft_split(get_line_env("PATH=", ':'));
+	path = ft_split(get_line_env("PATH"), ':');
+	while (path[i] && cmd)
+	{
+		comd = ft_strjoin(path[i], "/");
+		comd = ft_strjoin(comd, cmd);
+		if (!access(comd, X_OK))
+			return (comd);
+		i++;
+		free(comd);
+	}
+	return (cmd);
+}
+
+char	**to_double_pointer(t_args	*cmd)
+{
+	int		i;
+	int		node_num;
+	char	**char_cmds;
+	t_args	*tmp;
+
+	i = 0;
+	tmp = cmd;
+	node_num = ft_lstsizes(cmd);
+	char_cmds = malloc((node_num + 1) * sizeof(char *));
+	while (tmp)
+	{
+		char_cmds[i] = tmp->args;
+		i++;
+		tmp = tmp->next;
+	}
+	char_cmds[i] = NULL;
+	return (char_cmds);
 }

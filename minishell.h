@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 04:17:42 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 06:43:53 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,10 +263,12 @@ int			print_errors(char *s);
 /*		  							Execution								  */
 /* ************************************************************************** */
 
-void	start_execution(t_data_cmd *cmds);
-void	init_execution(t_data_cmd *cmds);
-void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end);
-void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end);
+void		start_execution(t_data_cmd *cmds);
+void		init_execution(t_data_cmd *cmds);
+void		exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end);
+void		dupping(t_data_cmd *cmds, int *p1_end, int *p2_end);
+char		*get_path(char *cmd);
+char		**to_double_pointer(t_args	*cmd);
 
 /* ************************************************************************** */
 /*		  						 Global Variabale							  */

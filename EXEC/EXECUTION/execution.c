@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 04:39:21 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 06:52:13 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,17 @@ void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
 
 void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end)
 {
+	char	**cmd_arg;
+
 	dupping(cmds, p1_end, p2_end);
 	if (builtins_check(cmds->args))
 	{
 		builtins(cmds->args, cmds->fd_out);
 		exit(0);
 	}
-	
+	////need function that convert linked list to char **//////////
+	cmd_arg = to_double_pointer(cmds->args);
+	////need function that convert linked list to char **//////////
 }
 
 void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end)
