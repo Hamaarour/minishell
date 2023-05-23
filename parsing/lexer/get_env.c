@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:26:25 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 03:07:28 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/22 21:51:26 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	get_env(char **envp)
 	int i;
 	char **tmp;
 	t_env *new_node;
+	char	*null;
 
-	// char	*null;
-	//null = NULL;
+	null = NULL;
 	i = 0;
 	while (envp[i])
 	{
@@ -67,7 +67,6 @@ void	get_env(char **envp)
 		}
 		i++;
 	}
-
-	// new_node = ft_lstnew_s("OLDPWD", null);
-	// ft_lstadd_backs(&glob.env_p, new_node);
+	new_node = ft_lstnew_s("OLDPWD", null);
+	ft_lstadd_back_p(&glob.env_p, new_node);
 }

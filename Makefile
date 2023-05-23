@@ -27,7 +27,7 @@ SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c EXEC/BUILTINS/unset.c\
 	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c parsing/parse/check_types.c\
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
-	parsing/parse/print_list.c \
+	parsing/parse/print_list.c EXEC/EXECUTION/execution.c\
 
 OBJ= $(SRC:.c=.o)
 

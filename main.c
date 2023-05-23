@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 20:53:43 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 03:59:23 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	start_execution(t_data_cmd	*cmds)
 {
 	if (builtins_check(cmds->args) != NONE_BLT && glob.nb_cmds == 1)
 		builtins(cmds->args, cmds->fd_out);
+	else
+		init_execution(cmds);
 }
 
 // lets_go is the main function of the minishell
