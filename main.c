@@ -3,22 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 03:59:23 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 12:22:21 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "LIBFT/libft.h"
+#include "minishell.h"
 
 void	init_glob(void)
 {
 	glob.ex_status = 0;
 	glob.nb_cmds = 1;
 }
-
+void	welcom(void)
+{
+	printf("\033[0;32m╔███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░╗\n");
+	printf("\033[0;32m║████╗░████║██║████╗░██║██║██╔════╝██║░░██║██╔════╝██║░░░░░██║░░░░░║\n");
+	printf("\033[0;32m║██╔████╔██║██║██╔██╗██║██║╚█████╗░███████║█████╗░░██║░░░░░██║░░░░░║\n");
+	printf("\033[0;32m║██║╚██╔╝██║██║██║╚████║██║░╚═══██╗██╔══██║██╔══╝░░██║░░░░░██║░░░░░║\n");
+	printf("\033[0;32m║██║░╚═╝░██║██║██║░╚███║██║██████╔╝██║░░██║███████╗███████╗███████╗║\n");
+	printf("\033[0;32m╚╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝╝\n");
+	printf("\033[4;31m\t\t\t\t\t\tHicham && Zakaria\n");
+}
 int	read_line(char **line)
 {
 	*line = readline("\033[0;32mminishell~$ ");
@@ -35,7 +44,7 @@ int	read_line(char **line)
 	return (0);
 }
 
-void	start_execution(t_data_cmd	*cmds)
+void	start_execution(t_data_cmd *cmds)
 {
 	if (builtins_check(cmds->args) != NONE_BLT && glob.nb_cmds == 1)
 		builtins(cmds->args, cmds->fd_out);
@@ -51,6 +60,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
+		//welcom();
 		while (1)
 		{
 			init_glob();
@@ -58,19 +68,17 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 			{
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
-				
 				if (start_parsing(parser, &data_cmd) == 1)
-					continue;
+					continue ;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
-				 start_execution(data_cmd);
+				start_execution(data_cmd);
 				//free(cmd_enter);
-				if(data_cmd)
+				if (data_cmd)
 				{
 					free(data_cmd);
 					data_cmd = 0;
 				}
-					
 			}
 		}
 		//free_parser_final(parser);

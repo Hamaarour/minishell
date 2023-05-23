@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   CD.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/21 23:12:52 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 11:28:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-int ft_lstsizes(t_args *lst)
+int	ft_lstsizes(t_args *lst)
 {
 	t_args	*lent;
 	int		i;
@@ -33,7 +33,7 @@ int ft_lstsizes(t_args *lst)
 
 void	update_old(char *old_p, t_env *evr)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = evr;
 	while (tmp)
@@ -51,7 +51,7 @@ void	update_old(char *old_p, t_env *evr)
 
 void	update_pwd(char *pwd, t_env *evr)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = evr;
 	while (tmp)
@@ -95,28 +95,28 @@ void	get_home(t_env *evr)
 		free(home);
 }
 
-void cd(t_args *cmd)
+void	cd(t_args *cmd)
 {
-    int args;
-    char *pwd;
-    char *old_p;
+	int		args;
+	char	*pwd;
+	char	*old_p;
 
-    glob.ex_status = 0;
-    args = ft_lstsizes(cmd);
-    if (args == 1)
-        get_home(glob.env_p);
-    else
-    {
-        old_p = getcwd(NULL, 0);
-        update_old(old_p, glob.env_p);
-        if (chdir(cmd->next->args) == -1)
-        {
-            printf("No such file or directory\n");
-            glob.ex_status = 1;
-        }
-        pwd = getcwd(NULL, 0);
-        update_pwd(pwd, glob.env_p);
+	glob.ex_status = 0;
+	args = ft_lstsizes(cmd);
+	if (args == 1)
+		get_home(glob.env_p);
+	else
+	{
+		old_p = getcwd(NULL, 0);
+		update_old(old_p, glob.env_p);
+		if (chdir(cmd->next->args) == -1)
+		{
+			printf("No such file or directory\n");
+			glob.ex_status = 1;
+		}
+		pwd = getcwd(NULL, 0);
+		update_pwd(pwd, glob.env_p);
 		free(old_p);
 		free(pwd);
-    }
+	}
 }

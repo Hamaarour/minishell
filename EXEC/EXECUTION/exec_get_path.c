@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec_get_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:47:29 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 06:48:52 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 11:28:14 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
 #include "../../LIBFT/libft.h"
+#include "../../minishell.h"
 
 char	*get_line_env(char *s)
 {
@@ -48,7 +48,7 @@ char	*get_path(char *cmd)
 	return (cmd);
 }
 
-char	**to_double_pointer(t_args	*cmd)
+char	**to_double_pointer(t_args *cmd)
 {
 	int		i;
 	int		node_num;

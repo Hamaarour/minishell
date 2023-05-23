@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:52:37 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 02:07:23 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 11:11:59 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_lexer	*init_lexer(char *src)
 	lexer->i = 0;
 	lexer->c = src[lexer->i];
 	lexer->len_src = ft_strlen(src);
+	lexer->ex_status = glob.ex_status;
 	return (lexer);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 04:31:17 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 13:03:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@ char	*single_quote(t_lexer *lexer)
 	int		end;
 
 	advance_lexer(lexer);
-	begin = lexer->i;
-	if (check_qutes(lexer->src, '\'') == 1)
+	if (!check_qutes(lexer, '\''))
 	{
+		ft_putendl_fd("Bash Error : 'Quotes'", 2);
 		glob.ex_status = 258;
 		return (NULL);
 	}
+	begin = lexer->i;
 	while (lexer->c != '\'' && lexer->c != '\0')
 		advance_lexer(lexer);
 	end = lexer->i;
 	tmp = ft_substr_p(lexer->src, begin, end - begin);
 	if (tmp == NULL)
-		error_func(errno);
+		return (NULL);
 	advance_lexer(lexer);
 	return (tmp);
 }

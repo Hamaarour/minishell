@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 20:55:40 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 12:06:41 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
+
 /**
 strerror() is a standard library function that returns a string description of the error code
 stored in errno.
@@ -23,10 +24,10 @@ char	*exit_value(t_lexer *lexer)
 {
 	char	*val;
 
-	(void)lexer;
 	val = ft_itoa(glob.ex_status);
 	if (val == NULL)
 		error_func(errno);
+	advance_lexer(lexer);
 	return (val);
 }
 
@@ -39,8 +40,9 @@ char	*double_quote(t_lexer *lexer)
 	char	*string;
 
 	advance_lexer(lexer);
-	if (check_qutes(lexer->src, '"') == 1)
+	if (!check_qutes(lexer, '"'))
 	{
+		ft_putendl_fd("Bash Error : \"Quotes\"", 2);
 		glob.ex_status = 258;
 		return (NULL);
 	}

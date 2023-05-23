@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 02:07:30 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/23 13:05:57 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,19 @@ t_token	*fetch_string(t_lexer *lexer)
 		else if (lexer->c == '"')
 			tmp = double_quote(lexer);
 		else if (lexer->c == '$')
-		{
 			tmp = get_dollar(lexer);
-			// printf("TTTTTt\n");
-		}
 		else
 			tmp = get_char(lexer);
+		if (tmp == NULL)
+		{
+			free(str);
+			return (NULL);
+		}
 		str = ft_strjoin(str, tmp);
 		free(tmp);
 		if (!str)
-			error_func(errno);
+			return (NULL);
+		//error_func(errno);
 	}
 	return (init_tokens(t_CHAR, str));
 }

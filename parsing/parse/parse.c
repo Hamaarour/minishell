@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 21:33:07 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:34:21 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 	t_args	*arg;
 	int		flag;
 	int		fd;
+	char	*line;
 
 	flag = 0;
 	arg = NULL;
@@ -71,6 +72,24 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 					close(*fd_out);
 				*fd_out = fd;
 				error_opennig_file(*fd_out);
+			}
+			if (parser->previous_token->type == t_HEREDOC)
+			{
+				fd = open("heredoc_temp.txt", O_WRONLY | O_CREAT | O_TRUNC,
+						0644);
+				if (*fd_out > 2)
+					close(*fd_out);
+				*fd_out = fd;
+				error_opening_file(*fd_out);
+				// Write the heredoc content
+				line = NULL;
+				while (((line = get_next_line(fd)) != NULL || line[0] != '\0')
+					&& ft_strcmp(line, parser->current_token->val) != 0)
+				{
+					ft_putendl_fd(line, fd);
+					free(line);
+				}
+				close(fd);
 			}
 			flag = 1;
 		}
