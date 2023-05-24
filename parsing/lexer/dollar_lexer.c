@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 12:06:41 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:37:01 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ char	*get_dollar(t_lexer *lexer)
 	str = ft_strdup("");
 	advance_lexer(lexer);
 	if (lexer->c == '?')
+	{
+		glob.ex_status = 1;
 		tmp = exit_value(lexer);
+	}
 	else if (lexer->c == '\"' || lexer->c == '\'')
 		tmp = hundle_quotes(lexer);
 	else

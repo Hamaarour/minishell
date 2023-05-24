@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 12:22:21 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 05:14:36 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	welcom(void)
 }
 int	read_line(char **line)
 {
-	*line = readline("\033[0;32mminishell~$ ");
+	*line = readline("minishell~$ ");
 	if (*line == NULL)
 	{
 		free(*line);
@@ -44,16 +44,16 @@ int	read_line(char **line)
 	return (0);
 }
 
-void	start_execution(t_data_cmd *cmds)
+void	start_execution(t_data_cmd *cmds, char **env)
 {
 	if (builtins_check(cmds->args) != NONE_BLT && glob.nb_cmds == 1)
 		builtins(cmds->args, cmds->fd_out);
 	else
-		init_execution(cmds);
+		init_execution(cmds, env);
 }
 
 // lets_go is the main function of the minishell
-void	lets_go(t_parser *parser, char *cmd_enter, int ac)
+void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 {
 	t_data_cmd	*data_cmd;
 
@@ -72,7 +72,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac)
 					continue ;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
-				start_execution(data_cmd);
+				start_execution(data_cmd, env);
 				//free(cmd_enter);
 				if (data_cmd)
 				{
@@ -97,6 +97,6 @@ int	main(int ac, char **av, char **env)
 	parser = NULL;
 
 	get_env(env);
-	lets_go(parser, input, ac);
+	lets_go(parser, input, ac, env);
 	//free_parser_final(parser);
 }

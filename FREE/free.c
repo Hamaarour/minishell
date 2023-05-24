@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 03:03:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/22 03:05:02 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/24 05:08:46 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,14 @@ void	ft_free(t_env *evr)
 	if (evr->value)
 		free((evr)->value);
 	free(evr);
+}
+
+void	ft_free_cmd_p(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+		free(cmd[i++]);
+	free(cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 16:48:33 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 05:17:47 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,7 @@ int						ft_lstsizes(t_args *lst);
 
 void					ft_free(t_env *evr);
 void					ft_free_node(t_args *cmd);
+void					ft_free_cmd_p(char **cmd);
 
 /* ************************************************************************** */
 /*											Temporary									*/
@@ -258,13 +259,18 @@ int						print_errors(char *s);
 /*										Execution									*/
 /* ************************************************************************** */
 
-void					start_execution(t_data_cmd *cmds);
-void					init_execution(t_data_cmd *cmds);
-void					exec_child_process(t_data_cmd *cmds, int *p1_end,
-							int *p2_end);
+// void					start_execution(t_data_cmd *cmds);
+void					start_execution(t_data_cmd *cmds, char **env);
+void					init_execution(t_data_cmd *cmds , char **env);
+// void					init_execution(t_data_cmd *cmds);
+// void					exec_child_process(t_data_cmd *cmds, int *p1_end,
+// 							int *p2_end);
+void					exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env);
 void					dupping(t_data_cmd *cmds, int *p1_end, int *p2_end);
 char					*get_path(char *cmd);
 char					**to_double_pointer(t_args *cmd);
+void					fds_close(t_data_cmd *cmds, int *p1_end, int *p2_end);
+int						is_printable(char *s);
 
 /* ************************************************************************** */
 /*										Global Variabale								*/

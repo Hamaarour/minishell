@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_get_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:47:29 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 11:28:14 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 03:51:44 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,19 @@ char	**to_double_pointer(t_args *cmd)
 	}
 	char_cmds[i] = NULL;
 	return (char_cmds);
+}
+
+int	is_printable(char *s)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	while (s && s[i])
+	{
+		if (ft_isprint(s[i]))
+			flag = 1;
+		i++;
+	}
+	return (flag);
 }

@@ -14,7 +14,7 @@ NAME=minishell
 CC=cc #-fsanitize=address
 #CFLAGS=-Wall -Wextra -Werror 
 
-SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c EXEC/BUILTINS/unset.c\
+SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\
 	LIBFT/ft_substr.c LIBFT/ft_strlen.c LIBFT/ft_strdup.c LIBFT/ft_putstr_fd.c EXEC/BUILTINS/echo.c\
 	EXEC/BUILTINS/pwd.c LIBFT/ft_lstdelone.c EXEC/BUILTINS/env.c EXEC/BUILTINS/exit.c LIBFT/ft_bzero.c LIBFT/ft_calloc.c\
 	LIBFT/ft_atoi.c EXEC/BUILTINS/CD.c EXEC/BUILTINS/export.c LIBFT/ft_strchr.c LIBFT/ft_lstadd_back.c LIBFT/ft_lstnew.c\
@@ -29,6 +29,7 @@ SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c EXEC/BUILTINS/unset.c\
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
 	parsing/parse/print_list.c EXEC/EXECUTION/execution.c EXEC/EXECUTION/exec_get_path.c\
+	EXEC/EXECUTION/exec_get_pipe.c
 
 OBJ= $(SRC:.c=.o)
 
@@ -41,11 +42,9 @@ $(NAME):$(OBJ)
 	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -lreadline
 
 clean:
-	@echo "cleaning..."
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 
 fclean:clean
-	@echo "fcleaning..."
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re:fclean all

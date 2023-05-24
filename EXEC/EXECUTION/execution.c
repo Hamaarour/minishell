@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 06:52:13 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/24 05:15:32 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
 	redirections(cmds->fd_in, cmds->fd_out);
 }
 
-void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end)
+void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 {
-	char	**cmd_arg;
+	char **cmd_arg;
 
 	dupping(cmds, p1_end, p2_end);
 	if (builtins_check(cmds->args))
@@ -90,12 +90,23 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end)
 		builtins(cmds->args, cmds->fd_out);
 		exit(0);
 	}
-	////need function that convert linked list to char **//////////
 	cmd_arg = to_double_pointer(cmds->args);
-	////need function that convert linked list to char **//////////
+	cmd_arg[0] = get_path(cmd_arg[0]);
+	if (is_printable(cmd_arg[0]))
+	{
+		if (execve(cmd_arg[0], cmd_arg, env) == -1)
+		{
+			write(2, "minishell$: command not found\n", 30);
+			glob.ex_status = 127;
+			exit(glob.ex_status);
+		}
+	}
+	else
+		exit(1);
+	ft_free_cmd_p(cmd_arg);
 }
 
-void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end)
+void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 {
 	while (cmds)
 	{
@@ -106,12 +117,19 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end)
 		}
 		cmds->pid = fork();
 		if (cmds->pid == 0)
-			exec_child_process(cmds, p1_end, p2_end);
+			exec_child_process(cmds, p1_end, p2_end, env);
+		fds_close(cmds, p1_end, p2_end);
 		cmds = cmds->next;
 	}
+	while (waitpid(cmds->pid, &glob.ex_status, 0) != -1)
+		;
+	if (WIFEXITED(glob.ex_status))
+		glob.ex_status = WEXITSTATUS(glob.ex_status);
+	else
+		glob.ex_status += 128;
 }
 
-void	init_execution(t_data_cmd *cmds)
+void	init_execution(t_data_cmd *cmds , char **env)
 {
 	int	p1_end[2];
 	int	p2_end[2];
@@ -120,5 +138,5 @@ void	init_execution(t_data_cmd *cmds)
 	p1_end[1] = -42;
 	p2_end[0] = -42;
 	p2_end[1] = -42;
-	execution(cmds, p1_end, p2_end);
+	execution(cmds, p1_end, p2_end, env);
 }
