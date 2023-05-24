@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 22:33:38 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 23:24:24 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					continue ;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
-				//start_execution(data_cmd, env);
+				start_execution(data_cmd, env);
 				//free(cmd_enter);
 				if (data_cmd)
 				{
