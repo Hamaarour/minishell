@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/24 05:17:47 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/24 19:15:20 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_lexer
 	unsigned int		i;
 	size_t				len_src;
 	int					ex_status;
+	int					ambg_redir;
 	t_env				*env;
 }						t_lexer;
 
@@ -250,7 +251,7 @@ char					*epur_str(char *s);
 void					ctrl_d_handler(void);
 
 /* ************************************************************************** */
-/*						   	           	Errors   								  */
+/*										     	Errors   								  */
 /* ************************************************************************** */
 
 int						print_errors(char *s);
@@ -261,11 +262,12 @@ int						print_errors(char *s);
 
 // void					start_execution(t_data_cmd *cmds);
 void					start_execution(t_data_cmd *cmds, char **env);
-void					init_execution(t_data_cmd *cmds , char **env);
+void					init_execution(t_data_cmd *cmds, char **env);
 // void					init_execution(t_data_cmd *cmds);
 // void					exec_child_process(t_data_cmd *cmds, int *p1_end,
 // 							int *p2_end);
-void					exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env);
+void					exec_child_process(t_data_cmd *cmds, int *p1_end,
+							int *p2_end, char **env);
 void					dupping(t_data_cmd *cmds, int *p1_end, int *p2_end);
 char					*get_path(char *cmd);
 char					**to_double_pointer(t_args *cmd);

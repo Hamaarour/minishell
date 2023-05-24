@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 05:14:36 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/24 22:04:34 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		//welcom();
+		welcom();
 		while (1)
 		{
 			init_glob();
@@ -80,6 +80,12 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					data_cmd = 0;
 				}
 			}
+			// printf("ambiguous redirect ==> %d\n", parser->lexer->ambg_redir);
+			// while (parser->lexer->ambg_redir > 0)
+			// {
+			// 	ft_putendl_fd("Error: Ambiguous redirect", 2);
+			// 	parser->lexer->ambg_redir--;
+			// }
 		}
 		//free_parser_final(parser);
 	}
@@ -89,14 +95,14 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 
 int	main(int ac, char **av, char **env)
 {
-	(void)av;
-	t_parser *parser;
-	char *input;
+	t_parser	*parser;
+	char		*input;
 
+	(void)av;
 	input = NULL;
 	parser = NULL;
-
 	get_env(env);
 	lets_go(parser, input, ac, env);
+	printf("hello\n");
 	//free_parser_final(parser);
 }

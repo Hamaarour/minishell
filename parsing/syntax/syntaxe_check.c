@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 02:09:19 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/24 21:37:52 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	pipe_syntax(t_parser *parser)
 {
 	while (parser->current_token->type != t_EOF)
 	{
+		// if (!parser->previous_token
+		// 	&& (type_out_in(parser->previous_token->type) == 0
+		// 		|| parser->previous_token->type == t_APPEND)
+		// 	&& ft_strlen(parser->current_token->val) == 0)
+		// 	parser->lexer->ambg_redir++;
 		if (parser->current_token->type == t_PIPE)
 		{
 			glob.nb_cmds++;
@@ -86,6 +91,8 @@ int	redirect_syntax(t_parser *parser)
 int	iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
 	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
+	{
 		return (err_msg("Bash : syntax error"));
+	}
 	return (0);
 }

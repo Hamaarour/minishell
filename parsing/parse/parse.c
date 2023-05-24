@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 21:29:39 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/24 19:32:59 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-void	error_opennig_file(int fd)
+void	error_opening_file(int fd)
 {
 	if (fd == -1)
 	{
@@ -24,7 +24,8 @@ void	error_opennig_file(int fd)
 
 int	is_redirection(t_tokens_type type)
 {
-	if (type == t_GREAT_THAN || type == t_LESS_THAN || type == t_APPEND)
+	if (type == t_GREAT_THAN || type == t_LESS_THAN || type == t_APPEND
+		|| type == t_HEREDOC)
 		return (1);
 	return (0);
 }
@@ -52,46 +53,42 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 							0644);
 				if (*fd_out > 2)
 					close(*fd_out);
-				*fd_out = fd;
-				error_opennig_file(*fd_out);
+				error_opening_file(*fd_out);
 			}
-			if (parser->previous_token->type == t_LESS_THAN)
+			else if (parser->previous_token->type == t_LESS_THAN)
 			{
 				*fd_in = open(parser->current_token->val, O_RDONLY, 0644);
 				if (*fd_out > 2)
 					close(*fd_out);
-				*fd_out = fd;
-				error_opennig_file(*fd_in);
+				error_opening_file(*fd_in);
 			}
-			if (parser->previous_token->type == t_APPEND)
+			else if (parser->previous_token->type == t_APPEND)
 			{
 				*fd_out = open(parser->current_token->val,
 								O_WRONLY | O_CREAT | O_APPEND,
 								0644);
 				if (*fd_out > 2)
 					close(*fd_out);
-				*fd_out = fd;
-				error_opennig_file(*fd_out);
+				error_opening_file(*fd_out);
 			}
-			// if (parser->previous_token->type == t_HEREDOC)
-			// {
-			// 	fd = open(parser->current_token->val,
-			// 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			// 	if (*fd_out > 2)
-			// 		close(*fd_out);
-			// 	*fd_out = fd;
-			// 	error_opening_file(*fd_out);
-			// 	// Write the heredoc content
-			// 	line = NULL;
-			// 	//
-			// 	while (((line = get_next_line(fd)) != NULL || line[0] != '\0')
-			// 		&& ft_strcmp(line, parser->current_token->val) != 0)
-			// 	{
-			// 		ft_putendl_fd(line, fd);
-			// 		free(line);
-			// 	}
-			// 	close(fd);
-			// }
+			else if (parser->previous_token->type == t_HEREDOC)
+			{
+				*fd_in = open(parser->current_token->val,
+								O_RDONLY,
+								0644);
+				error_opening_file(*fd_in);
+				// Write the heredoc content
+				line = NULL;
+				while (((line = get_next_line(*fd_in)) != NULL
+						|| line[0] != '\0') && ft_strcmp(line,
+						parser->current_token->val) != 0)
+				{
+					ft_putendl_fd(line, *fd_in);
+					free(line);
+				}
+				if (*fd_in > 2)
+					close(*fd_in);
+			}
 			flag = 1;
 		}
 		if (flag != 1 && !is_redirection(parser->current_token->type))
@@ -126,7 +123,6 @@ void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 
 int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 {
-	(void)cmd_data;
 	glob.ex_status = iterate_over_tokens_check_syntaxe(parser);
 	if (glob.ex_status != 258)
 	{

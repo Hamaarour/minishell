@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 13:05:57 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:58:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ t_token	*fetch_string(t_lexer *lexer)
 		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
 	{
 		if (lexer->c == '\'')
+		{
 			tmp = single_quote(lexer);
+		}
 		else if (lexer->c == '"')
 			tmp = double_quote(lexer);
 		else if (lexer->c == '$')
@@ -54,7 +56,7 @@ t_token	*fetch_string(t_lexer *lexer)
 		if (tmp == NULL)
 		{
 			free(str);
-			return (NULL);
+			break ;
 		}
 		str = ft_strjoin(str, tmp);
 		free(tmp);

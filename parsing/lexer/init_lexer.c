@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:52:37 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 11:11:59 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:16:59 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_lexer	*init_lexer(char *src)
 	lexer->c = src[lexer->i];
 	lexer->len_src = ft_strlen(src);
 	lexer->ex_status = glob.ex_status;
+	lexer->ambg_redir = 0;
 	return (lexer);
 }
 
