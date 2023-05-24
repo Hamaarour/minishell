@@ -6,7 +6,11 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/24 23:24:24 by zjaddad          ###   ########.fr       */
+=======
+/*   Updated: 2023/05/24 23:49:44 by hamaarou         ###   ########.fr       */
+>>>>>>> 972ed810ff70f313153577186ae6442f06b8cb33
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +76,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					continue ;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
-				start_execution(data_cmd, env);
+				//start_execution(data_cmd, env);
 				//free(cmd_enter);
 				if (data_cmd)
 				{
@@ -80,12 +84,6 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					data_cmd = 0;
 				}
 			}
-			// printf("ambiguous redirect ==> %d\n", parser->lexer->ambg_redir);
-			// while (parser->lexer->ambg_redir > 0)
-			// {
-			// 	ft_putendl_fd("Error: Ambiguous redirect", 2);
-			// 	parser->lexer->ambg_redir--;
-			// }
 		}
 		//free_parser_final(parser);
 	}
