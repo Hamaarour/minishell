@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 22:33:38 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 23:49:44 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,6 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					data_cmd = 0;
 				}
 			}
-			// printf("ambiguous redirect ==> %d\n", parser->lexer->ambg_redir);
-			// while (parser->lexer->ambg_redir > 0)
-			// {
-			// 	ft_putendl_fd("Error: Ambiguous redirect", 2);
-			// 	parser->lexer->ambg_redir--;
-			// }
 		}
 		//free_parser_final(parser);
 	}

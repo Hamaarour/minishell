@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 19:32:59 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 23:52:16 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,11 @@ void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 {
 	glob.ex_status = iterate_over_tokens_check_syntaxe(parser);
+	while (parser->lexer->ambg_redir > 0)
+	{
+		ft_putendl_fd("Error: Ambiguous redirect", 2);
+		parser->lexer->ambg_redir--;
+	}
 	if (glob.ex_status != 258)
 	{
 		divid_cmd(parser, cmd_data);
