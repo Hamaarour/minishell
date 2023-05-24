@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 22:04:34 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:13:37 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	welcom(void)
 	printf("\033[0;32m║██║╚██╔╝██║██║██║╚████║██║░╚═══██╗██╔══██║██╔══╝░░██║░░░░░██║░░░░░║\n");
 	printf("\033[0;32m║██║░╚═╝░██║██║██║░╚███║██║██████╔╝██║░░██║███████╗███████╗███████╗║\n");
 	printf("\033[0;32m╚╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝╝\n");
-	printf("\033[4;31m\t\t\t\t\t\tHicham && Zakaria\n");
+	printf("\033[0;32m\t\t\t\t\t\tHicham && Zakaria\n");
 }
 int	read_line(char **line)
 {
@@ -60,7 +60,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		welcom();
+		//welcom();
 		while (1)
 		{
 			init_glob();
@@ -72,7 +72,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					continue ;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
-				start_execution(data_cmd, env);
+				//start_execution(data_cmd, env);
 				//free(cmd_enter);
 				if (data_cmd)
 				{
