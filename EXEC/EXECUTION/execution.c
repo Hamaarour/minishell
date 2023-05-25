@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/25 02:55:35 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/25 06:28:28 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	redirections(int infile, int outfile)
 {
-	if (infile)
+	if (infile != 0)
 	{
 		dup2(infile, STDIN_FILENO);
 		close(infile);

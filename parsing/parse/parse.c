@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 23:52:16 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:15:23 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,27 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 		{
 			if (parser->previous_token->type == t_GREAT_THAN)
 			{
-				fd = open(parser->current_token->val,
-							O_WRONLY | O_CREAT | O_TRUNC,
-							0644);
 				if (*fd_out > 2)
 					close(*fd_out);
+				*fd_out = open(parser->current_token->val,
+							O_WRONLY | O_CREAT | O_TRUNC,
+							0644);
 				error_opening_file(*fd_out);
 			}
 			else if (parser->previous_token->type == t_LESS_THAN)
 			{
-				*fd_in = open(parser->current_token->val, O_RDONLY, 0644);
 				if (*fd_out > 2)
 					close(*fd_out);
+				*fd_in = open(parser->current_token->val, O_RDONLY, 0644);
 				error_opening_file(*fd_in);
 			}
 			else if (parser->previous_token->type == t_APPEND)
 			{
+				if (*fd_out > 2)
+					close(*fd_out);
 				*fd_out = open(parser->current_token->val,
 								O_WRONLY | O_CREAT | O_APPEND,
 								0644);
-				if (*fd_out > 2)
-					close(*fd_out);
 				error_opening_file(*fd_out);
 			}
 			else if (parser->previous_token->type == t_HEREDOC)

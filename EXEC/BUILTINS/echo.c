@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/22 04:24:22 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/25 15:01:02 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void echo(t_args *input, int outf)
     i = 1;
 	tmp = input;
 	tmp = tmp->next;
+	printf("echo = %d\n",outf);
     while (tmp && check_newline(tmp->args))
     {
         flag = 0;
