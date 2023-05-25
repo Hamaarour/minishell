@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME=minishell
-CC=cc #-fsanitize=address
+CC=cc -fsanitize=address -g
 #CFLAGS=-Wall -Wextra -Werror 
 
 SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\

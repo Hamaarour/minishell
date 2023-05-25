@@ -6,11 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/05/24 23:24:24 by zjaddad          ###   ########.fr       */
-=======
-/*   Updated: 2023/05/24 23:49:44 by hamaarou         ###   ########.fr       */
->>>>>>> 972ed810ff70f313153577186ae6442f06b8cb33
+/*   Updated: 2023/05/25 02:55:27 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +18,7 @@ void	init_glob(void)
 	glob.ex_status = 0;
 	glob.nb_cmds = 1;
 }
+
 void	welcom(void)
 {
 	printf("\033[0;32m╔███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░╗\n");
@@ -32,6 +29,7 @@ void	welcom(void)
 	printf("\033[0;32m╚╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝╝\n");
 	printf("\033[0;32m\t\t\t\t\t\tHicham && Zakaria\n");
 }
+
 int	read_line(char **line)
 {
 	*line = readline("minishell~$ ");
@@ -76,7 +74,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					continue ;
 				//system("leaks minishell");
 				//print_cmd_data(&data_cmd);
-				//start_execution(data_cmd, env);
+				start_execution(data_cmd, env);
 				//free(cmd_enter);
 				if (data_cmd)
 				{
