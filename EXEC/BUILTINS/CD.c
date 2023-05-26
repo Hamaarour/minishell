@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CD.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/23 11:28:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/26 01:55:39 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	get_home(t_env *evr)
 		if (!ft_strcmp(tmp->key, "HOME"))
 		{
 			old_p = getcwd(NULL, 0);
-			update_old(old_p, evr);
+			if (old_p)
+				update_old(old_p, evr);
 			if (chdir(tmp->value) == -1)
 				printf("ERROR: chdir\n");
 			else
@@ -89,10 +90,17 @@ void	get_home(t_env *evr)
 		}
 		tmp = tmp->next;
 	}
-	update_pwd(home, evr);
-	free(old_p);
 	if (home)
+	{
+		update_pwd(home, evr);
 		free(home);
+	}
+	else
+	{
+		int n = print_errors("cd: HOME not set");
+		glob.ex_status = 1;
+	}
+	free(old_p);
 }
 
 void	cd(t_args *cmd)
@@ -108,14 +116,16 @@ void	cd(t_args *cmd)
 	else
 	{
 		old_p = getcwd(NULL, 0);
-		update_old(old_p, glob.env_p);
+		if (old_p)
+			update_old(old_p, glob.env_p);
 		if (chdir(cmd->next->args) == -1)
 		{
 			printf("No such file or directory\n");
 			glob.ex_status = 1;
 		}
 		pwd = getcwd(NULL, 0);
-		update_pwd(pwd, glob.env_p);
+		if (pwd)
+			update_pwd(pwd, glob.env_p);
 		free(old_p);
 		free(pwd);
 	}

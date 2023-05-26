@@ -11,8 +11,10 @@
 # **************************************************************************** #
 
 NAME=minishell
-CC=cc #-fsanitize=address -g
-#CFLAGS=-Wall -Wextra -Werror 
+CC=cc -fsanitize=address -g3
+LIBREADLINE= -L /goinfre/$(USER)/homebrew/lib -lreadline
+INCREADLINE= -I /goinfre/$(USER)/homebrew/include
+#CFLAGS= -Wall -Wextra -Werror 
 
 SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\
 	LIBFT/ft_substr.c LIBFT/ft_strlen.c LIBFT/ft_strdup.c LIBFT/ft_putstr_fd.c EXEC/BUILTINS/echo.c\
@@ -29,7 +31,7 @@ SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EX
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
 	parsing/parse/print_list.c EXEC/EXECUTION/execution.c EXEC/EXECUTION/exec_get_path.c\
-	EXEC/EXECUTION/exec_get_pipe.c
+	EXEC/EXECUTION/exec_get_pipe.c EXEC/ERRORS/error.c EXEC/SIGNALS/signals.c
 
 OBJ= $(SRC:.c=.o)
 
@@ -39,7 +41,7 @@ all:$(NAME)
 
 $(NAME):$(OBJ)
 	@echo "compiling..."
-	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -lreadline
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lreadline -L /Users/${USER}/Desktop/readline -I /Users/${USER}/Desktop/readline -lcurses
 
 clean:
 	rm -rf $(OBJ)

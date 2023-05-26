@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:26:25 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/25 15:47:48 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/25 23:25:36 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	get_env(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		tmp = ft_split_p(envp[i], '=');
+		tmp = ft_split(envp[i], '=');
 		if (tmp && tmp[0] && tmp[1])
 		{
 			new_node = ft_lstnew_p(tmp[0], tmp[1]);

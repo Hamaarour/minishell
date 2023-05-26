@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/25 02:55:44 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 08:26:13 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,16 @@ t_lexer					*init_lexer(char *str);
 void					advance_lexer(t_lexer *lexer);
 void					lexer_skip_whitespace(t_lexer *lexer);
 t_token					*get_next_token(t_lexer *lexer);
-t_token	*lexer_advance_with_token(t_lexer *lexer,
+t_token					*lexer_advance_with_token(t_lexer *lexer,
 									t_token *token);
-t_token	*advance_to_next_tocken(t_lexer *lexer,
+t_token					*advance_to_next_tocken(t_lexer *lexer,
 								t_token *token);
 char					*exit_value(t_lexer *lexer);
 char					*single_quote(t_lexer *lexer);
 
 char					*envairment_var(t_lexer *lexer);
 void					expand_dollar(t_lexer *lexer, char **my_str);
-void	get_string_between_double_qoutes(t_lexer *lexer,
+void					get_string_between_double_qoutes(t_lexer *lexer,
 										char **my_str);
 char					*double_quote(t_lexer *lexer);
 char					*hundle_quotes(t_lexer *lexer);
@@ -249,6 +249,8 @@ char					*epur_str(char *s);
 /* ************************************************************************** */
 
 void					ctrl_d_handler(void);
+void					ctrl_c_handler(int num);
+void					ctrl_quit_handler(int num);
 
 /* ************************************************************************** */
 /*										     	Errors   								  */
@@ -281,6 +283,9 @@ int						is_printable(char *s);
 t_gob					glob;
 
 /* ************************************************************************** */
-/*										Global Variable  								*/
+/*							        	Global Variable.           	          */
 /* ************************************************************************** */
+
+void					rl_replace(const char *txt, int num);
+
 #endif

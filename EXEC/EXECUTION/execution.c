@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/25 06:28:28 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 08:38:23 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	redirections(int infile, int outfile)
 {
-	if (infile != 0)
+	if (infile)
 	{
 		dup2(infile, STDIN_FILENO);
 		close(infile);
@@ -29,6 +29,8 @@ void	redirections(int infile, int outfile)
 
 void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (cmds->next)
 	{
 		close(p1_end[0]);
@@ -58,6 +60,7 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 	cmd_arg[0] = get_path(cmd_arg[0]);
 	if (is_printable(cmd_arg[0]))
 	{
+		glob.p_chld = 1;
 		if (execve(cmd_arg[0], cmd_arg, env) == -1)
 		{
 			write(2, "minishell$: command not found\n", 30);
@@ -72,23 +75,29 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 
 void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 {
-	pid_t pid;
+	t_data_cmd	*tmp;
 
+	tmp = cmds;
 	while (cmds)
 	{
 		if (cmds->next)
-		{
 			if (pipe(p1_end) == -1)
 				return ;
-		}
-		pid = fork();
-		if (pid == 0)
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		cmds->pid = fork();
+		if (cmds->pid == 0)
 			exec_child_process(cmds, p1_end, p2_end, env);
 		fds_close(cmds, p1_end, p2_end);
 		cmds = cmds->next;
 	}
-	while (waitpid(pid, &glob.ex_status, 0) != -1)
-		;
+	// while (waitpid(cmds->pid, &glob.ex_status, 0) != -1)
+	// 	;
+	while (tmp)
+	{
+		waitpid(tmp->pid, &glob.ex_status, 0);
+		tmp = tmp->next;
+	}
 	if (WIFEXITED(glob.ex_status))
 		glob.ex_status = WEXITSTATUS(glob.ex_status);
 	else

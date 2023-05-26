@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 06:17:37 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/21 23:13:48 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 00:11:30 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int	print_errors(char *s)
 {
 	ft_putstr_fd("minishell: ", 2);
-	perror(s);
+	ft_putstr_fd(s, 2);
+	write(2, "\n", 1);
+	//perror(s);
 	exit(EXIT_FAILURE);
 }
