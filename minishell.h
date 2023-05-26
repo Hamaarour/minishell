@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 08:26:13 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 09:55:16 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,6 @@ t_gob					glob;
 /*							        	Global Variable.           	          */
 /* ************************************************************************** */
 
-void					rl_replace(const char *txt, int num);
+void					rl_replace_line(const char *txt, int num);
 
 #endif

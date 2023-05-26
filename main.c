@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/26 08:36:44 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 11:14:15 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ int	read_line(char **line)
 {
 	*line = readline("→ minishell~$ ");
 	if (*line == NULL)
-	{
-		free(*line);
-		exit(EXIT_SUCCESS);
-	}
+		ctrl_d_handler();
 	if (line[0][0] == '\0')
 	{
 		free(*line);
@@ -64,7 +61,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		welcom();
+		//welcom();
 		while (1)
 		{
 			init_glob();

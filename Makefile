@@ -12,8 +12,8 @@
 
 NAME=minishell
 CC=cc -fsanitize=address -g3
-LIBREADLINE= -L /goinfre/$(USER)/homebrew/lib -lreadline
-INCREADLINE= -I /goinfre/$(USER)/homebrew/include
+LIBREADLINE		= -L /goinfre/$(USER)/homebrew/Cellar/readline/8.2.1/lib -lreadline
+INCREADLINE		= -I /goinfre/$(USER)/homebrew/Cellar/readline/8.2.1/include
 #CFLAGS= -Wall -Wextra -Werror 
 
 SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\
@@ -41,7 +41,7 @@ all:$(NAME)
 
 $(NAME):$(OBJ)
 	@echo "compiling..."
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lreadline -L /Users/${USER}/Desktop/readline -I /Users/${USER}/Desktop/readline -lcurses
+	@$(CC) $(CFLAGS)  $(INCREADLINE)  $(OBJ) $(LIBREADLINE)  -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
