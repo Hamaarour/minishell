@@ -4,7 +4,8 @@
     "parsing.h": "c",
     "token.h": "c",
     "errno.h": "c",
-    "fcntl.h": "c"
+    "fcntl.h": "c",
+    "minishell.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

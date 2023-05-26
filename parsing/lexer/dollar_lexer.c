@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 21:37:01 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 23:08:08 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*exit_value(t_lexer *lexer)
 {
 	char	*val;
 
-	val = ft_itoa(glob.ex_status);
+	val = ft_itoa(lexer->ex_status);
 	if (val == NULL)
 		error_func(errno);
 	advance_lexer(lexer);
@@ -83,7 +83,6 @@ char	*get_dollar(t_lexer *lexer)
 	advance_lexer(lexer);
 	if (lexer->c == '?')
 	{
-		glob.ex_status = 1;
 		tmp = exit_value(lexer);
 	}
 	else if (lexer->c == '\"' || lexer->c == '\'')

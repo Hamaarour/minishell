@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 10:21:13 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 12:37:07 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	redirections(int infile, int outfile)
 
 void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
 {
-	signal(SIGINT, SIG_DFL);
+	//signal(SIGINT, SIG_DFL);
 	//signal(SIGQUIT, SIG_DFL);
 	if (cmds->next)
 	{
@@ -46,11 +46,11 @@ void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
 	redirections(cmds->fd_in, cmds->fd_out);
 }
 
-void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
+void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end,
+		char **env)
 {
-	char **cmd_arg;
+	char	**cmd_arg;
 
-	
 	dupping(cmds, p1_end, p2_end);
 	if (builtins_check(cmds->args))
 	{
@@ -70,7 +70,7 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 		}
 	}
 	else
-		exit(1);	
+		exit(1);
 	ft_free_cmd_p(cmd_arg);
 }
 
@@ -84,12 +84,12 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 		if (cmds->next)
 			if (pipe(p1_end) == -1)
 				return ;
-		signal(SIGINT, SIG_IGN);
+		//signal(SIGINT, SIG_IGN);
 		//signal(SIGQUIT, SIG_IGN);
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
-			signal(SIGQUIT, ctrl_quit_handler);
+			//signal(SIGQUIT, ctrl_quit_handler);
 			exec_child_process(cmds, p1_end, p2_end, env);
 		}
 		fds_close(cmds, p1_end, p2_end);
@@ -108,10 +108,10 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 		glob.ex_status += 128;
 }
 
-void	init_execution(t_data_cmd *cmds , char **env)
+void	init_execution(t_data_cmd *cmds, char **env)
 {
-	int	p1_end[2];
-	int	p2_end[2];
+	int p1_end[2];
+	int p2_end[2];
 
 	p1_end[0] = -42;
 	p1_end[1] = -42;

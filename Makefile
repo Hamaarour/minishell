@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME=minishell
-CC=cc -fsanitize=address -g3
+CC=cc #-fsanitize=address -g3
 LIBREADLINE		= -L /goinfre/$(USER)/homebrew/Cellar/readline/8.2.1/lib -lreadline
 INCREADLINE		= -I /goinfre/$(USER)/homebrew/Cellar/readline/8.2.1/include
 #CFLAGS= -Wall -Wextra -Werror 
@@ -31,7 +31,7 @@ SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EX
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
 	parsing/parse/print_list.c EXEC/EXECUTION/execution.c EXEC/EXECUTION/exec_get_path.c\
-	EXEC/EXECUTION/exec_get_pipe.c EXEC/ERRORS/error.c EXEC/SIGNALS/signals.c
+	EXEC/EXECUTION/exec_get_pipe.c EXEC/ERRORS/error.c #EXEC/SIGNALS/signals.c
 
 OBJ= $(SRC:.c=.o)
 
@@ -41,7 +41,7 @@ all:$(NAME)
 
 $(NAME):$(OBJ)
 	@echo "compiling..."
-	@$(CC) $(CFLAGS)  $(INCREADLINE)  $(OBJ) $(LIBREADLINE)  -o $(NAME)
+	@$(CC) $(CFLAGS)   $(OBJ)   -o $(NAME) -lreadline
 
 clean:
 	rm -rf $(OBJ)

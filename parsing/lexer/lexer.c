@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 17:58:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:08:01 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ t_token	*fetch_string(t_lexer *lexer)
 			tmp = get_char(lexer);
 		if (tmp == NULL)
 		{
-			free(str);
-			break ;
+			if (str)
+				free(str);
+			return (NULL);
 		}
 		str = ft_strjoin(str, tmp);
 		free(tmp);

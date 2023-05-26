@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toko.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 01:16:12 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/24 01:16:14 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 18:40:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	execute(t_list *cmds);
 
       // signlas // 
 void	handler(int sig);
-void	rl_replace_line (char *, int);
+void	rl_replace_line(char *, int);
 
       //heredoc//
 int	heredoc(char *value, int flag);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/25 15:15:23 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 22:51:07 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 {
 	t_args	*arg;
 	int		flag;
-	int		fd;
-	char	*line;
 
 	flag = 0;
 	arg = NULL;
@@ -51,16 +49,26 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 				if (*fd_out > 2)
 					close(*fd_out);
 				*fd_out = open(parser->current_token->val,
-							O_WRONLY | O_CREAT | O_TRUNC,
-							0644);
-				error_opening_file(*fd_out);
+								O_WRONLY | O_CREAT | O_TRUNC,
+								0644);
+				if (*fd_out == -1)
+				{
+					ft_putendl_fd("Bash Error: No such file or directory", 2);
+					glob.ex_status = 1;
+					return (NULL);
+				}
 			}
 			else if (parser->previous_token->type == t_LESS_THAN)
 			{
 				if (*fd_out > 2)
 					close(*fd_out);
 				*fd_in = open(parser->current_token->val, O_RDONLY, 0644);
-				error_opening_file(*fd_in);
+				if (*fd_in == -1)
+				{
+					ft_putendl_fd("Bash Error: No such file or directory", 2);
+					glob.ex_status = 1;
+					return (NULL);
+				}
 			}
 			else if (parser->previous_token->type == t_APPEND)
 			{
@@ -69,38 +77,37 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 				*fd_out = open(parser->current_token->val,
 								O_WRONLY | O_CREAT | O_APPEND,
 								0644);
-				error_opening_file(*fd_out);
-			}
-			else if (parser->previous_token->type == t_HEREDOC)
-			{
-				*fd_in = open(parser->current_token->val,
-								O_RDONLY,
-								0644);
-				error_opening_file(*fd_in);
-				// Write the heredoc content
-				line = NULL;
-				while (((line = get_next_line(*fd_in)) != NULL
-						|| line[0] != '\0') && ft_strcmp(line,
-						parser->current_token->val) != 0)
+				if (*fd_out == -1)
 				{
-					ft_putendl_fd(line, *fd_in);
-					free(line);
+					ft_putendl_fd("Bash Error: No such file or directory", 2);
+					glob.ex_status = 1;
+					return (NULL);
 				}
-				if (*fd_in > 2)
-					close(*fd_in);
 			}
 			flag = 1;
 		}
 		if (flag != 1 && !is_redirection(parser->current_token->type))
+		{
 			ft_add_back_arg(&arg, ft_new_arg(parser->current_token->val));
+		}
 		flag = 0;
+		if (parser->previous_token)
+		{
+			free(parser->previous_token->val);
+			free(parser->previous_token);
+		}
 		parser->previous_token = parser->current_token;
 		parser->current_token = get_next_token(parser->lexer);
+		if (parser->current_token == NULL)
+		{
+			return (reinitialize_parser(parser), NULL);
+			//return (NULL);
+		}
 	}
 	return (arg);
 }
 
-void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
+int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 {
 	t_args	*arg;
 	int		in;
@@ -109,21 +116,43 @@ void	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 	arg = NULL;
 	in = 0;
 	out = 1;
-	while (parser->current_token->type != t_EOF)
+	while (parser->current_token != NULL
+		&& parser->current_token->type != t_EOF)
 	{
 		if (parser->current_token->type != t_PIPE)
 		{
 			arg = create_node(parser, &in, &out);
-			ft_add_back_cmd(cmd_data, ft_new_cmd(arg, in, out));
-			arg = NULL;
+			if (arg != NULL)
+				ft_add_back_cmd(cmd_data, ft_new_cmd(arg, in, out));
+			else
+				return (1);
+		}
+		if (parser->current_token)
+		{
+			free(parser->current_token->val);
+			free(parser->current_token);
 		}
 		parser->current_token = get_next_token(parser->lexer);
+		if (parser->current_token == NULL)
+		{
+			reinitialize_parser(parser);
+			return (1);
+		}
 	}
+	if (parser->current_token)
+	{
+		free(parser->current_token->val);
+		free(parser->current_token);
+	}
+	return (0);
 }
 
 int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 {
-	glob.ex_status = iterate_over_tokens_check_syntaxe(parser);
+	int	st;
+
+	st = iterate_over_tokens_check_syntaxe(parser);
+	glob.ex_status = st;
 	while (parser->lexer->ambg_redir > 0)
 	{
 		ft_putendl_fd("Error: Ambiguous redirect", 2);
@@ -131,7 +160,10 @@ int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 	}
 	if (glob.ex_status != 258)
 	{
-		divid_cmd(parser, cmd_data);
+		if (divid_cmd(parser, cmd_data) == 1)
+		{
+			return (1);
+		}
 		return (0);
 	}
 	return (1);

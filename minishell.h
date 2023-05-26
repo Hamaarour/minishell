@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 09:55:16 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 15:29:31 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,16 @@ t_lexer					*init_lexer(char *str);
 void					advance_lexer(t_lexer *lexer);
 void					lexer_skip_whitespace(t_lexer *lexer);
 t_token					*get_next_token(t_lexer *lexer);
-t_token					*lexer_advance_with_token(t_lexer *lexer,
+t_token	*lexer_advance_with_token(t_lexer *lexer,
 									t_token *token);
-t_token					*advance_to_next_tocken(t_lexer *lexer,
+t_token	*advance_to_next_tocken(t_lexer *lexer,
 								t_token *token);
 char					*exit_value(t_lexer *lexer);
 char					*single_quote(t_lexer *lexer);
 
 char					*envairment_var(t_lexer *lexer);
 void					expand_dollar(t_lexer *lexer, char **my_str);
-void					get_string_between_double_qoutes(t_lexer *lexer,
+void	get_string_between_double_qoutes(t_lexer *lexer,
 										char **my_str);
 char					*double_quote(t_lexer *lexer);
 char					*hundle_quotes(t_lexer *lexer);
@@ -185,6 +185,8 @@ int						type_is_rederec(t_token *token);
 int						type_is_pipe(t_token *token);
 int						type_out_in(t_token *token);
 int						type_hd_apd(t_token *token);
+void					reinitialize_parser(t_parser *parser);
+
 //! +++++++++++++++++++++++++++ linked list functions ++++++++++++++++++++++++++++++++++++++++
 t_data_cmd				*ft_new_cmd(t_args *arg, int fd_in, int fd_out);
 void					ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);
@@ -192,7 +194,7 @@ t_args					*ft_new_arg(char *arg);
 void					ft_add_back_arg(t_args **head, t_args *new);
 //!+++++++++++++++++++++++++Dividing cmd+++++++++++++++++++++++++++++++++++++
 t_args					*create_node(t_parser *parser, int *fd_in, int *fd_out);
-void					divid_cmd(t_parser *parser, t_data_cmd **cmd_data);
+int						divid_cmd(t_parser *parser, t_data_cmd **cmd_data);
 //!+++++++++++++++++++++++++++++++files++++++++++++++++++++++++++++++++
 void					out_file(char *file_name, t_data_cmd *tmp);
 void					in_file(char *file_name, t_data_cmd *tmp);
@@ -253,7 +255,7 @@ void					ctrl_c_handler(int num);
 void					ctrl_quit_handler(int num);
 
 /* ************************************************************************** */
-/*										     	Errors   								  */
+/*													Errors   								  */
 /* ************************************************************************** */
 
 int						print_errors(char *s);
@@ -283,7 +285,7 @@ int						is_printable(char *s);
 t_gob					glob;
 
 /* ************************************************************************** */
-/*							        	Global Variable.           	          */
+/*									  	Global Variable.           	          */
 /* ************************************************************************** */
 
 void					rl_replace_line(const char *txt, int num);

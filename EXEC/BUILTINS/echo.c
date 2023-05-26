@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 00:20:10 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/26 23:11:40 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,29 @@ int	check_newline(char *s)
 	return (1);
 }
 
-void echo(t_args *input, int outf)
+void	echo(t_args *input, int outf)
 {
-    int 	i;
-    int 	flag;
+	int		i;
+	int		flag;
 	t_args	*tmp;
 
-    //glob.ex_status = 0;
-    flag = 1;
-    i = 1;
+	flag = 1;
+	i = 1;
 	tmp = input;
 	tmp = tmp->next;
-    while (tmp && check_newline(tmp->args))
-    {
-        flag = 0;
-        while (tmp && check_newline(tmp->args))
-            tmp = tmp->next;
-    }
-    while (tmp)
-    {
-        ft_putstr_fd(tmp->args, outf);
-        tmp = tmp->next;
-        if (tmp)
-            ft_putstr_fd(" ", outf);
-    }
-    if (flag)
-        ft_putstr_fd("\n", outf);
+	while (tmp && check_newline(tmp->args))
+	{
+		flag = 0;
+		while (tmp && check_newline(tmp->args))
+			tmp = tmp->next;
+	}
+	while (tmp)
+	{
+		ft_putstr_fd(tmp->args, outf);
+		tmp = tmp->next;
+		if (tmp)
+			ft_putstr_fd(" ", outf);
+	}
+	if (flag)
+		ft_putstr_fd("\n", outf);
 }
