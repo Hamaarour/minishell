@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 01:05:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:08:08 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,8 @@ void					env(int outf);
 void					ft_exit(t_args *cmd);
 void					echo(t_args *input, int outf);
 void					cd(t_args *cmd);
+void					to_home(char *home, t_env *evr);
+void					update_pwd(char *pwd, t_env *evr);
 void					ft_export(t_args *cmd, int outf);
 void					pwd(t_args *input, int fd);
 int						builtins_check(t_args *cmd);
@@ -253,7 +255,7 @@ void					ctrl_quit_handler(int num);
 /*													Errors   									*/
 /* ************************************************************************** */
 
-int						print_errors(char *s);
+void					print_errors(char *s);
 
 /* ************************************************************************** */
 /*										Execution									*/

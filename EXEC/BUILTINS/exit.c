@@ -23,7 +23,7 @@ int	args_len(char **s)
 	return (i);
 }
 
-void	invalid_arg()
+void	invalid_arg(void)
 {
 	write(2, "numeric argument required\n", 26);
 	glob.ex_status = 255;
@@ -32,7 +32,7 @@ void	invalid_arg()
 
 void	arg_one(char *arg)
 {
-	int			a;
+	int	a;
 
 	if (!arg)
 		return ;
@@ -47,26 +47,26 @@ void	arg_one(char *arg)
 		invalid_arg();
 }
 
-void ft_exit(t_args *cmd)
+void	ft_exit(t_args *cmd)
 {
-    int 	args_nb;
+	int		args_nb;
 	t_args	*tmp;
 
 	args_nb = ft_lstsizes(cmd);
 	tmp = cmd->next;
-    if (args_nb == 1)
-    {
-        write(1, "exit\n", sizeof("exit"));
-        exit(glob.ex_status);
-    }
-    else if (args_nb == 2)
-        arg_one(tmp->args);
-    else
-    {
-        if (ft_atoi(tmp->args) == -1)
-            invalid_arg();
+	if (args_nb == 1)
+	{
+		write(1, "exit\n", sizeof("exit"));
+		exit(glob.ex_status);
+	}
+	else if (args_nb == 2)
+		arg_one(tmp->args);
+	else
+	{
+		if (ft_atoi(tmp->args) == -1)
+			invalid_arg();
 		printf("exit\n");
-        write(1, "too many arguments\n", 19);
+		write(1, "too many arguments\n", 19);
 		glob.ex_status = 1;
-    }
+	}
 }

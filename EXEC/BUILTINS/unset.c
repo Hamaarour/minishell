@@ -6,13 +6,12 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/22 03:05:19 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 11:59:47 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
-
 
 int	foreign_letter(char *cmd)
 {
@@ -37,34 +36,38 @@ int	foreign_letter(char *cmd)
 	return (1);
 }
 
-void unset(t_args *cmd)
+void	unset_env(const char *key)
 {
-    int i;
-    t_env *tmp;
-    t_env *prev;
+	t_env	*tmp;
+	t_env	*prev;
 
-    i = 0;
-    if (cmd == NULL || cmd->next == NULL)
-        return;
-    while (cmd->next != NULL)
-    {
-        if (!(foreign_letter(cmd->next->args)))
-            return;
-    	tmp = glob.env_p;
-        while (tmp)
-        {
-            if (!ft_strcmp(cmd->next->args, tmp->key))
-            {
-                if (tmp == glob.env_p)
-                    glob.env_p = glob.env_p->next;
-                else
-                    prev->next = tmp->next;
-                ft_free(tmp);
-                break ;
-            }
-            prev = tmp;
-            tmp = tmp->next;
-        }
-        cmd = cmd->next;
-    }
+	tmp = glob.env_p;
+	prev = NULL;
+	while (tmp)
+	{
+		if (!ft_strcmp(key, tmp->key))
+		{
+			if (tmp == glob.env_p)
+				glob.env_p = glob.env_p->next;
+			else
+				prev->next = tmp->next;
+			ft_free(tmp);
+			break ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}
+}
+
+void	unset(t_args *cmd)
+{
+	if (cmd == NULL || cmd->next == NULL)
+		return ;
+	while (cmd->next != NULL)
+	{
+		if (!(foreign_letter(cmd->next->args)))
+			return ;
+		unset_env(cmd->next->args);
+		cmd = cmd->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 10:47:51 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 11:03:59 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 		signal(SIGINT, SIG_IGN);
 		cmds->pid = fork();
 		if (cmds->pid == 0)
-		{
 			exec_child_process(cmds, p1_end, p2_end, env);
-		}
 		fds_close(cmds, p1_end, p2_end);
 		cmds = cmds->next;
 	}
@@ -106,8 +104,8 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 
 void	init_execution(t_data_cmd *cmds, char **env)
 {
-	int p1_end[2];
-	int p2_end[2];
+	int	p1_end[2];
+	int	p2_end[2];
 
 	p1_end[0] = -42;
 	p1_end[1] = -42;

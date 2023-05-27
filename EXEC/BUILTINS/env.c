@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/21 23:13:19 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 11:35:47 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	env(int outf)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = glob.env_p;
 	glob.ex_status = 0;

@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 03:03:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/24 05:08:46 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 11:05:09 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_free_node(t_args *cmd)
 	while (cmd)
 	{
 		tmp = cmd->next;
-		// free(cmd->args);
 		free(cmd);
 		cmd = tmp;
 	}

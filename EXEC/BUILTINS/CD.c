@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 01:55:39 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 12:08:51 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,9 @@ void	get_home(t_env *evr)
 		tmp = tmp->next;
 	}
 	if (home)
-	{
-		update_pwd(home, evr);
-		free(home);
-	}
+		to_home(home, evr);
 	else
-	{
-		int n = print_errors("cd: HOME not set");
-		glob.ex_status = 1;
-	}
+		print_errors("cd: HOME not set");
 	free(old_p);
 }
 
