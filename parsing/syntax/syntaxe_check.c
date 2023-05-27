@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/27 01:05:24 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 21:29:56 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,19 @@ void	free_it(t_parser *parser)
 }
 void	free_it_II(t_parser *parser)
 {
-	if (parser)
+	if (parser->current_token)
 	{
-		free(parser->lexer->src);
-		free(parser->lexer);
-		if (parser->current_token != NULL)
-		{
-			free(parser->current_token->val);
-			free(parser->current_token);
-		}
-		if (parser->previous_token != NULL)
-		{
-			free(parser->previous_token->val);
-			free(parser->previous_token);
-		}
-		free(parser);
+		free(parser->current_token->val);
+		free(parser->current_token);
 	}
+	if (parser->previous_token)
+	{
+		free(parser->previous_token->val);
+		free(parser->previous_token);
+	}
+	free(parser->lexer->src);
+	free(parser->lexer);
+	free(parser);
 }
 int	check_II(t_token *current, t_token *previous)
 {
@@ -106,7 +103,7 @@ int	pipe_syntax(t_parser *parser)
 		parser->current_token = get_next_token(parser->lexer);
 		if (parser->current_token == NULL)
 		{
-			return (reinitialize_parser(parser), 3);
+			return (free_it_II(parser), 1);
 		}
 		if (parser->current_token->type == t_EOF
 			&& parser->previous_token->type == t_PIPE)
@@ -128,10 +125,11 @@ int	redirect_syntax(t_parser *parser)
 						parser->previous_token) == 0))
 				return (free_it(parser), 1);
 		}
-		else if (type_hd_apd(parser->current_token) == 0)
+		if (type_hd_apd(parser->current_token) == 0)
 		{
 			if (!parser->previous_token
-				|| (type_out_in(parser->previous_token) == 0))
+				|| (type_out_in(parser->previous_token) == 0)
+				|| type_hd_apd(parser->previous_token) == 0)
 				return (free_it(parser), 1);
 		}
 		if (parser->previous_token)
@@ -143,20 +141,20 @@ int	redirect_syntax(t_parser *parser)
 		parser->current_token = get_next_token(parser->lexer);
 		if (parser->current_token == NULL)
 		{
-			return (reinitialize_parser(parser), 1);
+			return (free_it_II(parser), 1);
 		}
 		if (parser->current_token->type == t_EOF
 			&& type_is_rederec(parser->previous_token) == 0)
-			return (free_it(parser), 3);
+			return (free_it(parser), 1);
 	}
 	return (reinitialize_parser(parser), 0);
 }
 
 int	iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
-	if ((pipe_syntax(parser) == 3) || (redirect_syntax(parser) == 3))
-		return (err_msg_II(""));
-	else if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
+	// 	if ((pipe_syntax(parser) == 3) || (redirect_syntax(parser) == 3))
+	// 		return (err_msg_II(""));
+	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
 		return (err_msg("Bash : syntax error"));
 
 	return (0);

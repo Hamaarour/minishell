@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/27 10:45:47 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 22:38:40 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,20 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 			if (read_line(&cmd_enter) == 0)
 			{
 				add_history(cmd_enter);
-				parser = initialize_parser(cmd_enter);
-				if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
+				if (max_heredoc(cmd_enter) == 0)
 				{
-					continue ;
+					parser = initialize_parser(cmd_enter);
+					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
+						continue ;
+					start_execution(data_cmd, env);
+					free(parser->current_token->val);
+					free(parser->current_token);
+					free(parser->previous_token->val);
+					free(parser->previous_token);
+					free(parser->lexer);
+					free(parser);
 				}
-				start_execution(data_cmd, env);
 				free(cmd_enter);
-				if (data_cmd)
-				{
-					free(data_cmd);
-					data_cmd = 0;
-				}
 			}
 		}
 	}

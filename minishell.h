@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 13:01:59 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 22:32:56 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ typedef enum s_tokens_type
 
 typedef struct s_env
 {
-	char *key;   // the key of the envirment variable
-	char *value; // the value of the envirment variable
-	//struct s_env	*prev;  // Add a pointer to the previous node
+	char *key;
+	char *value;
 	struct s_env		*next;
 }						t_env;
 
@@ -107,12 +106,10 @@ typedef struct s_gob
 	int					p_chld;
 	t_env				*env_p;
 	t_env				*exprt;
-	// number of command;
 }						t_gob;
 
 typedef struct s_exc
 {
-	//t_pipes	pipe;
 	int					bltns;
 	int					child_pro;
 	int					i;
@@ -126,12 +123,11 @@ typedef struct t_args
 
 typedef struct s_data_cmd
 {
-	t_args *args; // the cmd that we will execute
-	int fd_in;    // the fd of the input 0
-	int fd_out;   // the fd of the output 1
+	t_args *args;
+	int fd_in;
+	int fd_out;
 	pid_t				pid;
 	struct s_data_cmd	*next;
-	// if there is a pipe we will have a next cmd otherwise it will be NULL if there is no pipe
 }						t_data_cmd;
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -146,16 +142,16 @@ t_lexer					*init_lexer(char *str);
 void					advance_lexer(t_lexer *lexer);
 void					lexer_skip_whitespace(t_lexer *lexer);
 t_token					*get_next_token(t_lexer *lexer);
-t_token	*lexer_advance_with_token(t_lexer *lexer,
+t_token					*lexer_advance_with_token(t_lexer *lexer,
 									t_token *token);
-t_token	*advance_to_next_tocken(t_lexer *lexer,
+t_token					*advance_to_next_tocken(t_lexer *lexer,
 								t_token *token);
 char					*exit_value(t_lexer *lexer);
 char					*single_quote(t_lexer *lexer);
 
 char					*envairment_var(t_lexer *lexer);
 void					expand_dollar(t_lexer *lexer, char **my_str);
-void	get_string_between_double_qoutes(t_lexer *lexer,
+void					get_string_between_double_qoutes(t_lexer *lexer,
 										char **my_str);
 char					*double_quote(t_lexer *lexer);
 char					*hundle_quotes(t_lexer *lexer);
@@ -170,7 +166,7 @@ t_token					*rederection_less(t_lexer *lexer);
 t_token					*rederection_great(t_lexer *lexer);
 //!+++++++++++++++++++++++++++parsing functions+++++++++++++++++++++++++++!//
 t_parser				*initialize_parser(char *input);
-void					check_max_heredoc(char *str);
+int						max_heredoc(char *str);
 int						start_parsing(t_parser *parser, t_data_cmd **cmd);
 int						iterate_over_tokens_check_syntaxe(t_parser *parser);
 int						err_msg(char *msg);
@@ -189,7 +185,15 @@ void					ft_add_back_arg(t_args **head, t_args *new);
 //!+++++++++++++++++++++++++Dividing cmd+++++++++++++++++++++++++++++++++++++
 t_args					*create_node(t_parser *parser, int *fd_in, int *fd_out);
 int						divid_cmd(t_parser *parser, t_data_cmd **cmd_data);
+int						out_file(char *file_name, int *fd_out);
+int						in_file(char *file_name, int *fd_out);
+int						append_file(char *file_name, int *fd_out);
 //!+++++++++++++++++++++++++++++++files++++++++++++++++++++++++++++++++
+/* ************************************************************************** */
+/*									FREE-parsing							*/
+/* ************************************************************************** */
+void					free_parsing(t_parser *parser);
+void					cleanup_parser(t_parser *parser);
 void					free_it(t_parser *parser);
 void					print_cmd_data(t_data_cmd **cmd_data);
 /* ************************************************************************** */
@@ -255,12 +259,8 @@ void					print_errors(char *s);
 /*										Execution									*/
 /* ************************************************************************** */
 
-// void					start_execution(t_data_cmd *cmds);
 void					start_execution(t_data_cmd *cmds, char **env);
 void					init_execution(t_data_cmd *cmds, char **env);
-// void					init_execution(t_data_cmd *cmds);
-// void					exec_child_process(t_data_cmd *cmds, int *p1_end,
-// 							int *p2_end);
 void					exec_child_process(t_data_cmd *cmds, int *p1_end,
 							int *p2_end, char **env);
 void					dupping(t_data_cmd *cmds, int *p1_end, int *p2_end);
