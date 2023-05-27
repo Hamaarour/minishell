@@ -24,4 +24,4 @@ current_token_val =
 current_token =                 
 parser =                        
 
-
+Creat double pointer in global struct and fill it with the standard **env.

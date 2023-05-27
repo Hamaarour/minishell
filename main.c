@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/27 01:08:57 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:45:47 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ int	read_line(char **line)
 	*line = readline("→ minishell~$ ");
 	if (*line == NULL)
 		ctrl_d_handler();
-	// if (*line == NULL)
-	// {
-	// 	free(*line);
-	// 	exit(0);
-	// }
 	if (line[0][0] == '\0')
 	{
 		free(*line);
@@ -51,7 +46,6 @@ int	read_line(char **line)
 
 void	start_execution(t_data_cmd *cmds, char **env)
 {
-	//printf("in = %d.  out = %d\n", cmds->fd_in, cmds->fd_out);
 	if (builtins_check(cmds->args) != NONE_BLT && glob.nb_cmds == 1)
 		builtins(cmds->args, cmds->fd_out);
 	else

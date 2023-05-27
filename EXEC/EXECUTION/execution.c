@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 01:09:39 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:47:51 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end,
 {
 	char	**cmd_arg;
 
+	signal(SIGQUIT, ctrl_quit_handler);
 	dupping(cmds, p1_end, p2_end);
 	if (builtins_check(cmds->args))
 	{
@@ -61,7 +62,6 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end,
 	cmd_arg[0] = get_path(cmd_arg[0]);
 	if (is_printable(cmd_arg[0]))
 	{
-		glob.p_chld = 1;
 		if (execve(cmd_arg[0], cmd_arg, env) == -1)
 		{
 			write(2, "minishell$: command not found\n", 30);
@@ -85,18 +85,14 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 			if (pipe(p1_end) == -1)
 				return ;
 		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
-			signal(SIGQUIT, ctrl_quit_handler);
 			exec_child_process(cmds, p1_end, p2_end, env);
 		}
 		fds_close(cmds, p1_end, p2_end);
 		cmds = cmds->next;
 	}
-	// while (waitpid(cmds->pid, &glob.ex_status, 0) != -1)
-	// 	;
 	while (tmp)
 	{
 		waitpid(tmp->pid, &glob.ex_status, 0);
