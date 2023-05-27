@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 12:37:07 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 01:09:39 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	redirections(int infile, int outfile)
 
 void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
 {
-	//signal(SIGINT, SIG_DFL);
-	//signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (cmds->next)
 	{
 		close(p1_end[0]);
@@ -84,12 +84,12 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 		if (cmds->next)
 			if (pipe(p1_end) == -1)
 				return ;
-		//signal(SIGINT, SIG_IGN);
-		//signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
-			//signal(SIGQUIT, ctrl_quit_handler);
+			signal(SIGQUIT, ctrl_quit_handler);
 			exec_child_process(cmds, p1_end, p2_end, env);
 		}
 		fds_close(cmds, p1_end, p2_end);

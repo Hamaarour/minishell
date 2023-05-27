@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/26 23:30:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 01:08:57 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	welcom(void)
 int	read_line(char **line)
 {
 	*line = readline("→ minishell~$ ");
-	// if (*line == NULL)
-	// 	ctrl_d_handler();
 	if (*line == NULL)
-	{
-		free(*line);
-		exit(0);
-	}
+		ctrl_d_handler();
+	// if (*line == NULL)
+	// {
+	// 	free(*line);
+	// 	exit(0);
+	// }
 	if (line[0][0] == '\0')
 	{
 		free(*line);
@@ -94,46 +94,29 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		//welcom();
+		// welcom();
 		init_glob();
 		while (1)
 		{
-			//signal(SIGINT, ctrl_c_handler);
-			//signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, ctrl_c_handler);
+			signal(SIGQUIT, SIG_IGN);
 			if (read_line(&cmd_enter) == 0)
 			{
 				add_history(cmd_enter);
 				parser = initialize_parser(cmd_enter);
 				if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
+				{
 					continue ;
-				// printf("lexer = 			%p\n", parser->lexer);
-				// printf("current_token_val = %p\n",
-				// 		parser->current_token->val);
-				// printf("current_token = 	%p\n", parser->current_token);
-				// printf("parser = 			%p\n", parser);
-				// // if (parser != NULL)
-				// {
-				//system("leaks minishell");
-				//print_cmd_data(&data_cmd);
-				//start_execution(data_cmd, env);
+				}
+				start_execution(data_cmd, env);
 				free(cmd_enter);
-				// if (data_cmd)
-				// {
-				// 	free(data_cmd);
-				// 	data_cmd = 0;
-				// }
+				if (data_cmd)
+				{
+					free(data_cmd);
+					data_cmd = 0;
+				}
 			}
 		}
-		if (parser->lexer != NULL)
-			free(parser->lexer);
-		if (parser->current_token != NULL)
-		{
-			if (parser->current_token->val != NULL)
-				free(parser->current_token->val);
-			free(parser->current_token);
-		}
-		free(parser);
-		//free_parser_final(parser);
 	}
 	ft_putendl_fd("You cannot pass arguments to this program", 2);
 	exit(EXIT_FAILURE);
@@ -149,5 +132,4 @@ int	main(int ac, char **av, char **env)
 	parser = NULL;
 	get_env(env);
 	lets_go(parser, input, ac, env);
-	//free_parser_final(parser);
 }

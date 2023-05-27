@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/26 15:29:31 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 01:05:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int						type_is_pipe(t_token *token);
 int						type_out_in(t_token *token);
 int						type_hd_apd(t_token *token);
 void					reinitialize_parser(t_parser *parser);
-
+int						err_msg_II(char *msg);
 //! +++++++++++++++++++++++++++ linked list functions ++++++++++++++++++++++++++++++++++++++++
 t_data_cmd				*ft_new_cmd(t_args *arg, int fd_in, int fd_out);
 void					ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);
@@ -196,12 +196,7 @@ void					ft_add_back_arg(t_args **head, t_args *new);
 t_args					*create_node(t_parser *parser, int *fd_in, int *fd_out);
 int						divid_cmd(t_parser *parser, t_data_cmd **cmd_data);
 //!+++++++++++++++++++++++++++++++files++++++++++++++++++++++++++++++++
-void					out_file(char *file_name, t_data_cmd *tmp);
-void					in_file(char *file_name, t_data_cmd *tmp);
-void					append_file(char *file_name, t_data_cmd *tmp);
-
-void					free_parser_final(t_parser *parser);
-
+void					free_it(t_parser *parser);
 void					print_cmd_data(t_data_cmd **cmd_data);
 /* ************************************************************************** */
 /*											Builtins Part								*/
@@ -255,7 +250,7 @@ void					ctrl_c_handler(int num);
 void					ctrl_quit_handler(int num);
 
 /* ************************************************************************** */
-/*													Errors   								  */
+/*													Errors   									*/
 /* ************************************************************************** */
 
 int						print_errors(char *s);
@@ -285,7 +280,7 @@ int						is_printable(char *s);
 t_gob					glob;
 
 /* ************************************************************************** */
-/*									  	Global Variable.           	          */
+/*											Global Variable.           			    */
 /* ************************************************************************** */
 
 void					rl_replace_line(const char *txt, int num);

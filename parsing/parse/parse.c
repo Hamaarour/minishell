@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/26 22:51:07 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/27 00:50:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,30 @@ int	is_redirection(t_tokens_type type)
 	return (0);
 }
 
+void	cleanup_parser(t_parser *parser)
+{
+	if (parser == NULL)
+		return ;
+	if (parser->lexer != NULL)
+	{
+		free(parser->lexer->src);
+		free(parser->lexer);
+		parser->lexer = NULL;
+	}
+	if (parser->current_token != NULL)
+	{
+		free(parser->current_token->val);
+		free(parser->current_token);
+		parser->current_token = NULL;
+	}
+	if (parser->previous_token != NULL)
+	{
+		free(parser->previous_token->val);
+		free(parser->previous_token);
+		parser->previous_token = NULL;
+	}
+	free(parser);
+}
 t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 {
 	t_args	*arg;
@@ -95,12 +119,15 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 		{
 			free(parser->previous_token->val);
 			free(parser->previous_token);
+			parser->previous_token = NULL;
 		}
 		parser->previous_token = parser->current_token;
 		parser->current_token = get_next_token(parser->lexer);
 		if (parser->current_token == NULL)
 		{
-			return (reinitialize_parser(parser), NULL);
+			free(parser->current_token->val);
+			free(parser->current_token);
+			return (NULL);
 			//return (NULL);
 		}
 	}
@@ -125,13 +152,14 @@ int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 			if (arg != NULL)
 				ft_add_back_cmd(cmd_data, ft_new_cmd(arg, in, out));
 			else
+			{
 				return (1);
+			}
 		}
-		if (parser->current_token)
-		{
+		if (parser->current_token != NULL)
 			free(parser->current_token->val);
-			free(parser->current_token);
-		}
+		free(parser->current_token);
+		parser->current_token = NULL;
 		parser->current_token = get_next_token(parser->lexer);
 		if (parser->current_token == NULL)
 		{
@@ -139,10 +167,11 @@ int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 			return (1);
 		}
 	}
-	if (parser->current_token)
+	if (parser->current_token != NULL)
 	{
 		free(parser->current_token->val);
 		free(parser->current_token);
+		parser->current_token = NULL;
 	}
 	return (0);
 }
@@ -155,6 +184,7 @@ int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 	glob.ex_status = st;
 	while (parser->lexer->ambg_redir > 0)
 	{
+		glob.ex_status = 1;
 		ft_putendl_fd("Error: Ambiguous redirect", 2);
 		parser->lexer->ambg_redir--;
 	}
@@ -162,9 +192,11 @@ int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 	{
 		if (divid_cmd(parser, cmd_data) == 1)
 		{
+			cleanup_parser(parser);
 			return (1);
 		}
 		return (0);
 	}
+	cleanup_parser(parser);
 	return (1);
 }
