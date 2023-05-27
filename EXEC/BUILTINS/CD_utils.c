@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:04:26 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 12:07:15 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 14:03:04 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 void	to_home(char *home, t_env *evr)
 {
-	update_pwd(home, evr);
-	free(home);
+	if (home)
+	{
+		update_pwd(home, evr);
+		free(home);
+	}
+	else
+		print_errors("cd: HOME not set");
 }

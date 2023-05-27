@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 12:08:08 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 13:01:59 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,6 @@ typedef struct s_gob
 	t_env				*exprt;
 	// number of command;
 }						t_gob;
-
-// typedef struct s_pipes
-// {
-// 	int	p1_end[2];
-// 	int	p2_end[2];
-// }		t_pipes;
 
 typedef struct s_exc
 {

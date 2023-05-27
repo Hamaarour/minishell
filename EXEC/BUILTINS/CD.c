@@ -6,7 +6,7 @@
 /*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 12:08:51 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/27 14:08:22 by zjaddad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,7 @@ void	get_home(t_env *evr)
 		}
 		tmp = tmp->next;
 	}
-	if (home)
-		to_home(home, evr);
-	else
-		print_errors("cd: HOME not set");
+	to_home(home, evr);
 	free(old_p);
 }
 
@@ -114,7 +111,7 @@ void	cd(t_args *cmd)
 			update_old(old_p, glob.env_p);
 		if (chdir(cmd->next->args) == -1)
 		{
-			printf("No such file or directory\n");
+			perror(cmd->next->args);
 			glob.ex_status = 1;
 		}
 		pwd = getcwd(NULL, 0);
