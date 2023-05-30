@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:43 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 02:06:16 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/29 09:07:12 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-//creat new node of t_args type and return it
 t_args *ft_new_arg(char *arg)
 {
 	t_args	*new_arg_node;
@@ -26,7 +25,6 @@ t_args *ft_new_arg(char *arg)
 	return (new_arg_node);
 }
 
-// add back the new node to the linked list
 void	ft_add_back_arg(t_args **head, t_args *new)
 {
 	t_args	*tmp;

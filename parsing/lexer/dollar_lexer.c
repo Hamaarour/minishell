@@ -6,20 +6,20 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/26 23:08:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/29 08:47:56 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-/**
-strerror() is a standard library function that returns a string description of the error code
-stored in errno.
-In summary, errno is a global variable that stores error codes,
-	and strerror() is a standard library function
-that can be used to convert those error codes into human-readable error messages
-*/
+
+//strerror() is a standard library function that returns a string description of the error code
+//stored in errno.
+//In summary, errno is a global variable that stores error codes,
+//	and strerror() is a standard library function
+//that can be used to convert those error codes into human-readable error messages
+
 char	*exit_value(t_lexer *lexer)
 {
 	char	*val;

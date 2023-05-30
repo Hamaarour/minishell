@@ -2,7 +2,6 @@
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-//this function print the linked list of the tokens
 void print_cmd_data(t_data_cmd **cmd_data) 
 {
 	t_data_cmd * current = *cmd_data;	

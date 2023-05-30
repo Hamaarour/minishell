@@ -6,16 +6,13 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:23:02 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/27 12:24:44 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/29 09:07:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-/*
-    function to initialize the parser and return a pointer to the parser struct 
-*/
 t_parser	*initialize_parser(char *input)
 {
 	t_parser	*parser;

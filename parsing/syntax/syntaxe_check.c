@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/27 21:29:56 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:16:31 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_it(t_parser *parser)
 	}
 	free(parser);
 }
+
 void	free_it_II(t_parser *parser)
 {
 	if (parser->current_token)
@@ -42,6 +43,7 @@ void	free_it_II(t_parser *parser)
 	free(parser->lexer);
 	free(parser);
 }
+
 int	check_II(t_token *current, t_token *previous)
 {
 	if ((current->type == t_LESS_THAN || current->type == t_GREAT_THAN)
@@ -72,7 +74,6 @@ void	reinitialize_parser(t_parser *parser)
 	parser->previous_token = NULL;
 }
 
-/* Check PIPE syntax */
 int	pipe_syntax(t_parser *parser)
 {
 	while (parser->current_token->type != t_EOF)
@@ -91,7 +92,7 @@ int	pipe_syntax(t_parser *parser)
 			if (parser->previous_token == NULL)
 				return (free_it(parser), 1);
 			else if (parser->previous_token->type == t_PIPE
-					|| type_is_rederec(parser->previous_token) == 0)
+				|| type_is_rederec(parser->previous_token) == 0)
 				return (free_it(parser), 1);
 		}
 		if (parser->previous_token)
@@ -112,11 +113,22 @@ int	pipe_syntax(t_parser *parser)
 	return (reinitialize_parser(parser), 0);
 }
 
-/* Check redirection syntax */
+// int	type_out_in(t_token *token)
+// {
+// 	if (token)
+// 	{
+// 		if (token->type == t_LESS_THAN || token->type == t_GREAT_THAN)
+// 			return (0);
+// 	}
+// 	return (1);
+// }
+
 int	redirect_syntax(t_parser *parser)
 {
 	while (parser->current_token->type != t_EOF)
 	{
+		if (parser->previous_token == NULL && parser->current_token->type == t_LESS_THAN)
+			return (free_it(parser), 1);
 		if (type_out_in(parser->current_token) == 0)
 		{
 			if (parser->previous_token
@@ -152,10 +164,7 @@ int	redirect_syntax(t_parser *parser)
 
 int	iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
-	// 	if ((pipe_syntax(parser) == 3) || (redirect_syntax(parser) == 3))
-	// 		return (err_msg_II(""));
 	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
 		return (err_msg("Bash : syntax error"));
-
 	return (0);
 }

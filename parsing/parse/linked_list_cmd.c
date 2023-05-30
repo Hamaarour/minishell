@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/22 02:06:20 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/29 09:07:26 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-//creat new node of t_data_cmd type and return it
 t_data_cmd	*ft_new_cmd(t_args *arg, int fd_in, int fd_out)
 {
 	t_data_cmd	*new_cmd_node;
@@ -28,7 +27,6 @@ t_data_cmd	*ft_new_cmd(t_args *arg, int fd_in, int fd_out)
 	return (new_cmd_node);
 }
 
-// add back the new node to the linked list
 void	ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new)
 {
 	t_data_cmd	*tmp;

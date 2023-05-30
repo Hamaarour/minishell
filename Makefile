@@ -23,14 +23,14 @@ SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EX
 	LIBFT/ft_lstlast.c EXEC/BUILTINS/buitins_exec.c LIBFT/ft_calloc_p.c LIBFT/ft_isalnum.c LIBFT/ft_itoa.c\
 	LIBFT/ft_putendl_fd.c LIBFT/ft_split_p.c LIBFT/ft_strjoin.c LIBFT/ft_strstr.c LIBFT/ft_substr_p.c EXEC/BUILTINS/export_utlis.c\
 	parsing/GNL/get_next_line_utils.c parsing/GNL/get_next_line.c \
-	parsing/token/tokens.c \
+	parsing/token/tokens.c  parsing/parse/here_doc_utils.c\
 	parsing/lexer/lexer.c parsing/lexer/error_func.c parsing/lexer/dollar_lexer.c parsing/lexer/init_lexer.c  parsing/lexer/rm_extra_spaces.c parsing/lexer/lexer_utils.c\
 	parsing/lexer/dollar_lexer_utils.c \
 	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c parsing/lexer/get_env.c  parsing/lexer/free_lexer.c\
 	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c parsing/parse/check_types.c\
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c parsing/parse/opennig_files.c parsing/parse/max_heredoc.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c\
-	parsing/parse/print_list.c EXEC/EXECUTION/execution.c EXEC/EXECUTION/exec_get_path.c\
+	parsing/parse/print_list.c EXEC/EXECUTION/execution.c EXEC/EXECUTION/exec_get_path.c free_parser.c\
 	EXEC/EXECUTION/exec_get_pipe.c EXEC/ERRORS/error.c EXEC/SIGNALS/signals.c EXEC/BUILTINS/CD_utils.c
 
 OBJ= $(SRC:.c=.o)

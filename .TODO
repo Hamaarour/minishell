@@ -11,17 +11,4 @@
 echo walid < dklsfs > out1 > out2 << a << b| echo walid > outfile555 < sadfadsfd << c
 
 
-ls > a > b > c > d > e < f //check not such file or directory stop in infile.
-
-cat a < b < d // d doesn't exist.
-
-ex_status in case of echo it will be retrun always 1.
-
-ls <<<< S
-
-lexer =                         
-current_token_val =             
-current_token =                 
-parser =                        
-
-Creat double pointer in global struct and fill it with the standard **env.
+hundle redirction in the pos 0

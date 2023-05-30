@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:35:15 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/27 01:05:55 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:16:30 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,13 @@ int	err_msg_II(char *msg)
 	glob.ex_status = 258;
 	glob.nb_cmds = 0;
 	return (258);
+}
+
+void	error_opening_file(int fd)
+{
+	if (fd == -1)
+	{
+		ft_putendl_fd("Bash Error: No such file or directory", 2);
+		glob.ex_status = 1;
+	}
 }

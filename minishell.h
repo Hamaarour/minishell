@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 22:32:56 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/29 19:16:26 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 
 # define STDRIN 0
 # define STDROUT 1
@@ -49,19 +51,19 @@
 //!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 typedef enum s_tokens_type
 {
-	t_CHAR,       // any word 0
-	t_PIPE,       // | 1
-	t_GREAT_THAN, // > 2
-	t_LESS_THAN,  // < 3
-	t_HEREDOC,    // << 4
-	t_APPEND,     // >> 5
-	t_EOF,        // end of file 6
+	t_CHAR,
+	t_PIPE,
+	t_GREAT_THAN,
+	t_LESS_THAN,
+	t_HEREDOC,
+	t_APPEND,
+	t_EOF,
 }						t_tokens_type;
 
 typedef struct s_env
 {
-	char *key;
-	char *value;
+	char				*key;
+	char				*value;
 	struct s_env		*next;
 }						t_env;
 
@@ -123,9 +125,9 @@ typedef struct t_args
 
 typedef struct s_data_cmd
 {
-	t_args *args;
-	int fd_in;
-	int fd_out;
+	t_args				*args;
+	int					fd_in;
+	int					fd_out;
 	pid_t				pid;
 	struct s_data_cmd	*next;
 }						t_data_cmd;
@@ -143,16 +145,14 @@ void					advance_lexer(t_lexer *lexer);
 void					lexer_skip_whitespace(t_lexer *lexer);
 t_token					*get_next_token(t_lexer *lexer);
 t_token					*lexer_advance_with_token(t_lexer *lexer,
-									t_token *token);
-t_token					*advance_to_next_tocken(t_lexer *lexer,
-								t_token *token);
+							t_token *token);
+t_token					*advance_to_next_tocken(t_lexer *lexer, t_token *token);
 char					*exit_value(t_lexer *lexer);
 char					*single_quote(t_lexer *lexer);
-
 char					*envairment_var(t_lexer *lexer);
 void					expand_dollar(t_lexer *lexer, char **my_str);
 void					get_string_between_double_qoutes(t_lexer *lexer,
-										char **my_str);
+							char **my_str);
 char					*double_quote(t_lexer *lexer);
 char					*hundle_quotes(t_lexer *lexer);
 void					error_func(int err);
@@ -177,7 +177,7 @@ int						type_out_in(t_token *token);
 int						type_hd_apd(t_token *token);
 void					reinitialize_parser(t_parser *parser);
 int						err_msg_II(char *msg);
-//! +++++++++++++++++++++++++++ linked list functions ++++++++++++++++++++++++++++++++++++++++
+//! +++++++++++++++++++++++++++ linked list functions +++++++++++++++++++++++++
 t_data_cmd				*ft_new_cmd(t_args *arg, int fd_in, int fd_out);
 void					ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);
 t_args					*ft_new_arg(char *arg);
@@ -188,17 +188,21 @@ int						divid_cmd(t_parser *parser, t_data_cmd **cmd_data);
 int						out_file(char *file_name, int *fd_out);
 int						in_file(char *file_name, int *fd_out);
 int						append_file(char *file_name, int *fd_out);
+void					error_opening_file(int fd);
 //!+++++++++++++++++++++++++++++++files++++++++++++++++++++++++++++++++
-/* ************************************************************************** */
-/*									FREE-parsing							*/
-/* ************************************************************************** */
-void					free_parsing(t_parser *parser);
+char					*generate_filename(void);
+//!\************************************************************************* */
+//!									FREE-parsing							*/
+//!\************************************************************************* */
 void					cleanup_parser(t_parser *parser);
 void					free_it(t_parser *parser);
 void					print_cmd_data(t_data_cmd **cmd_data);
-/* ************************************************************************** */
-/*											Builtins Part								*/
-/* ************************************************************************** */
+void					free_Arg(t_args *arg);
+void					free_prev(t_parser *parser);
+void					free_parser(t_parser *parser);
+//!\****************************************************************/
+//!											Builtins Part					
+//!\****************************************************************/
 
 void					builtins(t_args *cmd, int fd);
 void					unset(t_args *cmd);
@@ -215,9 +219,9 @@ int						args_len(char **s);
 int						foreign_letter(char *cmd);
 void					get_env(char **envp);
 
-/* ************************************************************************** */
-/*												FT_List									*/
-/* ************************************************************************** */
+//!\****************************************************************/
+//!												FT_List			
+//!\****************************************************************/
 
 t_env					*ft_lstnew_s(char *key, char *value);
 void					ft_lstadd_back_s(t_env **head, t_env *new);
@@ -225,39 +229,43 @@ t_args					*ft_lstnew_arg(void *content);
 t_args					*ft_lstlast_arg(t_args *lst);
 void					ft_lstadd_back_arg(t_args **lst, t_args *new);
 int						ft_lstsizes(t_args *lst);
-
-/* ************************************************************************** */
-/*												free									*/
-/* ************************************************************************** */
+//!\****************************************************************/
+//!					HERE DOC			
+//!\****************************************************************/
+char					*generate_filename(void);
+int						heredoc_file(char *delim, int *fd_in);
+//!\**************************************************************** */
+//!												free				
+//!\**************************************************************** * /
 
 void					ft_free(t_env *evr);
 void					ft_free_node(t_args *cmd);
 void					ft_free_cmd_p(char **cmd);
 
-/* ************************************************************************** */
-/*											Temporary									*/
-/* ************************************************************************** */
+//!\************************************************************************* */
+//!											Temporary			*/
+//!\************************************************************************* */
 
 char					**ft_split_t(char const *s, char sep);
 char					*epur_str(char *s);
 
-/* ************************************************************************** */
-/*										Signals 									*/
-/* ************************************************************************** */
+//!\************************************************************************* */
+//!										Signals 				*/
+//!\************************************************************************* */
 
 void					ctrl_d_handler(void);
 void					ctrl_c_handler(int num);
 void					ctrl_quit_handler(int num);
 
-/* ************************************************************************** */
-/*													Errors   									*/
-/* ************************************************************************** */
+//!\************************************************************************* */
+//!													Errors   			*/
+//!\************************************************************************* */
 
 void					print_errors(char *s);
 
-/* ************************************************************************** */
-/*										Execution									*/
-/* ************************************************************************** */
+//!\************************************************************************* */
+//!										Execution				*/
+//!\************************************************************************* */
 
 void					start_execution(t_data_cmd *cmds, char **env);
 void					init_execution(t_data_cmd *cmds, char **env);
@@ -269,15 +277,15 @@ char					**to_double_pointer(t_args *cmd);
 void					fds_close(t_data_cmd *cmds, int *p1_end, int *p2_end);
 int						is_printable(char *s);
 
-/* ************************************************************************** */
-/*										Global Variabale								*/
-/* ************************************************************************** */
+//!\************************************************************************* */
+//!										Global Variabale			*/
+//!\************************************************************************* */
 
 t_gob					glob;
 
-/* ************************************************************************** */
-/*											Global Variable.           			    */
-/* ************************************************************************** */
+//!\************************************************************************* */
+//!											Global Variable.        	*/
+//!\************************************************************************* */
 
 void					rl_replace_line(const char *txt, int num);
 

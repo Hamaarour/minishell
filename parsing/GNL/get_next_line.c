@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 16:30:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/23 16:58:54 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/29 08:46:44 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ss(int fd, char *buffer, char *tmp, char **string)
 	int	bytes;
 
 	bytes = 1;
-	while (ft_strchr_G(tmp) == 0 && bytes != 0)
+	while (ft_strchr_g(tmp) == 0 && bytes != 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes <= 0)
@@ -32,12 +32,12 @@ char	*ss(int fd, char *buffer, char *tmp, char **string)
 			break ;
 		}
 		buffer[bytes] = '\0';
-		tmp = ft_strjoin_G(&tmp, buffer);
+		tmp = ft_strjoin_g(&tmp, buffer);
 	}
 	return (tmp);
 }
 
-char	*ft_read_G(int fd, char **string)
+char	*ft_read_g(int fd, char **string)
 {
 	char	*buffer;
 	char	*tmp;
@@ -47,7 +47,7 @@ char	*ft_read_G(int fd, char **string)
 	if (!buffer)
 		return (NULL);
 	buffer[0] = 0;
-	tmp = ft_strjoin_G(string, buffer);
+	tmp = ft_strjoin_g(string, buffer);
 	tmp = ss(fd, buffer, tmp, string);
 	free(buffer);
 	if (tmp && tmp[0] == 0)
@@ -81,7 +81,7 @@ char	*get_line_ss(char **string, char *line)
 	while (++j < i)
 		buff[j] = line[j];
 	buff[j] = '\0';
-	*string = ft_substr_G(line, i, ft_strlen_G(line));
+	*string = ft_substr_g(line, i, ft_strlen_g(line));
 	free(line);
 	return (buff);
 }
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	line = ft_read_G(fd, &string);
+	line = ft_read_g(fd, &string);
 	if (!line)
 		return (NULL);
 	line = get_line_ss(&string, line);
