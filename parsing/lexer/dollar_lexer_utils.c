@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/24 17:53:18 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:48:10 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*envairment_var(t_lexer *lexer)
 	tmp = str;
 	if (str == NULL)
 		error_func(errno);
-	str = get_envairment_var(tmp, lexer);
+	str = get_envairment_var(tmp);
 	if (str == NULL)
 		str = ft_strdup("");
 	free(tmp);

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/29 19:16:26 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:05:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_gob
 	int					p_chld;
 	t_env				*env_p;
 	t_env				*exprt;
+	int					fd_here_doc;
 }						t_gob;
 
 typedef struct s_exc
@@ -157,7 +158,7 @@ char					*double_quote(t_lexer *lexer);
 char					*hundle_quotes(t_lexer *lexer);
 void					error_func(int err);
 char					*get_dollar(t_lexer *lexer);
-char					*get_envairment_var(char *to_find, t_lexer *lexer);
+char					*get_envairment_var(char *to_find);
 char					*get_char(t_lexer *lexer);
 char					*remove_multiple_spaces(char *s);
 void					get_env(char **envp);

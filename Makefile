@@ -16,7 +16,7 @@ LIBREADLINE		= -L /goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 INCREADLINE		= -I /goinfre/$(USER)/homebrew/opt/readline/include
 #CFLAGS= -Wall -Wextra -Werror 
 
-SRC=main.c FREE/free.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\
+SRC=main.c FREE/free.c LIBFT/ft_isalpha.c LIBFT/ft_strtrim.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\
 	LIBFT/ft_substr.c LIBFT/ft_strlen.c LIBFT/ft_strdup.c LIBFT/ft_putstr_fd.c EXEC/BUILTINS/echo.c\
 	EXEC/BUILTINS/pwd.c LIBFT/ft_lstdelone.c EXEC/BUILTINS/env.c EXEC/BUILTINS/exit.c LIBFT/ft_bzero.c LIBFT/ft_calloc.c\
 	LIBFT/ft_atoi.c EXEC/BUILTINS/CD.c EXEC/BUILTINS/export.c LIBFT/ft_strchr.c LIBFT/ft_lstadd_back.c LIBFT/ft_lstnew.c\

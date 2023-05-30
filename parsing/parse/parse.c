@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/29 20:57:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:52:08 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,43 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 			if (parser->previous_token->type == t_GREAT_THAN)
 			{
 				if (out_file(parser->current_token->val, fd_out) == 1)
-					return (free_Arg(arg), NULL);
+				{
+					if (arg)
+						return (free_Arg(arg), NULL);
+					else
+						return (NULL);
+				}
 			}
 			else if (parser->previous_token->type == t_LESS_THAN)
 			{
 				if (in_file(parser->current_token->val, fd_in) == 1)
-					return (free_Arg(arg), NULL);
+				{
+					if (arg)
+						return (free_Arg(arg), NULL);
+					else
+						return (NULL);
+				}
 			}
 			else if (parser->previous_token->type == t_APPEND)
 			{
 				if (append_file(parser->current_token->val, fd_out) == 1)
-					return (free_Arg(arg), NULL);
+				{
+					if (arg)
+						return (free_Arg(arg), NULL);
+					else
+						return (NULL);
+				}
 			}
-			// else if (parser->previous_token->type == t_HEREDOC)
-			// {
-			// 	if (heredoc_file(parser->current_token->val, fd_in) == 1)
-			// 		return (free_Arg(arg), NULL);
-			// }
+			else if (parser->previous_token->type == t_HEREDOC)
+			{
+				if (heredoc_file(parser->current_token->val, fd_in) == 1)
+				{
+					if (arg)
+						return (free_Arg(arg), NULL);
+					else
+						return (NULL);
+				}
+			}
 			flag = 1;
 		}
 		if (flag != 1 && !is_redirection(parser->current_token->type))
@@ -146,6 +166,7 @@ int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 	{
 		if (divid_cmd(parser, cmd_data) == 1)
 		{
+			
 			cleanup_parser(parser);
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/30 11:12:38 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 00:49:26 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_glob(void)
 	glob.ex_status = 0;
 	glob.p_chld = 0;
 	glob.nb_cmds = 1;
+	glob.fd_here_doc = 0;
 }
 
 int	read_line(char **line)
@@ -61,6 +62,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					parser = initialize_parser(cmd_enter);
 					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
 						continue ;
+					
 					start_execution(data_cmd, env);
 					free_parser(parser);
 				}

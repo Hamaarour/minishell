@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/29 21:16:31 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:55:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,22 +127,21 @@ int	redirect_syntax(t_parser *parser)
 {
 	while (parser->current_token->type != t_EOF)
 	{
-		if (parser->previous_token == NULL && parser->current_token->type == t_LESS_THAN)
-			return (free_it(parser), 1);
-		if (type_out_in(parser->current_token) == 0)
+		if (parser->previous_token != NULL)
 		{
-			if (parser->previous_token
-				&& (type_out_in(parser->previous_token) == 0
-					|| check_II(parser->current_token,
-						parser->previous_token) == 0))
-				return (free_it(parser), 1);
-		}
-		if (type_hd_apd(parser->current_token) == 0)
-		{
-			if (!parser->previous_token
-				|| (type_out_in(parser->previous_token) == 0)
-				|| type_hd_apd(parser->previous_token) == 0)
-				return (free_it(parser), 1);
+			if (type_out_in(parser->current_token) == 0)
+			{
+				if ((type_out_in(parser->previous_token) == 0 
+					|| check_II(parser->current_token, parser->previous_token) == 0))
+					return (free_it(parser), 1);
+			}
+			if (type_hd_apd(parser->current_token) == 0)
+			{
+				if (!parser->previous_token
+					|| (type_out_in(parser->previous_token) == 0)
+					|| type_hd_apd(parser->previous_token) == 0)
+					return (free_it(parser), 1);
+			}
 		}
 		if (parser->previous_token)
 		{
@@ -157,7 +156,8 @@ int	redirect_syntax(t_parser *parser)
 		}
 		if (parser->current_token->type == t_EOF
 			&& type_is_rederec(parser->previous_token) == 0)
-			return (free_it(parser), 1);
+				return (free_it(parser), 1);
+
 	}
 	return (reinitialize_parser(parser), 0);
 }
