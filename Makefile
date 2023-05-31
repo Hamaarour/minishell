@@ -14,7 +14,7 @@ NAME=minishell
 CC=cc #-fsanitize=address -g3
 LIBREADLINE		= -L /goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 INCREADLINE		= -I /goinfre/$(USER)/homebrew/opt/readline/include
-CFLAGS= -Wall -Wextra -Werror 
+#CFLAGS= -Wall -Wextra -Werror 
 
 SRC=main.c FREE/free.c LIBFT/ft_strncmp.c LIBFT/ft_isalpha.c LIBFT/ft_strtrim.c LIBFT/ft_strcmp.c LIBFT/ft_split.c  LIBFT/ft_isprint.c EXEC/BUILTINS/unset.c\
 	LIBFT/ft_substr.c LIBFT/ft_strlen.c LIBFT/ft_strdup.c LIBFT/ft_putstr_fd.c EXEC/BUILTINS/echo.c\
