@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:59:40 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/29 08:43:26 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	pwd(t_args *input, int fd)
 {
 	char	*str;
 
-	glob.ex_status = 0;
+	g_glob.ex_status = 0;
 	if (input && input->next != NULL)
 		if (input->next->args[0] == '-' && input->next->args[1])
 			return (print_error(input->args));

@@ -6,19 +6,19 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/29 08:47:56 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-
-//strerror() is a standard library function that returns a string description of the error code
-//stored in errno.
-//In summary, errno is a global variable that stores error codes,
+//strerror() is a standard library function that returns a string 
+//description of the error codestored in errno.
+//In summary, errno is a g_global variable that stores error codes,
 //	and strerror() is a standard library function
-//that can be used to convert those error codes into human-readable error messages
+//that can be used to convert those error codes into human-readable
+// error messages
 
 char	*exit_value(t_lexer *lexer)
 {
@@ -31,10 +31,6 @@ char	*exit_value(t_lexer *lexer)
 	return (val);
 }
 
-/*
-	get the string between double qoutes  " "   and return it
-	
-*/
 char	*double_quote(t_lexer *lexer)
 {
 	char	*string;
@@ -43,7 +39,7 @@ char	*double_quote(t_lexer *lexer)
 	if (!check_qutes(lexer, '"'))
 	{
 		ft_putendl_fd("Bash Error : \"Quotes\"", 2);
-		glob.ex_status = 258;
+		g_glob.ex_status = 258;
 		return (NULL);
 	}
 	string = ft_strdup("");
@@ -58,9 +54,6 @@ char	*double_quote(t_lexer *lexer)
 	return (string);
 }
 
-/*
-	get the string between single qoutes and double qoutes and return it    
-*/
 char	*hundle_quotes(t_lexer *lexer)
 {
 	char	*tmp;
@@ -72,13 +65,11 @@ char	*hundle_quotes(t_lexer *lexer)
 	return (tmp);
 }
 
-/*
-	get the string between double qoutes and single qoutes and return it
-*/
 char	*get_dollar(t_lexer *lexer)
 {
-	char *tmp; //str
-	char *str; //s
+	char	*tmp;
+	char	*str;
+
 	str = ft_strdup("");
 	advance_lexer(lexer);
 	if (lexer->c == '?')

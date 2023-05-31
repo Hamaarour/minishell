@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/30 19:05:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:23:46 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
-# include <sys/wait.h>
-# include <unistd.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 # define STDRIN 0
 # define STDROUT 1
@@ -177,7 +177,7 @@ int						type_is_pipe(t_token *token);
 int						type_out_in(t_token *token);
 int						type_hd_apd(t_token *token);
 void					reinitialize_parser(t_parser *parser);
-int						err_msg_II(char *msg);
+int						err_msg_ii(char *msg);
 //! +++++++++++++++++++++++++++ linked list functions +++++++++++++++++++++++++
 t_data_cmd				*ft_new_cmd(t_args *arg, int fd_in, int fd_out);
 void					ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new);
@@ -189,7 +189,6 @@ int						divid_cmd(t_parser *parser, t_data_cmd **cmd_data);
 int						out_file(char *file_name, int *fd_out);
 int						in_file(char *file_name, int *fd_out);
 int						append_file(char *file_name, int *fd_out);
-void					error_opening_file(int fd);
 //!+++++++++++++++++++++++++++++++files++++++++++++++++++++++++++++++++
 char					*generate_filename(void);
 //!\************************************************************************* */
@@ -197,12 +196,11 @@ char					*generate_filename(void);
 //!\************************************************************************* */
 void					cleanup_parser(t_parser *parser);
 void					free_it(t_parser *parser);
-void					print_cmd_data(t_data_cmd **cmd_data);
-void					free_Arg(t_args *arg);
+void					free_arg(t_args *arg);
 void					free_prev(t_parser *parser);
-void					free_parser(t_parser *parser);
+void					free_parser(t_parser **parser);
 //!\****************************************************************/
-//!											Builtins Part					
+//!											Builtins Part
 //!\****************************************************************/
 
 void					builtins(t_args *cmd, int fd);
@@ -219,9 +217,25 @@ int						builtins_check(t_args *cmd);
 int						args_len(char **s);
 int						foreign_letter(char *cmd);
 void					get_env(char **envp);
-
 //!\****************************************************************/
-//!												FT_List			
+//!						Here doc
+//!\****************************************************************/
+char					*dollar(char *s, int *i);
+char					*generate_filename(void);
+char					*expand(char *line);
+int						find(char *s, int c);
+int						err_heredoc(int fd, char *file_name);
+int						error_opening_file(int fd);
+//!\************************************************************************* */
+//!									FREE-Rein in Syntaxe				*/
+//!\************************************************************************* */
+void					reinitialize_parser(t_parser *parser);
+int						check_ii(t_token *current, t_token *previous);
+int						check_ii(t_token *current, t_token *previous);
+void					free_it(t_parser *parser);
+void					free_it_ii(t_parser *parser);
+//!\****************************************************************/
+//!												FT_List
 //!\****************************************************************/
 
 t_env					*ft_lstnew_s(char *key, char *value);
@@ -231,12 +245,12 @@ t_args					*ft_lstlast_arg(t_args *lst);
 void					ft_lstadd_back_arg(t_args **lst, t_args *new);
 int						ft_lstsizes(t_args *lst);
 //!\****************************************************************/
-//!					HERE DOC			
+//!					HERE DOC
 //!\****************************************************************/
 char					*generate_filename(void);
 int						heredoc_file(char *delim, int *fd_in);
 //!\**************************************************************** */
-//!												free				
+//!												free
 //!\**************************************************************** * /
 
 void					ft_free(t_env *evr);
@@ -257,6 +271,7 @@ char					*epur_str(char *s);
 void					ctrl_d_handler(void);
 void					ctrl_c_handler(int num);
 void					ctrl_quit_handler(int num);
+void					ctrl_handler(int num);
 
 //!\************************************************************************* */
 //!													Errors   			*/
@@ -279,13 +294,13 @@ void					fds_close(t_data_cmd *cmds, int *p1_end, int *p2_end);
 int						is_printable(char *s);
 
 //!\************************************************************************* */
-//!										Global Variabale			*/
+//!										g_global Variabale			*/
 //!\************************************************************************* */
 
-t_gob					glob;
+t_gob					g_glob;
 
 //!\************************************************************************* */
-//!											Global Variable.        	*/
+//!											g_global Variable.        	*/
 //!\************************************************************************* */
 
 void					rl_replace_line(const char *txt, int num);

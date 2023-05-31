@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:42:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/29 09:07:26 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:20:12 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_data_cmd	*ft_new_cmd(t_args *arg, int fd_in, int fd_out)
 void	ft_add_back_cmd(t_data_cmd **head, t_data_cmd *new)
 {
 	t_data_cmd	*tmp;
-	
+
 	if (!head || !*head)
 	{
 		(*head) = new;

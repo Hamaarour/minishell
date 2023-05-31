@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 02:16:33 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/05/31 14:50:32 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:37:03 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../LIBFT/libft.h"
-#include "../../minishell.h"
+#include "libft.h"
 
-void	env(int outf)
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
 {
-	t_env	*tmp;
+	unsigned int	i;
 
-	tmp = g_glob.env_p;
-	g_glob.ex_status = 0;
-	while (tmp)
+	i = 0;
+	while (i < n
+		&& ((unsigned char)s1[i] != '\0' || (unsigned char)s2[i] != '\0'))
 	{
-		if (tmp->value)
-		{
-			ft_putstr_fd(tmp->key, outf);
-			ft_putstr_fd("=", outf);
-			ft_putstr_fd(tmp->value, outf);
-			ft_putstr_fd("\n", outf);
-		}
-		tmp = tmp->next;
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
+	return (0);
 }

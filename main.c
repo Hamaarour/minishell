@@ -6,19 +6,19 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 00:49:26 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:10:12 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "LIBFT/libft.h"
 #include "minishell.h"
 
-void	init_glob(void)
+void	init_g_glob(void)
 {
-	glob.ex_status = 0;
-	glob.p_chld = 0;
-	glob.nb_cmds = 1;
-	glob.fd_here_doc = 0;
+	g_glob.ex_status = 0;
+	g_glob.p_chld = 0;
+	g_glob.nb_cmds = 1;
+	g_glob.fd_here_doc = 0;
 }
 
 int	read_line(char **line)
@@ -36,7 +36,7 @@ int	read_line(char **line)
 
 void	start_execution(t_data_cmd *cmds, char **env)
 {
-	if (builtins_check(cmds->args) != NONE_BLT && glob.nb_cmds == 1)
+	if (builtins_check(cmds->args) != NONE_BLT && g_glob.nb_cmds == 1)
 		builtins(cmds->args, cmds->fd_out);
 	else
 		init_execution(cmds, env);
@@ -49,7 +49,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		init_glob();
+		init_g_glob();
 		while (1)
 		{
 			signal(SIGINT, ctrl_c_handler);
@@ -62,9 +62,8 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					parser = initialize_parser(cmd_enter);
 					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
 						continue ;
-					
 					start_execution(data_cmd, env);
-					free_parser(parser);
+					free_parser(&parser);
 				}
 				while (data_cmd)
 				{

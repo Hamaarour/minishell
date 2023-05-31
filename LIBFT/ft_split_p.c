@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_p.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:27:03 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/25 01:06:54 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:37:37 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static int	ww(char const *s, char sep, int i)
 
 char	**ft_split_p(char const *s, char sep)
 {
-	char **p;
-	size_t start;
-	size_t i;
-	size_t j;
+	char	**p;
+	size_t	start;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;

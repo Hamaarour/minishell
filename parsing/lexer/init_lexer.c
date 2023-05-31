@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:52:37 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/26 22:42:59 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,19 @@ t_lexer	*init_lexer(char *src)
 	lexer->i = 0;
 	lexer->c = src[lexer->i];
 	lexer->len_src = ft_strlen(src);
-	lexer->ex_status = glob.ex_status;
+	lexer->ex_status = g_glob.ex_status;
 	lexer->ambg_redir = 0;
 	return (lexer);
 }
 
-/*
-	the advance_lexer function advances the lexer to the next character in the source
-	string, updating the i and c members of the lexer object accordingly,
-		as long as
-	there are more characters in the source string and the current character is not
-	the end of the string.
-*/
+//the advance_lexer function advances the lexer to the next 
+//character in the source
+//string, updating the i and c members of the lexer object accordingly,
+//as long as
+//there are more characters in the source string and the 
+//current character is not
+//the end of the string.
+
 void	advance_lexer(t_lexer *lexer)
 {
 	if (lexer->i < lexer->len_src && lexer->c != '\0')
@@ -54,14 +55,14 @@ void	advance_lexer(t_lexer *lexer)
 	}
 }
 
-/*
-	The lexer_advance_with_token function is used to advance the lexer to the next
-	character in the source string,
-		and return a token object. It takes a pointer to
-	a t_lexer object and a pointer to a t_token object as input,
-		and returns a pointer
-	to a t_token object.
-*/
+//The lexer_advance_with_token function is used to advance 
+//the lexer to the next
+//character in the source string,
+//and return a token object. It takes a pointer to
+//a t_lexer object and a pointer to a t_token object as input,
+//and returns a pointer
+//to a t_token object.
+
 t_token	*lexer_advance_with_token(t_lexer *lexer, t_token *token)
 {
 	advance_lexer(lexer);

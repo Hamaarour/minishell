@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/31 00:42:49 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end,
 		if (execve(cmd_arg[0], cmd_arg, env) == -1)
 		{
 			write(2, "minishell$: command not found\n", 30);
-			glob.ex_status = 127;
-			exit(glob.ex_status);
+			g_glob.ex_status = 127;
+			exit(g_glob.ex_status);
 		}
 	}
 	else
@@ -93,13 +93,13 @@ void	execution(t_data_cmd *cmds, int *p1_end, int *p2_end, char **env)
 	}
 	while (tmp)
 	{
-		waitpid(tmp->pid, &glob.ex_status, 0);
+		waitpid(tmp->pid, &g_glob.ex_status, 0);
 		tmp = tmp->next;
 	}
-	if (WIFEXITED(glob.ex_status))
-		glob.ex_status = WEXITSTATUS(glob.ex_status);
+	if (WIFEXITED(g_glob.ex_status))
+		g_glob.ex_status = WEXITSTATUS(g_glob.ex_status);
 	else
-		glob.ex_status += 128;
+		g_glob.ex_status += 128;
 }
 
 void	init_execution(t_data_cmd *cmds, char **env)

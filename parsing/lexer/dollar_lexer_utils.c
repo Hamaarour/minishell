@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/30 17:48:10 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*single_quote(t_lexer *lexer)
 	if (!check_qutes(lexer, '\''))
 	{
 		ft_putendl_fd("Bash Error : 'Quotes'", 2);
-		glob.ex_status = 258;
+		g_glob.ex_status = 258;
 		return (NULL);
 	}
 	begin = lexer->i;
@@ -52,7 +52,6 @@ char	*envairment_var(t_lexer *lexer)
 	int		end;
 	char	*tmp;
 
-	// another pointer to free the str after the get_envairment_var function
 	begin = lexer->i;
 	while (ft_isalnum(lexer->c))
 		advance_lexer(lexer);
@@ -85,7 +84,6 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 		tmp = envairment_var(lexer);
 	*my_str = ft_strjoin(*my_str, tmp);
 	free(tmp);
-	//add here an error function if my_str == NULL
 }
 
 /*
@@ -93,10 +91,10 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 */
 void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 {
-	int	begin;
-	int	end;
+	int		begin;
+	int		end;
+	char	*string_btw_dq;
 
-	char *string_btw_dq; //string between double qoutes
 	begin = lexer->i;
 	while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
 		advance_lexer(lexer);
@@ -106,5 +104,4 @@ void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
 		error_func(errno);
 	*my_str = ft_strjoin(*my_str, string_btw_dq);
 	free(string_btw_dq);
-	//add here an error function if my_str == NULL
 }

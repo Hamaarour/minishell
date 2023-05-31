@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CD.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 14:08:22 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,23 @@ void	cd(t_args *cmd)
 	char	*pwd;
 	char	*old_p;
 
-	glob.ex_status = 0;
+	g_glob.ex_status = 0;
 	args = ft_lstsizes(cmd);
 	if (args == 1)
-		get_home(glob.env_p);
+		get_home(g_glob.env_p);
 	else
 	{
 		old_p = getcwd(NULL, 0);
 		if (old_p)
-			update_old(old_p, glob.env_p);
+			update_old(old_p, g_glob.env_p);
 		if (chdir(cmd->next->args) == -1)
 		{
 			perror(cmd->next->args);
-			glob.ex_status = 1;
+			g_glob.ex_status = 1;
 		}
 		pwd = getcwd(NULL, 0);
 		if (pwd)
-			update_pwd(pwd, glob.env_p);
+			update_pwd(pwd, g_glob.env_p);
 		free(old_p);
 		free(pwd);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 14:46:40 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 11:30:21 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	ft_export(t_args *cmd, int outf)
 			tmp = key_value(nxt_cmd->args);
 			if (!foreign_letter(tmp->key))
 				return ;
-			else if (update_value(tmp->key, tmp->value, glob.env_p) == 0)
-				ft_lstadd_back_s(&glob.env_p, \
+			else if (update_value(tmp->key, tmp->value, g_glob.env_p) == 0)
+				ft_lstadd_back_s(&g_glob.env_p, \
 					ft_lstnew_s(tmp->key, tmp->value));
 			nxt_cmd = nxt_cmd->next;
 			ft_free(tmp);
 		}
 	}
 	else
-		get_export(glob.env_p, outf);
+		get_export(g_glob.env_p, outf);
 }

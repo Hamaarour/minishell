@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:51:19 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/28 13:06:01 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:23:28 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cleanup_parser(t_parser *parser)
 	free(parser);
 }
 
-void	free_Arg(t_args *arg)
+void	free_arg(t_args *arg)
 {
 	free(arg->args);
 	free(arg);

@@ -26,8 +26,8 @@ int	args_len(char **s)
 void	invalid_arg(void)
 {
 	write(2, "numeric argument required\n", 26);
-	glob.ex_status = 255;
-	exit(glob.ex_status);
+	g_glob.ex_status = 255;
+	exit(g_glob.ex_status);
 }
 
 void	arg_one(char *arg)
@@ -39,9 +39,9 @@ void	arg_one(char *arg)
 	a = ft_atoi(arg);
 	if (a)
 	{
-		glob.ex_status = a;
+		g_glob.ex_status = a;
 		write(2, "exit\n", sizeof("exit"));
-		exit(glob.ex_status % 256);
+		exit(g_glob.ex_status % 256);
 	}
 	else
 		invalid_arg();
@@ -57,7 +57,7 @@ void	ft_exit(t_args *cmd)
 	if (args_nb == 1)
 	{
 		write(1, "exit\n", sizeof("exit"));
-		exit(glob.ex_status);
+		exit(g_glob.ex_status);
 	}
 	else if (args_nb == 2)
 		arg_one(tmp->args);
@@ -67,6 +67,6 @@ void	ft_exit(t_args *cmd)
 			invalid_arg();
 		printf("exit\n");
 		write(1, "too many arguments\n", 19);
-		glob.ex_status = 1;
+		g_glob.ex_status = 1;
 	}
 }

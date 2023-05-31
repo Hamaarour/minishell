@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zjaddad <zjaddad@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/27 11:59:47 by zjaddad          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	foreign_letter(char *cmd)
 			|| (cmd[0] >= '0' && cmd[0] <= '9'))
 		{
 			printf("%s: not a valid\n", cmd);
-			glob.ex_status = 1;
+			g_glob.ex_status = 1;
 			return (0);
 		}
 		i++;
@@ -41,14 +41,14 @@ void	unset_env(const char *key)
 	t_env	*tmp;
 	t_env	*prev;
 
-	tmp = glob.env_p;
+	tmp = g_glob.env_p;
 	prev = NULL;
 	while (tmp)
 	{
 		if (!ft_strcmp(key, tmp->key))
 		{
-			if (tmp == glob.env_p)
-				glob.env_p = glob.env_p->next;
+			if (tmp == g_glob.env_p)
+				g_glob.env_p = g_glob.env_p->next;
 			else
 				prev->next = tmp->next;
 			ft_free(tmp);
