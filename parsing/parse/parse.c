@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 17:28:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:40:47 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	is_redirection(t_tokens_type type)
 	return (0);
 }
 
-char	*f(t_args *arg)
+char	*f(t_args **arg)
 {
-	if (arg)
-		return (free_arg(arg), NULL);
+	if (*arg)
+		return (free_arg(*arg), NULL);
 	else
 		return (NULL);
 }
@@ -46,22 +46,22 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 			if (parser->previous_token->type == t_GREAT_THAN)
 			{
 				if (out_file(parser->current_token->val, fd_out) == 1)
-					f(arg);
+					f(&arg);
 			}
 			else if (parser->previous_token->type == t_LESS_THAN)
 			{
 				if (in_file(parser->current_token->val, fd_in) == 1)
-					f(arg);
+					f(&arg);
 			}
 			else if (parser->previous_token->type == t_APPEND)
 			{
 				if (append_file(parser->current_token->val, fd_out) == 1)
-					f(arg);
+					f(&arg);
 			}
 			else if (parser->previous_token->type == t_HEREDOC)
 			{
 				if (heredoc_file(parser->current_token->val, fd_in) == 1)
-					f(arg);
+					f(&arg);
 			}
 			flag = 1;
 		}

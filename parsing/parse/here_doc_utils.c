@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:05:49 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 17:11:11 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:33:47 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*generate_filename(void)
 	char	*filename;
 	int		fd;
 	int		i;
-	size_t	bytesread;
+	int		bytesread;
 
 	filename = malloc(4 * sizeof(char) + 1);
 	fd = open("/dev/random", O_RDONLY, 644);
@@ -51,8 +51,9 @@ char	*dollar(char *s, int *i)
 	if (s[*i] == '?')
 	{
 		str = ft_itoa(g_glob.ex_status);
-		(*i)++;
 		return (str);
+		(*i)++;
+		
 	}
 	while (s[*i] && (ft_isalnum(s[*i])))
 		(*i)++;

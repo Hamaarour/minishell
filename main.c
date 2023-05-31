@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 17:10:12 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:26:11 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,10 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					start_execution(data_cmd, env);
 					free_parser(&parser);
 				}
-				while (data_cmd)
-				{
-					free(data_cmd);
-					data_cmd = 0;
-				}
 				free(cmd_enter);
 			}
 		}
 	}
-	ft_putendl_fd("You cannot pass arguments to this program", 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -88,4 +82,5 @@ int	main(int ac, char **av, char **env)
 	parser = NULL;
 	get_env(env);
 	lets_go(parser, input, ac, env);
+	return (0);
 }
