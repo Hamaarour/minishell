@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:56:09 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 13:47:02 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:41:48 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ void	h_d(char *delim, char *file_name)
 	char	*tmp;
 
 	line = NULL;
+	
 	fd = open(file_name, O_RDWR | O_CREAT, 0644);
 	err_heredoc(fd, file_name);
-	line = readline("> ");
+	line = get_next_line(0);
 	if (line ==NULL)
 		printf("her\n");
 	while (line != NULL && line[0] != '\0')
@@ -83,13 +84,14 @@ void	h_d(char *delim, char *file_name)
 			ft_putendl_fd(line, fd);
 		}
 		free(line);
-		line = readline("> ");
+		line = get_next_line(0);
+
 	}
-	// if (line == NULL || line[0] == '\0')
-	// {
-	// 	printf("her\n");
-	// 	ctrl_d_handler();
-	// }
+	if (line == NULL || line[0] == '\0')
+	{
+		printf("her\n");
+		ctrl_d_handler();
+	}
 	free(line);
 	close(fd);
 }
@@ -99,12 +101,16 @@ int	heredoc_file(char *delim, int *fd_in)
 	char	*file_name;
 	int		pid;
 	int		status;
-
+	char *s;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	if (*fd_in > 2)
 		close(*fd_in);
 	file_name = generate_filename();
+	char *tmp = ft_strdup("/tmp/");
+	s = file_name;
+	file_name = ft_strjoin(tmp, file_name);
+	free(s);
 	if ((pid = fork()) == -1)
 		return (free(file_name), 1);
 	
@@ -120,7 +126,7 @@ int	heredoc_file(char *delim, int *fd_in)
 	*fd_in = open(file_name, O_RDONLY, 0644);
 	if (*fd_in == -1)
 	{
-		ft_putendl_fd("Bash Error: No such file or directory", 2);
+		ft_putendl_fd("Bash Error: No such file or directory aaaa", 2);
 		g_glob.ex_status = 1;
 		return (1);
 	}

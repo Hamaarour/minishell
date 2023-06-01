@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 13:37:44 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:15:39 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,30 @@ void	start_execution(t_data_cmd *cmds, char **env)
 		init_execution(cmds, env);
 }
 
+/*nt	heredoc_list(t_here_doc **here_doc, t_parser *parser)
+{
+	while (parser->current_token->type != t_EOF)
+	{
+		if (parser->previous_token != NULL)
+		{
+			if (parser->previous_token->type == t_HEREDOC)
+			{
+				
+			}
+		}
+		if (parser->previous_token)
+		{
+			free(parser->previous_token->val);
+			free(parser->previous_token);
+		}
+		parser->previous_token = parser->current_token;
+		parser->current_token = get_next_token(parser->lexer, 0);
+		if (parser->current_token == NULL)
+			return (free_it_ii(parser), 1);
+	}
+	return (reinitialize_parser(parser), 0);
+}*/
+
 void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 {
 	t_data_cmd	*data_cmd;
@@ -62,6 +86,7 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					parser = initialize_parser(cmd_enter);
 					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
 						continue ;
+					//open_here_doc(&here_doc, parser);
 					start_execution(data_cmd, env);
 					free_parser(&parser, data_cmd);
 					while (data_cmd)

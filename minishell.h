@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/01 11:46:19 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:08:05 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ typedef struct t_args
 	char				*args;
 	struct t_args		*next;
 }						t_args;
+typedef struct s_here_doc
+{
+	char				*delim;
+	struct s_here_doc	*next;
+}						t_here_doc;
 
 typedef struct s_data_cmd
 {

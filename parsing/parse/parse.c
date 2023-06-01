@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 11:19:58 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:11:24 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 			}
 			else if (parser->previous_token->type == t_HEREDOC)
 			{
+				
 				if (heredoc_file(parser->current_token->val, fd_in) == 1)
 					return (f(arg));
 			}
