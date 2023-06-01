@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 08:47:50 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,23 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 /*
 	get the string between double qoutes  " "   and return it
 */
-void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str)
+void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str, int flag)
 {
 	int		begin;
 	int		end;
 	char	*string_btw_dq;
 
 	begin = lexer->i;
-	while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
-		advance_lexer(lexer);
+	if (flag == 0)
+	{	
+		while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
+			advance_lexer(lexer);
+	}
+	else
+	{
+		while (lexer->c != '"' && lexer->c != '\0')
+			advance_lexer(lexer);
+	}
 	end = lexer->i;
 	string_btw_dq = ft_substr_p(lexer->src, begin, end - begin);
 	if (string_btw_dq == NULL)

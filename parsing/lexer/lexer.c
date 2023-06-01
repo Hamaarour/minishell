@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:10:39 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:16:05 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fr(char *str)
 		free(str);
 }
 
-t_token	*fetch_string(t_lexer *lexer)
+t_token	*fetch_string(t_lexer *lexer, int flag)
 {
 	char	*tmp;
 	char	*str;
@@ -48,15 +48,16 @@ t_token	*fetch_string(t_lexer *lexer)
 		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
 	{
 		if (lexer->c == '\'')
-		{
 			tmp = single_quote(lexer);
-		}
 		else if (lexer->c == '"')
-			tmp = double_quote(lexer);
-		else if (lexer->c == '$')
-			tmp = get_dollar(lexer);
+		{
+			g_glob.to_expand = 1;
+			tmp = double_quote(lexer, flag);
+		}
+		else if (lexer->c == '$' && flag == 0)
+			tmp = get_dollar(lexer, flag);
 		else
-			tmp = get_char(lexer);
+			tmp = get_char(lexer, flag);
 		if (tmp == NULL)
 			return (fr(str), NULL);
 		str = ft_strjoin(str, tmp);
@@ -81,7 +82,7 @@ t_token	*fetch_string(t_lexer *lexer)
 //The purpose of this function is to scan the source code and return the 
 //next token.
 
-t_token	*get_next_token(t_lexer *lexer)
+t_token	*get_next_token(t_lexer *lexer, int flag)
 {
 	while (lexer->c != '\0')
 	{
@@ -95,7 +96,7 @@ t_token	*get_next_token(t_lexer *lexer)
 		else if (lexer->c == '<')
 			return (rederection_less(lexer));
 		else if (lexer->c != ' ' && lexer->c != '\t')
-			return (fetch_string(lexer));
+			return (fetch_string(lexer, flag));
 	}
 	return (init_tokens(t_EOF, ft_strdup("EOF")));
 }

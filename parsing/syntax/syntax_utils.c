@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:27:39 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:31:36 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 07:24:29 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	reinitialize_parser(t_parser *parser)
 		free(parser->previous_token->val);
 		free(parser->previous_token);
 	}
-	parser->current_token = get_next_token(parser->lexer);
+	parser->current_token = get_next_token(parser->lexer, 0);
 	if (parser->current_token == NULL)
 	{
 		return ;

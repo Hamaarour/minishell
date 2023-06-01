@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 19:54:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:37:44 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_g_glob(void)
 	g_glob.p_chld = 0;
 	g_glob.nb_cmds = 1;
 	g_glob.fd_here_doc = 0;
+	g_glob.to_expand = 0;
 }
 
 int	read_line(char **line)
@@ -49,7 +50,6 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 	data_cmd = NULL;
 	if (ac == 1)
 	{
-		init_g_glob();
 		while (1)
 		{
 			signal(SIGINT, ctrl_c_handler);
@@ -63,7 +63,18 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
 						continue ;
 					start_execution(data_cmd, env);
-					free_parser(&parser);
+					free_parser(&parser, data_cmd);
+					while (data_cmd)
+					{
+						while(data_cmd->args)
+						{
+							free(data_cmd->args->args);
+							free(data_cmd->args);
+							data_cmd->args = data_cmd->args->next;
+						}
+						free(data_cmd);
+						data_cmd = data_cmd->next;
+					}
 				}
 				free(cmd_enter);
 			}
@@ -80,7 +91,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	input = NULL;
 	parser = NULL;
+	init_g_glob();
 	get_env(env);
 	lets_go(parser, input, ac, env);
-	return (0);
 }

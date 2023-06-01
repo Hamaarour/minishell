@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 17:30:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:16:58 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	pipe_syntax(t_parser *parser)
 			free(parser->previous_token);
 		}
 		parser->previous_token = parser->current_token;
-		parser->current_token = get_next_token(parser->lexer);
+		parser->current_token = get_next_token(parser->lexer, 0);
 		if (parser->current_token == NULL)
 			return (free_it_ii(parser), 1);
 		if (parser->current_token->type == t_EOF
@@ -77,7 +77,7 @@ int	redirect_syntax(t_parser *parser)
 			free(parser->previous_token);
 		}
 		parser->previous_token = parser->current_token;
-		parser->current_token = get_next_token(parser->lexer);
+		parser->current_token = get_next_token(parser->lexer, 0);
 		if (parser->current_token == NULL)
 			return (free_it_ii(parser), 1);
 		if (parser->current_token->type == t_EOF
@@ -87,9 +87,12 @@ int	redirect_syntax(t_parser *parser)
 	return (reinitialize_parser(parser), 0);
 }
 
-int	iterate_over_tokens_check_syntaxe(t_parser *parser)
+void	iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
 	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
-		return (err_msg("Bash : syntax error"));
-	return (0);
+	{
+		err_msg("Bash : syntax error");
+		return ;
+	}
+	return ;
 }

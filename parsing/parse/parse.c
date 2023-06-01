@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 20:00:58 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:19:58 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ int	is_redirection(t_tokens_type type)
 	return (0);
 }
 
-char	*f(t_args **arg)
+t_args	*f(t_args *arg)
 {
-	if (*arg)
-		return (free_arg(*arg), NULL);
-	else
-		return (NULL);
+	if (arg)
+	{
+		free(arg->args);
+		free(arg);
+	}
+	return (NULL);
 }
 
 t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
@@ -46,23 +48,22 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 			if (parser->previous_token->type == t_GREAT_THAN)
 			{
 				if (out_file(parser->current_token->val, fd_out) == 1)
-					f(&arg);
+					return (f(arg));
 			}
 			else if (parser->previous_token->type == t_LESS_THAN)
 			{
 				if (in_file(parser->current_token->val, fd_in) == 1)
-					f(&arg);
+					return (f(arg));
 			}
 			else if (parser->previous_token->type == t_APPEND)
 			{
 				if (append_file(parser->current_token->val, fd_out) == 1)
-					f(&arg);
+					return (f(arg));
 			}
 			else if (parser->previous_token->type == t_HEREDOC)
 			{
-				g_glob.ex_status = parser->lexer->ex_status;
 				if (heredoc_file(parser->current_token->val, fd_in) == 1)
-					f(&arg);
+					return (f(arg));
 			}
 			flag = 1;
 		}
@@ -71,7 +72,10 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 		flag = 0;
 		free_prev(parser);
 		parser->previous_token = parser->current_token;
-		parser->current_token = get_next_token(parser->lexer);
+		if (parser->previous_token->type == t_HEREDOC)
+			parser->current_token = get_next_token(parser->lexer, 1);
+		else
+			parser->current_token = get_next_token(parser->lexer, 0);
 		if (parser->current_token == NULL)
 			return (free(parser->current_token), NULL);
 	}
@@ -101,7 +105,7 @@ int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 		if (parser->current_token != NULL)
 			free(parser->current_token->val);
 		free(parser->current_token);
-		parser->current_token = get_next_token(parser->lexer);
+		parser->current_token = get_next_token(parser->lexer, 0);
 		if (parser->current_token == NULL)
 			return (reinitialize_parser(parser), 1);
 	}
@@ -110,16 +114,15 @@ int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 
 int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 {
-	int	st;
-
-	st = iterate_over_tokens_check_syntaxe(parser);
-	g_glob.ex_status = st;
+	iterate_over_tokens_check_syntaxe(parser);
+	
 	while (parser->lexer->ambg_redir > 0)
 	{
 		g_glob.ex_status = 1;
 		ft_putendl_fd("Error: Ambiguous redirect", 2);
 		parser->lexer->ambg_redir--;
 	}
+	
 	if (g_glob.ex_status != 258)
 	{
 		if (divid_cmd(parser, cmd_data) == 1)

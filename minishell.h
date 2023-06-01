@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/31 19:37:09 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:46:19 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ typedef struct parser_struct
 typedef struct s_gob
 {
 	int					ex_status;
+	int					ex;
+	int 				to_expand;
 	int					nb_cmds;
 	int					p_chld;
 	t_env				*env_p;
@@ -144,7 +146,7 @@ t_token					*init_tokens(t_tokens_type typ, char *val);
 t_lexer					*init_lexer(char *str);
 void					advance_lexer(t_lexer *lexer);
 void					lexer_skip_whitespace(t_lexer *lexer);
-t_token					*get_next_token(t_lexer *lexer);
+t_token					*get_next_token(t_lexer *lexer, int flag);
 t_token					*lexer_advance_with_token(t_lexer *lexer,
 							t_token *token);
 t_token					*advance_to_next_tocken(t_lexer *lexer, t_token *token);
@@ -153,13 +155,13 @@ char					*single_quote(t_lexer *lexer);
 char					*envairment_var(t_lexer *lexer);
 void					expand_dollar(t_lexer *lexer, char **my_str);
 void					get_string_between_double_qoutes(t_lexer *lexer,
-							char **my_str);
-char					*double_quote(t_lexer *lexer);
-char					*hundle_quotes(t_lexer *lexer);
+							char **my_str, int flag);
+char					*double_quote(t_lexer *lexer, int flag);
+char					*hundle_quotes(t_lexer *lexer, int flag);
 void					error_func(int err);
-char					*get_dollar(t_lexer *lexer);
+char					*get_dollar(t_lexer *lexer, int flag);
 char					*get_envairment_var(char *to_find);
-char					*get_char(t_lexer *lexer);
+char					*get_char(t_lexer *lexer, int flag);
 char					*remove_multiple_spaces(char *s);
 void					get_env(char **envp);
 int						check_qutes(t_lexer *lexer, char q);
@@ -169,7 +171,7 @@ t_token					*rederection_great(t_lexer *lexer);
 t_parser				*initialize_parser(char *input);
 int						max_heredoc(char *str);
 int						start_parsing(t_parser *parser, t_data_cmd **cmd);
-int						iterate_over_tokens_check_syntaxe(t_parser *parser);
+void					iterate_over_tokens_check_syntaxe(t_parser *parser);
 int						err_msg(char *msg);
 int						type_is_char(t_token *token);
 int						type_is_rederec(t_token *token);
@@ -198,7 +200,7 @@ void					cleanup_parser(t_parser *parser);
 void					free_it(t_parser *parser);
 void					free_arg(t_args *arg);
 void					free_prev(t_parser *parser);
-void					free_parser(t_parser **parser);
+void					free_parser(t_parser **parser, t_data_cmd *cmd_data);
 //!\****************************************************************/
 //!											Builtins Part
 //!\****************************************************************/

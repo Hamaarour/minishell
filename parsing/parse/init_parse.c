@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:23:02 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/29 09:07:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 07:23:55 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_parser	*initialize_parser(char *input)
 		return (NULL);
 	lexer = init_lexer(input);
 	parser->lexer = lexer;
-	parser->current_token = get_next_token(lexer);
+	parser->current_token = get_next_token(lexer, 0);
 	if (parser->current_token == NULL)
 	{
 		free(parser->lexer->src);

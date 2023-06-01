@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:47:29 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:43:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 char	*get_line_env(char *s)
 {
-	t_data_cmd	*cmd;
 	t_env		*tmp;
 
 	tmp = g_glob.env_p;

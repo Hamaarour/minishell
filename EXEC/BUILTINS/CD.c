@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:25:04 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:41:32 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	get_home(t_env *evr)
 
 	home = NULL;
 	tmp = evr;
+	old_p = NULL;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, "HOME"))

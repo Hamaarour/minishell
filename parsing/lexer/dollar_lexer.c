@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 08:56:11 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*exit_value(t_lexer *lexer)
 	return (val);
 }
 
-char	*double_quote(t_lexer *lexer)
+char	*double_quote(t_lexer *lexer, int flag)
 {
 	char	*string;
 
@@ -45,27 +45,27 @@ char	*double_quote(t_lexer *lexer)
 	string = ft_strdup("");
 	while (lexer->c != '"' && lexer->c != '\0')
 	{
-		if (lexer->c == '$')
+		if (lexer->c == '$' && flag == 0)
 			expand_dollar(lexer, &string);
 		else
-			get_string_between_double_qoutes(lexer, &string);
+			get_string_between_double_qoutes(lexer, &string, flag);
 	}
 	advance_lexer(lexer);
 	return (string);
 }
 
-char	*hundle_quotes(t_lexer *lexer)
+char	*hundle_quotes(t_lexer *lexer, int flag)
 {
 	char	*tmp;
 
 	if (lexer->c == '\'')
 		tmp = single_quote(lexer);
 	else
-		tmp = double_quote(lexer);
+		tmp = double_quote(lexer, flag);
 	return (tmp);
 }
 
-char	*get_dollar(t_lexer *lexer)
+char	*get_dollar(t_lexer *lexer, int flag)
 {
 	char	*tmp;
 	char	*str;
@@ -77,7 +77,7 @@ char	*get_dollar(t_lexer *lexer)
 		tmp = exit_value(lexer);
 	}
 	else if (lexer->c == '\"' || lexer->c == '\'')
-		tmp = hundle_quotes(lexer);
+		tmp = hundle_quotes(lexer, flag);
 	else
 		tmp = envairment_var(lexer);
 	if (tmp == NULL)

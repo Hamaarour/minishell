@@ -6,13 +6,13 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 08:39:20 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 17:08:49 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:37:21 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_parser(t_parser **parser)
+void	free_parser(t_parser **parser, t_data_cmd *data_cmd)
 {
 	free((*parser)->current_token->val);
 	free((*parser)->current_token);
@@ -21,4 +21,6 @@ void	free_parser(t_parser **parser)
 	free((*parser)->lexer);
 	free(*parser);
 	*parser = NULL;
+	(void)data_cmd;
+	
 }

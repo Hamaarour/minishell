@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:56:09 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 19:55:40 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:47:02 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ void	h_d(char *delim, char *file_name)
 	char	*line;
 	char	*tmp;
 
+	line = NULL;
 	fd = open(file_name, O_RDWR | O_CREAT, 0644);
 	err_heredoc(fd, file_name);
-	line = get_next_line(0);
-	while (line != NULL)
+	line = readline("> ");
+	if (line ==NULL)
+		printf("her\n");
+	while (line != NULL && line[0] != '\0')
 	{
 		line[ft_strlen(line) - 1] = '\0';
 		if (ft_strcmp(line, delim) == 0)
@@ -80,8 +83,13 @@ void	h_d(char *delim, char *file_name)
 			ft_putendl_fd(line, fd);
 		}
 		free(line);
-		line = get_next_line(0);
+		line = readline("> ");
 	}
+	// if (line == NULL || line[0] == '\0')
+	// {
+	// 	printf("her\n");
+	// 	ctrl_d_handler();
+	// }
 	free(line);
 	close(fd);
 }
@@ -89,19 +97,17 @@ void	h_d(char *delim, char *file_name)
 int	heredoc_file(char *delim, int *fd_in)
 {
 	char	*file_name;
-	char	*line;
-	int		fd;
 	int		pid;
 	int		status;
 
-	if (*fd_in > 2)
-		close(*fd_in);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+	if (*fd_in > 2)
+		close(*fd_in);
 	file_name = generate_filename();
-	pid = fork();
-	if (pid == -1)
+	if ((pid = fork()) == -1)
 		return (free(file_name), 1);
+	
 	if (pid == 0)
 	{
 		signal(SIGINT, ctrl_handler);
