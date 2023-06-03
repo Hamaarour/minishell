@@ -6,28 +6,14 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 20:40:10 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:25:46 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-int	is_redirection(t_tokens_type type)
-{
-	if (type == t_GREAT_THAN || type == t_LESS_THAN || type == t_APPEND
-		|| type == t_HEREDOC)
-		return (1);
-	return (0);
-}
-
-void	in_out(int *in, int *out)
-{
-	*in = 0;
-	*out = 1;
-}
-
-t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
+/*t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 {
 	t_args	*arg;
 	int		flag;
@@ -60,6 +46,33 @@ t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
 			parser->current_token = get_next_token(parser->lexer, 1);
 		else
 			parser->current_token = get_next_token(parser->lexer, 0);
+		if (parser->current_token == NULL)
+			return (free(parser->current_token), NULL);
+	}
+	return (arg);
+}*/
+
+t_args	*create_node(t_parser *parser, int *fd_in, int *fd_out)
+{
+	t_args	*arg;
+	int		flag;
+
+	flag = 0;
+	arg = NULL;
+	while (parser->current_token->type != t_PIPE
+		&& parser->current_token->type != t_EOF)
+	{
+		if (is_redirection_token(parser))
+		{
+			handle_redirection(parser, fd_in, fd_out, &flag);
+		}
+		else if (!is_redirection(parser->current_token->type))
+		{
+			ft_add_back_arg(&arg, ft_new_arg(parser->current_token->val));
+		}
+		free_prev(parser);
+		parser->previous_token = parser->current_token;
+		update_current_token(parser);
 		if (parser->current_token == NULL)
 			return (free(parser->current_token), NULL);
 	}

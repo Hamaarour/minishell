@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/03 17:11:49 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:15:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,15 @@ int						builtins_check(t_args *cmd);
 int						args_len(char **s);
 int						foreign_letter(char *cmd);
 void					get_env(char **envp);
+//!\****************************************************************/
+//!						parse utils
+//!\****************************************************************/
+int						is_redirection(t_tokens_type type);
+void					in_out(int *in, int *out);
+int						is_redirection_token(t_parser *parser);
+void					handle_redirection(t_parser *parser, int *fd_in,
+							int *fd_out, int *flag);
+void					update_current_token(t_parser *parser);
 //!\****************************************************************/
 //!						Here doc
 //!\****************************************************************/

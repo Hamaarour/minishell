@@ -26,6 +26,7 @@ SRC= main.c FREE/free.c LIBFT/ft_strncmp.c LIBFT/ft_isalpha.c LIBFT/ft_strtrim.c
 	parsing/token/tokens.c  parsing/parse/here_doc_utils.c\
 	parsing/lexer/lexer.c parsing/lexer/error_func.c parsing/lexer/dollar_lexer.c parsing/lexer/init_lexer.c  parsing/lexer/rm_extra_spaces.c parsing/lexer/lexer_utils.c\
 	parsing/lexer/dollar_lexer_utils.c \
+	parsing/parse/parse_utils.c \
 	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c parsing/lexer/get_env.c  parsing/lexer/free_lexer.c\
 	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c parsing/parse/check_types.c\
 	parsing/parse/here_doc_utils_2.c \
