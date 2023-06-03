@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 17:22:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 21:09:52 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_g_glob(void)
 	g_glob.nb_cmds = 1;
 	g_glob.fd_here_doc = 0;
 	g_glob.to_expand = 0;
-	g_glob.nb_cmds = 0;
+	g_glob.nb_err = 0;
 	g_glob.ambg_redir = 0;
 }
 
@@ -65,7 +65,7 @@ void	lets_go(t_parser *parser, char *cmd, char **env, t_data_cmd *data)
 	while (1)
 	{
 		g_glob.to_expand = 0;
-		g_glob.nb_cmds = 0;
+		g_glob.nb_err = 0;
 		g_glob.ambg_redir = 0;
 		signal(SIGINT, ctrl_c_handler);
 		signal(SIGQUIT, SIG_IGN);
