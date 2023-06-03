@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:17:13 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/05/31 16:35:19 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:17:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ft_isalpha(int c);
 void	ft_bzero(void *s, size_t n);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
+int		ft_isspace(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int pr);
 void	*ft_memcpy(void *dst, const void *src, size_t n);

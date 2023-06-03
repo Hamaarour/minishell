@@ -54,7 +54,6 @@ void	ft_exit(t_args *cmd)
 
 	args_nb = ft_lstsizes(cmd);
 	tmp = cmd->next;
-
 	if (args_nb == 1)
 	{
 		write(1, "exit\n", sizeof("exit"));

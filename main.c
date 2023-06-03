@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 15:51:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:22:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,12 @@ void	init_g_glob(void)
 	g_glob.ambg_redir = 0;
 }
 
-int ft_isspace(int c)
-{
-    if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
-        return 1;
-    else
-        return 0;
-}
-
 int	read_line(char **line)
 {
 	char	*trimmed_line;
 	char	*end;
 	char	*start;
-	
+
 	*line = readline("→ minishell~$ ");
 	if (*line == NULL)
 		ctrl_d_handler();
@@ -68,35 +60,31 @@ void	start_execution(t_data_cmd *cmds, char **env)
 		init_execution(cmds, env);
 }
 
-void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env, t_data_cmd *data_cmd) 
+void	lets_go(t_parser *parser, char *cmd, char **env, t_data_cmd *data)
 {
-	if (ac == 1)
+	while (1)
 	{
-		while (1)
+		g_glob.to_expand = 0;
+		g_glob.nb_cmds = 0;
+		g_glob.ambg_redir = 0;
+		signal(SIGINT, ctrl_c_handler);
+		signal(SIGQUIT, SIG_IGN);
+		if (read_line(&cmd) == 0)
 		{
-			g_glob.to_expand = 0;
-			g_glob.nb_cmds = 0;
-			g_glob.ambg_redir = 0;
-			signal(SIGINT, ctrl_c_handler);
-			signal(SIGQUIT, SIG_IGN);
-			if (read_line(&cmd_enter) == 0)
+			add_history(cmd);
+			if (max_heredoc(cmd) == 0)
 			{
-				add_history(cmd_enter);
-				if (max_heredoc(cmd_enter) == 0)
-				{
-					parser = initialize_parser(cmd_enter);
-					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
-						continue ;
-					ft_err();
-					if (data_cmd != NULL)
-						start_execution(data_cmd, env);
-					free_parser_cmd(&parser, &data_cmd);
-				}
-				free(cmd_enter);
+				parser = initialize_parser(cmd);
+				if (parser == NULL || start_parsing(parser, &data) == 1)
+					continue ;
+				ft_err();
+				if (data != NULL)
+					start_execution(data, env);
+				free_parser_cmd(&parser, &data);
 			}
+			free(cmd);
 		}
 	}
-	exit(EXIT_FAILURE);
 }
 
 int	main(int ac, char **av, char **env)
@@ -109,7 +97,9 @@ int	main(int ac, char **av, char **env)
 	input = NULL;
 	parser = NULL;
 	data_cmd = NULL;
+	if (ac != 1)
+		exit(EXIT_FAILURE);
 	init_g_glob();
 	get_env(env);
-	lets_go(parser, input, ac, env, data_cmd);
+	lets_go(parser, input, env, data_cmd);
 }

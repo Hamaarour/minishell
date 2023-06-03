@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/03 16:27:12 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:11:49 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_lexer
 	unsigned int		i;
 	size_t				len_src;
 	int					ex_status;
-	//int					ambg_redir;
 	t_env				*env;
 }						t_lexer;
 

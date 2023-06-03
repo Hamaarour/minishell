@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 08:39:20 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/02 22:47:08 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:09:13 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void	free_parser_cmd(t_parser **parser, t_data_cmd **data_cmd)
 {
-	t_data_cmd *current;
-	
+	t_data_cmd	*current;
+	t_data_cmd	*next;
+	t_args		*args_next;
+
 	current = *data_cmd;
 	while (current != NULL)
 	{
-		t_data_cmd *next = current->next;
+		next = current->next;
 		while (current->args != NULL)
 		{
-			t_args *args_next = current->args->next;
+			args_next = current->args->next;
 			free(current->args->args);
 			free(current->args);
 			current->args = args_next;
@@ -37,5 +39,4 @@ void	free_parser_cmd(t_parser **parser, t_data_cmd **data_cmd)
 	free((*parser)->previous_token);
 	free((*parser)->lexer);
 	free(*parser);
-	*parser = NULL;
 }

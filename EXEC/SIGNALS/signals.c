@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 05:45:16 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/02 21:13:09 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:11:02 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ctrl_d_handler(void)
 	ft_putstr_fd("exit\n", 1);
 	exit(0);
 }
-
 
 void	ctrl_quit_handler(int num)
 {
