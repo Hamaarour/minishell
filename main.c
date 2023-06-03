@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 19:15:39 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:51:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,43 @@ void	init_g_glob(void)
 	g_glob.nb_cmds = 1;
 	g_glob.fd_here_doc = 0;
 	g_glob.to_expand = 0;
+	g_glob.nb_cmds = 0;
+	g_glob.ambg_redir = 0;
+}
+
+int ft_isspace(int c)
+{
+    if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+        return 1;
+    else
+        return 0;
 }
 
 int	read_line(char **line)
 {
+	char	*trimmed_line;
+	char	*end;
+	char	*start;
+	
 	*line = readline("→ minishell~$ ");
 	if (*line == NULL)
 		ctrl_d_handler();
-	if (line[0][0] == '\0')
+	trimmed_line = ft_strdup(*line);
+	end = trimmed_line + ft_strlen(trimmed_line) - 1;
+	while (end > trimmed_line && ft_isspace(*end))
+		end--;
+	*(end + 1) = '\0';
+	start = trimmed_line;
+	while (*start && ft_isspace(*start))
+		start++;
+	if (*start == '\0')
 	{
 		free(*line);
+		free(trimmed_line);
 		return (1);
 	}
+	free(*line);
+	*line = trimmed_line;
 	return (0);
 }
 
@@ -43,39 +68,15 @@ void	start_execution(t_data_cmd *cmds, char **env)
 		init_execution(cmds, env);
 }
 
-/*nt	heredoc_list(t_here_doc **here_doc, t_parser *parser)
+void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env, t_data_cmd *data_cmd) 
 {
-	while (parser->current_token->type != t_EOF)
-	{
-		if (parser->previous_token != NULL)
-		{
-			if (parser->previous_token->type == t_HEREDOC)
-			{
-				
-			}
-		}
-		if (parser->previous_token)
-		{
-			free(parser->previous_token->val);
-			free(parser->previous_token);
-		}
-		parser->previous_token = parser->current_token;
-		parser->current_token = get_next_token(parser->lexer, 0);
-		if (parser->current_token == NULL)
-			return (free_it_ii(parser), 1);
-	}
-	return (reinitialize_parser(parser), 0);
-}*/
-
-void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
-{
-	t_data_cmd	*data_cmd;
-
-	data_cmd = NULL;
 	if (ac == 1)
 	{
 		while (1)
 		{
+			g_glob.to_expand = 0;
+			g_glob.nb_cmds = 0;
+			g_glob.ambg_redir = 0;
 			signal(SIGINT, ctrl_c_handler);
 			signal(SIGQUIT, SIG_IGN);
 			if (read_line(&cmd_enter) == 0)
@@ -86,20 +87,10 @@ void	lets_go(t_parser *parser, char *cmd_enter, int ac, char **env)
 					parser = initialize_parser(cmd_enter);
 					if (parser == NULL || start_parsing(parser, &data_cmd) == 1)
 						continue ;
-					//open_here_doc(&here_doc, parser);
-					start_execution(data_cmd, env);
-					free_parser(&parser, data_cmd);
-					while (data_cmd)
-					{
-						while(data_cmd->args)
-						{
-							free(data_cmd->args->args);
-							free(data_cmd->args);
-							data_cmd->args = data_cmd->args->next;
-						}
-						free(data_cmd);
-						data_cmd = data_cmd->next;
-					}
+					ft_err();
+					if (data_cmd != NULL)
+						start_execution(data_cmd, env);
+					free_parser_cmd(&parser, &data_cmd);
 				}
 				free(cmd_enter);
 			}
@@ -112,11 +103,13 @@ int	main(int ac, char **av, char **env)
 {
 	t_parser	*parser;
 	char		*input;
+	t_data_cmd	*data_cmd;
 
 	(void)av;
 	input = NULL;
 	parser = NULL;
+	data_cmd = NULL;
 	init_g_glob();
 	get_env(env);
-	lets_go(parser, input, ac, env);
+	lets_go(parser, input, ac, env, data_cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/01 19:08:05 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:27:12 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_lexer
 	unsigned int		i;
 	size_t				len_src;
 	int					ex_status;
-	int					ambg_redir;
+	//int					ambg_redir;
 	t_env				*env;
 }						t_lexer;
 
@@ -105,8 +105,10 @@ typedef struct s_gob
 {
 	int					ex_status;
 	int					ex;
-	int 				to_expand;
+	int					to_expand;
 	int					nb_cmds;
+	int					nb_err;
+	int					ambg_redir;
 	int					p_chld;
 	t_env				*env_p;
 	t_env				*exprt;
@@ -205,7 +207,16 @@ void					cleanup_parser(t_parser *parser);
 void					free_it(t_parser *parser);
 void					free_arg(t_args *arg);
 void					free_prev(t_parser *parser);
-void					free_parser(t_parser **parser, t_data_cmd *cmd_data);
+void					free_parser_cmd(t_parser **parser,
+							t_data_cmd **cmd_data);
+//!\****************************************************************/
+//!											here_doc_utils_2
+//!\****************************************************************/
+void					open_file(char *file_name, int *fd);
+void					read_lines(char *delim, int fd);
+void					close_file(int fd, char *line, char *file_name);
+void					h_d(char *delim, char *file_name);
+
 //!\****************************************************************/
 //!											Builtins Part
 //!\****************************************************************/
@@ -297,7 +308,7 @@ char					*get_path(char *cmd);
 char					**to_double_pointer(t_args *cmd);
 void					fds_close(t_data_cmd *cmds, int *p1_end, int *p2_end);
 int						is_printable(char *s);
-
+void					ft_err(void);		
 //!\************************************************************************* */
 //!										g_global Variabale			*/
 //!\************************************************************************* */

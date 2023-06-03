@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/01 11:33:59 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 12:41:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 void	redirections(int infile, int outfile)
 {
-	if (infile)
+	if (infile < 0 || outfile < 0)
+		exit(1);
+	if (infile > 0)
 	{
 		dup2(infile, STDIN_FILENO);
 		close(infile);

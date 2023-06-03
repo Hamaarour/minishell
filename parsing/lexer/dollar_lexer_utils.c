@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:57:46 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 08:47:50 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:00:29 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*single_quote(t_lexer *lexer)
 	int		end;
 
 	advance_lexer(lexer);
+	g_glob.to_expand = 1;
 	if (!check_qutes(lexer, '\''))
 	{
 		ft_putendl_fd("Bash Error : 'Quotes'", 2);
@@ -89,14 +90,14 @@ void	expand_dollar(t_lexer *lexer, char **my_str)
 /*
 	get the string between double qoutes  " "   and return it
 */
-void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str, int flag)
+void	get_string_between_double_qoutes(t_lexer *lexer, char **my_str, int f)
 {
 	int		begin;
 	int		end;
 	char	*string_btw_dq;
 
 	begin = lexer->i;
-	if (flag == 0)
+	if (f == 0)
 	{	
 		while (lexer->c != '$' && lexer->c != '"' && lexer->c != '\0')
 			advance_lexer(lexer);

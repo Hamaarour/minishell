@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:41:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:14:38 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 11:05:32 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ char	*remove_multiple_spaces(char *s)
 	j = 0;
 	space = 0;
 	new = malloc(ft_strlen(s) + 1);
-	if (!new)
-		return (NULL);
 	while (s[++i] != '\0')
 	{
 		if (s[i] == ' ')

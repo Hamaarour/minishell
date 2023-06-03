@@ -1,47 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   prints_errs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 05:45:16 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/02 21:13:09 by hamaarou         ###   ########.fr       */
+/*   Created: 2023/06/03 15:43:35 by hamaarou          #+#    #+#             */
+/*   Updated: 2023/06/03 16:59:33 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-void	ctrl_d_handler(void)
+void	ft_err(void)
 {
-	ft_putstr_fd("exit\n", 1);
-	exit(0);
-}
-
-
-void	ctrl_quit_handler(int num)
-{
-	(void)num;
-	g_glob.ex_status = 131;
-	ft_putstr_fd("Quit: 3\n", 1);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void	ctrl_c_handler(int num)
-{
-	(void)num;
-	g_glob.ex_status = 1;
-	ft_putstr_fd("\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void	ctrl_handler(int num)
-{
-	(void)num;
-	ft_putstr_fd("\n", 1);
-	exit(1);
+	while (g_glob.ambg_redir > 0)
+	{
+		g_glob.ex_status = 1;
+		ft_putendl_fd("Error: Ambiguous redirect", 2);
+		g_glob.ambg_redir--;
+	}
+	while (g_glob.nb_err > 0)
+	{
+		g_glob.ex_status = 1;
+		ft_putendl_fd("bash: No such file or directory", 2);
+		g_glob.nb_err--;
+	}
 }

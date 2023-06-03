@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:05:49 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 10:22:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:01:25 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ char	*dollar(char *s, int *i)
 
 	j = *i;
 	(*i)++;
-	g_glob.to_expand = 0;
 	if (s[*i] == '?')
 	{
 		str = ft_itoa(g_glob.ex_status);
 		return (str);
 		(*i)++;
-		
 	}
 	while (s[*i] && (ft_isalnum(s[*i])))
 		(*i)++;

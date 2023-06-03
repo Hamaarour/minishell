@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:24:22 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 08:35:05 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:00:55 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ char	*get_char(t_lexer *lexer, int flag)
 	if (flag == 0)
 	{
 		while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|'
-		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '"'
-		&& lexer->c != '\0' && lexer->c != '\'' && lexer->c != '$')
-		advance_lexer(lexer);
+			&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '"'
+			&& lexer->c != '\0' && lexer->c != '\'' && lexer->c != '$')
+			advance_lexer(lexer);
 	}
 	else
 	{
 		while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|'
-		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
-		advance_lexer(lexer);
+			&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
+			advance_lexer(lexer);
 	}
 	end = lexer->i;
 	tmp = ft_substr_p(lexer->src, begin, end - begin);

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:35:15 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 19:34:07 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:39:41 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	error_opening_file(int fd)
 {
 	if (fd == -1)
 	{
-		ft_putendl_fd("Bash Error: No such file or directory", 2);
+		g_glob.nb_err++;
 		g_glob.ex_status = 1;
 		return (1);
 	}
@@ -55,7 +55,7 @@ int	err_heredoc(int fd, char *file_name)
 {
 	if (fd == -1)
 	{
-		ft_putendl_fd("Bash Error: No such file or directory", 2);
+		g_glob.nb_err++;
 		g_glob.ex_status = 1;
 		return (free(file_name), 1);
 	}

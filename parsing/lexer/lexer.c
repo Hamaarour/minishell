@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:10:16 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/01 10:16:05 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/03 11:02:51 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ t_token	*fetch_string(t_lexer *lexer, int flag)
 		if (lexer->c == '\'')
 			tmp = single_quote(lexer);
 		else if (lexer->c == '"')
-		{
-			g_glob.to_expand = 1;
 			tmp = double_quote(lexer, flag);
-		}
 		else if (lexer->c == '$' && flag == 0)
 			tmp = get_dollar(lexer, flag);
 		else
