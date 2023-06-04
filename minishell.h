@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/04 11:48:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:50:04 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void					get_env(char **envp);
 int						is_redirection(t_tokens_type type);
 void					in_out(int *in, int *out);
 int						is_redirection_token(t_parser *parser);
-void					handle_redirection(t_parser *parser, int *fd_in,
+int						handle_redirection(t_parser *parser, int *fd_in,
 							int *fd_out, int *flag);
 void					update_current_token(t_parser *parser);
 //!\****************************************************************/

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 21:48:11 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 22:14:23 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:41:30 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_redirection_token(t_parser *parser)
 		&& parser->current_token->type == t_CHAR);
 }
 
-void	handle_redirection(t_parser *parser, int *fd_in, int *fd_out, int *flag)
+int	handle_redirection(t_parser *parser, int *fd_in, int *fd_out, int *flag)
 {
 	if (parser->previous_token->type == t_GREAT_THAN)
 		out_file(parser->current_token->val, fd_out);
@@ -43,8 +43,12 @@ void	handle_redirection(t_parser *parser, int *fd_in, int *fd_out, int *flag)
 	else if (parser->previous_token->type == t_APPEND)
 		append_file(parser->current_token->val, fd_out);
 	else if (parser->previous_token->type == t_HEREDOC)
-		heredoc_file(parser->current_token->val, fd_in);
+	{
+		if (heredoc_file(parser->current_token->val, fd_in) == 1)
+			return (1);
+	}
 	*flag = 1;
+	return (0);
 }
 
 void	update_current_token(t_parser *parser)
