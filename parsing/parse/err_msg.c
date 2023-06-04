@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:35:15 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 15:39:41 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:15:49 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	err_heredoc(int fd, char *file_name)
 	{
 		g_glob.nb_err++;
 		g_glob.ex_status = 1;
-		return (free(file_name), 1);
+		free(file_name);
+		return (1);
 	}
 	return (0);
 }

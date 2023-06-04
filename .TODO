@@ -1,6 +1,1 @@
-ls > a | ls > b
-
-                  ls<a << q ==>
-                      open herdoc first
-
-                          open herdoc first and print errors after
+exit status of heredoc

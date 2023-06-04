@@ -6,12 +6,38 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 16:24:58 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 20:21:46 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:34:13 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
+
+char	*generate_filename(void)
+{
+	char	*filename;
+	int		fd;
+	int		i;
+	int		bytesread;
+
+	filename = malloc(4 * sizeof(char) + 1);
+	fd = open("/dev/random", O_RDONLY, 644);
+	i = 0;
+	bytesread = read(fd, filename, 1);
+	while (i < 4 && bytesread != -1)
+	{
+		if (ft_isalpha(filename[i]))
+		{
+			bytesread = read(fd, filename + i + 1, 1);
+			i++;
+		}
+		else
+			bytesread = read(fd, filename + i, 1);
+	}
+	close(fd);
+	filename[4] = '\0';
+	return (filename);
+}
 
 void	open_file(char *file_name, int *fd)
 {
@@ -43,6 +69,7 @@ void	read_lines(char *delim, int fd)
 		free(line);
 		line = get_next_line(0);
 	}
+	free(line);
 }
 
 void	close_file(int fd, char *line, char *file_name)
@@ -51,6 +78,8 @@ void	close_file(int fd, char *line, char *file_name)
 		exit(0);
 	free(line);
 	free(file_name);
+	file_name = NULL;
+	line = NULL;
 	close(fd);
 }
 

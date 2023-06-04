@@ -6,38 +6,12 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:05:49 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 16:01:25 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:50:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include "../../LIBFT/libft.h"
-
-char	*generate_filename(void)
-{
-	char	*filename;
-	int		fd;
-	int		i;
-	int		bytesread;
-
-	filename = malloc(4 * sizeof(char) + 1);
-	fd = open("/dev/random", O_RDONLY, 644);
-	i = 0;
-	bytesread = read(fd, filename, 1);
-	while (i < 4 && bytesread != -1)
-	{
-		if (ft_isalpha(filename[i]))
-		{
-			bytesread = read(fd, filename + i + 1, 1);
-			i++;
-		}
-		else
-			bytesread = read(fd, filename + i, 1);
-	}
-	close(fd);
-	filename[4] = '\0';
-	return (filename);
-}
 
 char	*dollar(char *s, int *i)
 {
@@ -105,4 +79,10 @@ int	find(char *s, int c)
 		i++;
 	}
 	return (-1);
+}
+
+void	handle_error_and_return(char *file_name)
+{
+	unlink(file_name);
+	free(file_name);
 }

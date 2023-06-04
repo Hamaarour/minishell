@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/03 22:15:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:48:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,8 @@ int						ft_lstsizes(t_args *lst);
 //!\****************************************************************/
 char					*generate_filename(void);
 int						heredoc_file(char *delim, int *fd_in);
+void					open_file(char *file_name, int *fd);
+void					handle_error_and_return(char *file_name);
 //!\**************************************************************** */
 //!												free
 //!\**************************************************************** * /
