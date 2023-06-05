@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/04 20:15:06 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:44:28 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,22 @@ int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 
 int	start_parsing(t_parser *parser, t_data_cmd **cmd_data)
 {
-	iterate_over_tokens_check_syntaxe(parser);
-	if (g_glob.ex_status != 258)
+	int	i;
+
+	i = iterate_over_tokens_check_syntaxe(parser);
+	if (i == 1)
+		return (1);
+	else
 	{
-		if (divid_cmd(parser, cmd_data) == 1)
+		if (i == 42)
 		{
-			cleanup_parser(parser);
-			return (1);
+			if (divid_cmd(parser, cmd_data) == 1)
+			{
+				cleanup_parser(parser);
+				return (1);
+			}
+			return (0);
 		}
-		return (0);
 	}
 	return (1);
 }

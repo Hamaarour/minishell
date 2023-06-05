@@ -6,19 +6,18 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:35:15 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/04 11:15:49 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:56:32 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../LIBFT/libft.h"
 #include "../../minishell.h"
 
-int	err_msg(char *msg)
+void	err_msg(char *msg)
 {
 	ft_putendl_fd(msg, 2);
 	g_glob.ex_status = 258;
 	g_glob.nb_cmds = 0;
-	return (258);
 }
 
 void	ft_put(char *s, int fd)

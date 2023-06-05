@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 21:07:45 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:27:22 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int	redirect_syntax(t_parser *parser)
 	return (reinitialize_parser(parser), 0);
 }
 
-void	iterate_over_tokens_check_syntaxe(t_parser *parser)
+int	iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
 	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
 	{
 		err_msg("Bash : syntax error");
-		return ;
+		return (1);
 	}
-	return ;
+	return (42);
 }

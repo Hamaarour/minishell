@@ -25,6 +25,7 @@ int	args_len(char **s)
 
 void	invalid_arg(void)
 {
+	ft_putendl_fd("exit", 2);
 	write(2, "numeric argument required\n", 26);
 	g_glob.ex_status = 255;
 	exit(g_glob.ex_status);
@@ -37,7 +38,7 @@ void	arg_one(char *arg)
 	if (!arg)
 		return ;
 	a = ft_atoi(arg);
-	if (a)
+	if (a >= 0)
 	{
 		g_glob.ex_status = a;
 		write(2, "exit\n", sizeof("exit"));

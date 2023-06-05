@@ -42,8 +42,7 @@ all:$(NAME)
 .PHONY= all clean fclean re
 
 $(NAME):$(OBJ)
-	@echo "compiling..."
-	@$(CC) $(CFLAGS) $(INCREADLINE) $(OBJ) $(LIBREADLINE) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCREADLINE) $(OBJ) $(LIBREADLINE) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

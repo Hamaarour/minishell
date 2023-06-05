@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/04 16:50:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:13:07 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ t_token					*rederection_great(t_lexer *lexer);
 t_parser				*initialize_parser(char *input);
 int						max_heredoc(char *str);
 int						start_parsing(t_parser *parser, t_data_cmd **cmd);
-void					iterate_over_tokens_check_syntaxe(t_parser *parser);
-int						err_msg(char *msg);
+int						iterate_over_tokens_check_syntaxe(t_parser *parser);
+void					err_msg(char *msg);
 int						type_is_char(t_token *token);
 int						type_is_rederec(t_token *token);
 int						type_is_pipe(t_token *token);
