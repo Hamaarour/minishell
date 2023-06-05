@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 00:13:07 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:36:16 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,6 +317,7 @@ void					dupping(t_data_cmd *cmds, int *p1_end, int *p2_end);
 char					*get_path(char *cmd);
 char					**to_double_pointer(t_args *cmd);
 void					fds_close(t_data_cmd *cmds, int *p1_end, int *p2_end);
+void					close_files(t_data_cmd *cmds);
 int						is_printable(char *s);
 void					ft_err(void);		
 //!\************************************************************************* */

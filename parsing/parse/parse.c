@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:56:45 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/05 00:44:28 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:10:19 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	divid_cmd(t_parser *parser, t_data_cmd **cmd_data)
 				ft_add_back_cmd(cmd_data, ft_new_cmd(arg, in, out));
 			else
 				return (0);
+			in_out(&in, &out);
 		}
-		in_out(&in, &out);
 		if (parser->current_token != NULL)
 			free(parser->current_token->val);
 		free(parser->current_token);

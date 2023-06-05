@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/05 00:27:22 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:46:17 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	pipe_utils(t_parser *parser)
 
 int	pipe_syntax(t_parser *parser)
 {
+	g_glob.nb_cmds = 1;
 	while (parser->current_token->type != t_EOF)
 	{
 		if (parser->previous_token != NULL)

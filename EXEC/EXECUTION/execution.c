@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/03 20:47:47 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:34:32 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,9 @@ void	redirections(int infile, int outfile)
 	if (infile < 0 || outfile < 0)
 		exit(1);
 	if (infile > 0)
-	{
 		dup2(infile, STDIN_FILENO);
-		close(infile);
-	}
 	if (outfile != 1)
-	{
 		dup2(outfile, STDOUT_FILENO);
-		close(outfile);
-	}
 }
 
 void	dupping(t_data_cmd *cmds, int *p1_end, int *p2_end)
@@ -58,6 +52,7 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end,
 	if (builtins_check(cmds->args))
 	{
 		builtins(cmds->args, cmds->fd_out);
+		close_files(cmds);
 		exit(0);
 	}
 	cmd_arg = to_double_pointer(cmds->args);
