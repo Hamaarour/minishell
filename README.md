@@ -33,5 +33,41 @@ This was probably the biggest project I've done so far, as well as the first one
   - `unset` (no flags).
   - `env` (no flags or arguments).
   - `exit` (no flags).
+## Installation
+### Clone the repository:
+``` 
+git clone https://github.com/maiadegraaf/minishell.git
+cd minishell
+make
+```
+### Run Minishell
+```
+./minishell
+```
 
+### Some commands to try:
+
+As this project is made to mimic bash, you can try any commands you normally would try in bash.
+
+If you really can't think of anything try some of the following.  You do have to enter each line separately as the program doesn't handle new lines.
+```
+ls -la | grep a | tr 'a-z' 'A-Z'
+```
+
+```
+cat << EOF > file
+cat file
+rm file
+```
+
+```
+ls | rev > file
+cat file
+rev file | cat
+rm file
+```
+
+*to exit the program:*
+```
+exit
 We didn't have to implement && and ||, or wildcards, as well as any special symbols that weren't specifically asked for.  We were also told that when in doubt, take bash as a reference.  This sometimes led to discussions on wether or not we had to implement something, the result of which was usually
