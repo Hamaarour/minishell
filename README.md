@@ -1,9 +1,9 @@
 # minishell
 <p align="center">
-<img src ="https://github.com/Hamaarour/minishell/blob/Parsing/pictures/team.jpg">
+<img src ="https://github.com/Hamaarour/minishell/blob/main/pictures/team.jpg">
 </p>
 <p align="center">
-<img src ="https://github.com/Hamaarour/minishell/blob/Parsing/pictures/team_p.png">
+<img src ="https://github.com/Hamaarour/minishell/blob/main/pictures/team_p.png">
 </p>
 
 This project is about creating a simple shell
@@ -36,7 +36,7 @@ This was probably the biggest project I've done so far, as well as the first one
 ## Installation
 ### Clone the repository:
 ``` 
-git clone https://github.com/maiadegraaf/minishell.git
+git clone https://github.com/Hamaarour/minishell.git
 cd minishell
 make
 ```
