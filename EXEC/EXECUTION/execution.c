@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:23:00 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 15:34:32 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:52:53 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_child_process(t_data_cmd *cmds, int *p1_end, int *p2_end,
 	{
 		if (execve(cmd_arg[0], cmd_arg, env) == -1)
 		{
-			write(2, "minishell$: command not found\n", 30);
+			ft_putendl_fd( "\033[1;31mminishell$: command not found\033[1;0m", 2);
 			g_glob.ex_status = 127;
 			exit(g_glob.ex_status);
 		}

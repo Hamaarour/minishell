@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/05 23:18:00 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:54:53 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	read_line(char **line)
 	char	*end;
 	char	*start;
 
-	*line = readline("→ minishell~$ ");
+	*line = readline("\033[1;33m  → minishell~$\033[1;0m ");
 	if (*line == NULL)
 		ctrl_d_handler();
 	trimmed_line = ft_strdup(*line);

@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 17:09:08 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/05 14:46:17 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:44:08 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	iterate_over_tokens_check_syntaxe(t_parser *parser)
 {
 	if ((pipe_syntax(parser) == 1) || (redirect_syntax(parser) == 1))
 	{
-		err_msg("Bash : syntax error");
+		err_msg("\033[1;31mBash : syntax error\033[1;0m");
 		return (1);
 	}
 	return (42);

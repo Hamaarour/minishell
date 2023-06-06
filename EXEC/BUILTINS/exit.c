@@ -26,7 +26,7 @@ int	args_len(char **s)
 void	invalid_arg(void)
 {
 	ft_putendl_fd("exit", 2);
-	write(2, "numeric argument required\n", 26);
+	write(2, "\033[1;31mnumeric argument required\033[1;0m \n", 26);
 	g_glob.ex_status = 255;
 	exit(g_glob.ex_status);
 }
@@ -41,7 +41,7 @@ void	arg_one(char *arg)
 	if (a >= 0)
 	{
 		g_glob.ex_status = a;
-		write(2, "exit\n", sizeof("exit"));
+		ft_putendl_fd("\033[0;36mexit\033[1;0m ", 2);
 		exit(g_glob.ex_status % 256);
 	}
 	else
@@ -57,7 +57,7 @@ void	ft_exit(t_args *cmd)
 	tmp = cmd->next;
 	if (args_nb == 1)
 	{
-		write(1, "exit\n", sizeof("exit"));
+		ft_putendl_fd("\033[0;36mexit\033[1;0m ", 2);
 		exit(g_glob.ex_status);
 	}
 	else if (args_nb == 2)

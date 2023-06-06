@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:09:36 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 11:02:28 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:45:47 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*double_quote(t_lexer *lexer, int flag)
 	g_glob.to_expand = 1;
 	if (!check_qutes(lexer, '"'))
 	{
-		ft_putendl_fd("Bash Error : \"Quotes\"", 2);
+		ft_putendl_fd("\033[1;31mBash Error : 'Quotes'\033[1;0m", 2);
 		g_glob.ex_status = 258;
 		return (NULL);
 	}

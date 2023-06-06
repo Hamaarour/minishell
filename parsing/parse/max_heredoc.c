@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:03:15 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:43:04 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:46:15 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	max_heredoc(char *str)
 	}
 	if (count > 16)
 	{
-		ft_putendl_fd("bash: maximum here-document count exceeded: 16", 2);
+		ft_putendl_fd("\033[1;31mbash: maximum here-document count exceeded: 16\033[1;0m", 2);
 		g_glob.ex_status = 2;
 		return (1);
 	}

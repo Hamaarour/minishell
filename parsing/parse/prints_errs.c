@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:43:35 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/03 16:59:33 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:51:28 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_err(void)
 	while (g_glob.nb_err > 0)
 	{
 		g_glob.ex_status = 1;
-		ft_putendl_fd("bash: No such file or directory", 2);
+		ft_putendl_fd("\033[1;31mbash: No such file or directory\033[1;0m", 2);
 		g_glob.nb_err--;
 	}
 }

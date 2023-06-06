@@ -48,11 +48,14 @@ all:$(NAME)
 
 .PHONY= all clean fclean re
 
-
+.SILENT:
+%.o: %.c
+	@printf "$(GREEN)Compiling....$(RESET)\r"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):$(OBJ)
 	@$(CC) $(CFLAGS) $(INCREADLINE) $(OBJ) $(LIBREADLINE) -o $(NAME) 
-	@echo "$(GREEN)Compiling....$(RESET)"
+	@echo "$(GREEN)Compilation done!✅ $(RESET)"
 
 clean:
 	@$(RM) -rf $(OBJ)
