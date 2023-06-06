@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:55:09 by zjaddad           #+#    #+#             */
-/*   Updated: 2023/06/05 15:36:16 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 23:18:12 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ char					*expand(char *line);
 int						find(char *s, int c);
 int						err_heredoc(int fd, char *file_name);
 int						error_opening_file(int fd);
+void	welcom(void);
 //!\************************************************************************* */
 //!									FREE-Rein in Syntaxe				*/
 //!\************************************************************************* */

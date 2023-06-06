@@ -6,7 +6,7 @@
 /*   By: hamaarou <hamaarou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:25:47 by hamaarou          #+#    #+#             */
-/*   Updated: 2023/06/05 14:37:42 by hamaarou         ###   ########.fr       */
+/*   Updated: 2023/06/05 23:18:00 by hamaarou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	start_execution(t_data_cmd *cmds, char **env)
 void	lets_go(t_parser *parser, char *cmd, char **env, t_data_cmd *data)
 {
 	init_g_glob();
+	welcom();
 	while (1)
 	{
 		g_glob.to_expand = 0;

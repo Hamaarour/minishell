@@ -12,6 +12,7 @@
 
 NAME=minishell
 CC=cc #-fsanitize=address -g3
+RM =rm -rf
 LIBREADLINE		= -L /goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 INCREADLINE		= -I /goinfre/$(USER)/homebrew/opt/readline/include
 CFLAGS= -Wall -Wextra -Werror 
@@ -29,7 +30,7 @@ SRC= main.c FREE/free.c LIBFT/ft_strncmp.c LIBFT/ft_isalpha.c LIBFT/ft_strtrim.c
 	parsing/parse/parse_utils.c \
 	parsing/lexer/get_envairment_var.c parsing/lexer/get_char.c parsing/lexer/get_env.c  parsing/lexer/free_lexer.c\
 	parsing/parse/init_parse.c parsing/parse/parse.c parsing/parse/parse_free.c parsing/parse/err_msg.c parsing/parse/check_types.c\
-	parsing/parse/here_doc_utils_2.c \
+	parsing/parse/here_doc_utils_2.c welcom.c\
 	parsing/syntax/check_quote.c parsing/syntax/syntaxe_check.c parsing/parse/opennig_files.c parsing/parse/max_heredoc.c\
 	parsing/parse/linked_list_args.c parsing/parse/linked_list_cmd.c parsing/syntax/syntax_utils.c\
 	EXEC/EXECUTION/execution.c EXEC/EXECUTION/exec_get_path.c free_parser.c parsing/parse/prints_errs.c\
@@ -37,15 +38,25 @@ SRC= main.c FREE/free.c LIBFT/ft_strncmp.c LIBFT/ft_isalpha.c LIBFT/ft_strtrim.c
 
 OBJ= $(SRC:.c=.o)
 
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+RESET = \033[0m
+
 all:$(NAME)
 
 .PHONY= all clean fclean re
 
+
+
 $(NAME):$(OBJ)
-	$(CC) $(CFLAGS) $(INCREADLINE) $(OBJ) $(LIBREADLINE) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCREADLINE) $(OBJ) $(LIBREADLINE) -o $(NAME) 
+	@echo "$(GREEN)Compiling....$(RESET)"
 
 clean:
-	rm -rf $(OBJ)
+	@$(RM) -rf $(OBJ)
+	@echo "$(RED)deleting: Object files$(RESET)"
 
 fclean:clean
 	rm -rf $(NAME)
